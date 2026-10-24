@@ -40,7 +40,7 @@ A file being present, a lesson being read, or code being copied is not sufficien
 ## Stage 0 — Introduction
 
 **Repository section:** [00-introduction](./00-introduction/README.md)  
-**Status:** Studied and reviewed; continue to use as reference.
+**Status:** Partially studied based on the latest verifiable project history; Lessons 1–3 have study/review evidence. Lessons 4–8 and the formal assessment require confirmation before Stage 0 can be marked complete.
 
 - What Python is, its strengths, limitations, and common application areas
 - Basic programming vocabulary: algorithm, program, input, processing, output
