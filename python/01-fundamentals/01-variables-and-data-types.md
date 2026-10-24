@@ -720,7 +720,7 @@ Try these without looking at the answers. Write down your predictions first, the
 
 ### Exercise 1 — Identify the types
 
-For each assignment, name the type of the assigned value.
+For each assignment, name the type of the assigned value. Remember that `complex` is introduced briefly in this lesson and explored in more detail in Numbers and Operators.
 
 ```python
 a = 12
@@ -728,6 +728,7 @@ b = 12.0
 c = "12"
 d = False
 e = None
+f = 3 + 4j
 ```
 
 ### Exercise 2 — Predict the output
@@ -779,7 +780,7 @@ Answer these from memory before moving on:
 1. What is the difference between a name and the object it refers to?
 2. What happens when a name is assigned a new value?
 3. Why does y remain 10 after x is reassigned to 20 in the earlier example?
-4. What are the five core types introduced in this lesson?
+4. Which six types are introduced in this lesson? Name them and give an example of a value for each.
 5. How can you inspect the type of a value?
 6. How do =, ==, and is differ?
 7. Why should you avoid naming a variable list, str, or print?
@@ -798,6 +799,7 @@ Use this only after attempting the exercises.
 - c: str
 - d: bool
 - e: NoneType
+- f: complex
 
 ### Exercise 2
 
@@ -849,7 +851,7 @@ Use these only after answering the questions from memory.
 1. A **name** is an identifier in code that refers to an object. An **object** is a runtime entity with an identity, a type, and a value. For example, in `temperature = 42`, `temperature` is the name and it is bound to an integer object whose value is `42`.
 2. Python evaluates the right-hand expression and binds the target name to the resulting object. Reassignment changes which object the name refers to; it does not automatically update other names.
 3. `y = x` binds `y` to the object that `x` refers to at that moment. Reassigning `x` later does not rerun `y = x`, so `y` remains bound to the original integer object for `10`.
-4. `int`, `float`, `str`, `bool`, and `NoneType`.
+4. `int`, `float`, `complex`, `str`, `bool`, and `NoneType`. Examples include `12`, `12.0`, `3 + 4j`, `"12"`, `False`, and `None`, respectively.
 5. Call `type(value)`, for example `type(12)` returns `<class 'int'>`.
 6. `=` assigns or rebinds a name; `==` tests value equality; `is` tests object identity. In ordinary code, compare values with `==` and check for `None` with `is None`.
 7. They are names of built-in types or functions. Reusing them for variables shadows the built-ins and can make later code confusing or break calls such as `str(12)` or `list(items)`.
