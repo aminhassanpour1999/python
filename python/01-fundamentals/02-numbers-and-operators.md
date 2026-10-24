@@ -136,7 +136,7 @@ Conversion can fail if the string is not in a valid form for that type. For exam
 
 ### 1.5 Complex numbers: `complex`
 
-A complex number has a real part and an imaginary part. Python uses `j` (not `i`) for the imaginary unit, where (j^2 = -1).
+A complex number has a real part and an imaginary part. Python uses `j` (not `i`) for the imaginary unit, where `j ** 2 == -1`.
 
 ```python
 z = 3 + 4j
@@ -263,7 +263,7 @@ Bitwise operators work on the binary representation of integers. They are useful
 | Operator | Name | Example | Result |
 | --- | --- | --- | --- |
 | `&` | bitwise AND | `0b1100 & 0b1010` | `8` (`0b1000`) |
-| `|` | bitwise OR | `0b1100 | 0b1010` | `14` (`0b1110`) |
+| `|` | bitwise OR | `0b1100 OR 0b1010` | `14` (`0b1110`) |
 | `^` | bitwise XOR | `0b1100 ^ 0b1010` | `6` (`0b0110`) |
 | `~` | bitwise NOT / inversion | `~5` | `-6` |
 | `<<` | left shift | `5 << 1` | `10` |
