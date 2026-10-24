@@ -48,12 +48,18 @@ Output:
 
 In this example:
 
-- `temperature` is a name.
-- `42` is an integer value.
-- `=` performs assignment.
-- `print()` displays the value associated with the name.
+- `temperature` is a **name** (the identifier written in the code).
+- The name is bound to an **integer object** whose **value** is `42` and whose type is `int`.
+- `=` performs assignment: Python evaluates the right-hand side (`42`) and binds the name on the left (`temperature`) to the resulting object.
+- `print()` displays the value associated with the name; it does not display the object's type unless you ask for it.
 
-In Python, a variable is best understood as a **name bound to an object**, rather than a permanent box that contains data. For now, think of an object as a value Python can work with. This distinction becomes especially useful when we study mutable collections later.
+These terms are related but not interchangeable:
+
+- A **name** is how your code refers to an object.
+- An **object** is a runtime entity Python works with. Every object has an identity, a type, and a value.
+- A **value** is the information represented by the object—for example, the integer value `42`.
+
+In beginner examples, people sometimes use *value* and *object* informally as if they were the same thing. The useful mental model is that a name is bound to an object, and that object has a value and a type. A variable is not a permanent box that owns a fixed type.
 
 A name does not permanently belong to one value. A later assignment can bind the same name to a different object.
 
@@ -657,12 +663,30 @@ print("Previously calculated average:", average)
 
 At this point, `average` still contains the result calculated from `18.5` and `21.0`, which is `19.75`. Reassigning `measurement_1` does not rerun the earlier calculation.
 
+### Step 5 — Recalculate the average
+
+Now explicitly calculate the average again by adding these lines:
+
+```python
+average = (measurement_1 + measurement_2) / 2
+print("New average:", average)
+```
+
+Expected output for the new average:
+
+```text
+New average: 20.5
+```
+
+The distinction is important: changing `measurement_1` does not automatically update `average`; running the assignment to `average` again performs a new calculation using the current measurement values.
+
 ### Lab checklist
 
 - [ ] I typed and ran the program.
 - [ ] I predicted the types before checking them.
 - [ ] I explained why the average does not update automatically.
 - [ ] I changed one measurement and recalculated the average myself.
+- [ ] I verified that the old average stayed at `19.75` until I recalculated it, and that the new average became `20.5`.
 
 ## 9. Exercises
 
@@ -789,8 +813,21 @@ print(sample_count, type(sample_count))
 
 ### Exercise 6
 
-1. Use status == "ready" to compare values.
-2. Use result is None to check whether the value is the special object None.
+1. Use `status == "ready"` to compare values.
+2. Use `result is None` to check whether the name `result` is bound to the special singleton object `None`.
+
+### Knowledge check — Suggested answers
+
+Use these only after answering the questions from memory.
+
+1. A **name** is an identifier in code that refers to an object. An **object** is a runtime entity with an identity, a type, and a value. For example, in `temperature = 42`, `temperature` is the name and it is bound to an integer object whose value is `42`.
+2. Python evaluates the right-hand expression and binds the target name to the resulting object. Reassignment changes which object the name refers to; it does not automatically update other names.
+3. `y = x` binds `y` to the object that `x` refers to at that moment. Reassigning `x` later does not rerun `y = x`, so `y` remains bound to the original integer object for `10`.
+4. `int`, `float`, `str`, `bool`, and `NoneType`.
+5. Call `type(value)`, for example `type(12)` returns `<class 'int'>`.
+6. `=` assigns or rebinds a name; `==` tests value equality; `is` tests object identity. In ordinary code, compare values with `==` and check for `None` with `is None`.
+7. They are names of built-in types or functions. Reusing them for variables shadows the built-ins and can make later code confusing or break calls such as `str(12)` or `list(items)`.
+8. The quotation marks make `"2400"` a string literal (`str`). The unquoted literal `2400` is an integer (`int`). Similar printed appearance does not make their types or behavior the same.
 
 ## Summary
 
