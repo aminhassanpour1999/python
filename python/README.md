@@ -14,7 +14,7 @@ This curriculum is designed to build independent programming ability. It is not 
 6. Review from memory and revisit weak areas.
 7. Build projects that combine concepts.
 8. Keep notes in English, but use Persian explanations in our conversations when helpful.
-9. Treat every lesson file as a syllabus until we study and approve its full content.
+9. Use each lesson file as study material; a complete file is not mastered until we study it, practice independently, and review mistakes.
 
 ## Curriculum
 
