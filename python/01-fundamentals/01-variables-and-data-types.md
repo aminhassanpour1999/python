@@ -26,7 +26,7 @@ By the end of this lesson, you should be able to:
 - Explain the relationship between a value, an object, a name, and assignment.
 - Create variables and reassign names to new values.
 - Follow Python's identifier rules and use readable snake_case names.
-- Recognize the built-in types int, float, str, bool, and NoneType.
+- Recognize the built-in types `int`, `float`, `str`, `bool`, and `NoneType`, and know that `complex` is another built-in numeric type explored in Lesson 2.
 - Use type() to inspect an object's type.
 - Distinguish assignment (=), value equality (==), and object identity (is).
 - Predict short assignment sequences and diagnose common beginner mistakes.
@@ -269,7 +269,7 @@ This module is not needed for everyday variable declarations, but it helps expla
 
 ## 4. Core built-in data types
 
-A **data type** describes the kind of value an object represents and helps determine which operations are meaningful for it. Python has many built-in types. This lesson introduces `int`, `float`, `str`, `bool`, and `NoneType`.
+A **data type** describes the kind of value an object represents and helps determine which operations are meaningful for it. Python has many built-in types. This lesson introduces `int`, `float`, `str`, `bool`, and `NoneType`. The built-in numeric type `complex` is introduced in the next lesson, where its arithmetic and practical uses can be explained alongside other numeric operations.
 
 These are the types of the example values in this lesson, not a complete list of Python's types. Lists, dictionaries, tuples, sets, and other types will be introduced when the course reaches them. The dedicated **Booleans and None** lesson will explore Boolean logic and truth-value testing in more depth.
 
@@ -835,7 +835,7 @@ Use these only after answering the questions from memory.
 - Assignment (=) binds or rebinds a name to the result of an expression.
 - Reassigning one name does not automatically reassign other names.
 - Follow readable naming conventions, especially snake_case, and avoid shadowing built-ins.
-- The core types in this lesson are int, float, str, bool, and NoneType.
+- The core types studied in detail here are `int`, `float`, `str`, `bool`, and `NoneType`; `complex` is introduced with numeric operations in Lesson 2.
 - Use type() to inspect an object's type.
 - Use == for value equality and is None to check for None.
 
