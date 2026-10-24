@@ -2,7 +2,7 @@
 
 This module develops the basic Python skills needed to write, read, test, and debug small programs. It follows Introduction and comes before Control Flow.
 
-> **Status:** The module structure is organized, and lesson files may contain complete teaching notes before or during study. File completeness and learning progress are tracked separately: a complete lesson is not proof that it has been studied or mastered. We will review each lesson, practice independently, and update the progress tracker only after study.
+> **Status:** The module structure is organized. Lessons 1–2 contain substantial teaching notes; Lessons 3–9 are currently outlines, and the assessment is available. File completeness and learning progress are tracked separately. Preserve the useful depth of the existing lessons: do not shorten them just to reduce length. Improve them by checking technical accuracy, conceptual order, examples, exercises, answer quality, and references. Mark learner progress only after actual study and practice.
 
 ## Learning outcomes
 
