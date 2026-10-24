@@ -89,13 +89,13 @@ Use the assessment to check your understanding and practical ability. Do not mar
 
 ## Study progress
 
-All eight Introduction lessons have been studied and reviewed.
+Progress recorded from the latest verifiable study history available in this project. This is a conservative record, not a claim that unmarked lessons have never been studied elsewhere. Update a checkbox only after confirming the study, practice, and review.
 
 - [x] 01 — What Is Python
 - [x] 02 — Python Applications
 - [x] 03 — Programming Fundamentals
-- [x] 04 — How Python Runs
-- [x] 05 — Installation and Setup
-- [x] 06 — Running Python Code
-- [x] 07 — First Python Program
-- [x] 08 — Python Documentation
+- [ ] 04 — How Python Runs
+- [ ] 05 — Installation and Setup
+- [ ] 06 — Running Python Code
+- [ ] 07 — First Python Program
+- [ ] 08 — Python Documentation
