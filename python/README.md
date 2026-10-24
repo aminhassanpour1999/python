@@ -2,6 +2,8 @@
 
 This curriculum is designed to build independent programming ability. It is not tied to a single textbook. The official Python documentation is a primary reference, combined with careful explanations, deliberate practice, debugging, and projects.
 
+**Use the [comprehensive curriculum roadmap](./ROADMAP.md) as the source of truth for topic coverage, prerequisites, planned depth, known gaps, and progress status.** A topic listed in a lesson or roadmap is not automatically learned or mastered.
+
 ## Learning rules
 
 1. Understand concepts before memorizing syntax.
