@@ -12,8 +12,9 @@ Build deep, independent programming and scientific problem-solving ability—not
 - Use Persian in conversational teaching when that helps explain concepts clearly.
 - Organize the path from prerequisites to fundamentals, then applications and specialization.
 - Avoid unnecessary fragmentation, duplicate explanations, and premature advanced details.
-- Create topic outlines before writing full notes. Each planned lesson initially contains only the learning objectives/topics—not a completed lesson.
-- Fill a lesson only when it is reached together. Do not pre-write full chapters just to populate the repository.
+- Distinguish an outline, a working teaching draft, and an approved lesson. Existing files may contain full teaching notes; do not mislabel them as outlines.
+- Develop or revise substantive lesson content when the learner is ready to study it or has explicitly authorized preparation. Do not fill the repository with material merely to make it look complete.
+- Do not shorten a lesson simply to reduce its line count. Preserve useful depth; improve organization, explanations, examples, practice, and reference quality instead.
 
 ## Standard learning cycle
 
@@ -60,7 +61,7 @@ Do not force every item into every lesson. Depth and format should fit the topic
 
 ## Collaboration protocol
 
-The learner and assistant work through one topic at a time. The assistant proposes the topic outline, teaches and practices it interactively, then prepares the English note. Show the draft for review before publishing substantive lesson content to the repository. The repository stores the agreed learning system and approved notes.
+The learner and assistant work through one topic at a time. The assistant checks prerequisites and the roadmap, teaches and practices the concept interactively, then prepares or revises the English note. When the learner explicitly authorizes repository edits, make the requested changes and verify the resulting files. Otherwise, show substantive drafts for review before publishing. Keep lesson-material status separate from learner-progress status.
 
 ## Long-term direction
 
