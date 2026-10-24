@@ -25,14 +25,17 @@ This lesson builds directly on **Variables and Data Types**. In the previous les
 
 By the end of this lesson, you should be able to:
 
-- Distinguish integers (`int`) from floating-point numbers (`float`).
+- Distinguish integers (`int`), floating-point numbers (`float`), and complex numbers (`complex`).
 - Use Python's arithmetic operators correctly.
 - Explain the difference between `/`, `//`, and `%`.
-- Predict expression results using operator precedence and parentheses.
+- Predict expression results using precedence and associativity, and consult the complete official precedence table.
+- Use all six bitwise operators (`&`, `|`, `^`, `~`, `<<`, `>>`) for integer bit operations and simple masks.
+- Choose among common numeric built-ins and the `math`, `cmath`, `decimal`, and `fractions` modules.
 - Compare values and combine conditions with logical operators.
 - Update variables with augmented assignment.
 - Recognize floating-point representation limits and choose sensible rounding or formatting.
-- Use common numeric tools such as `abs()`, `round()`, and selected functions from `math`.
+- Use common numeric tools such as `abs()`, `round()`, `pow()`, `divmod()`, `min()`, `max()`, `sum()`, and selected functions from `math`.
+- Explain when `cmath`, `decimal.Decimal`, or `fractions.Fraction` is appropriate.
 - Write a small, readable program that calculates statistics from measurements while keeping units clear.
 
 ---
@@ -130,6 +133,39 @@ voltage = float("3.3")
 
 Conversion can fail if the string is not in a valid form for that type. For example, `int("3.3")` raises `ValueError`; convert to `float` first if a decimal value is intended.
 
+
+### 1.5 Complex numbers: `complex`
+
+A complex number has a real part and an imaginary part. Python uses `j` (not `i`) for the imaginary unit, where (j^2 = -1).
+
+```python
+z = 3 + 4j
+print(z)           # (3+4j)
+print(type(z))     # <class 'complex'>
+print(z.real)      # 3.0
+print(z.imag)      # 4.0
+print(abs(z))      # 5.0: magnitude
+print(z.conjugate())  # (3-4j)
+```
+
+The real and imaginary parts are exposed as read-only numeric attributes. `abs(z)` gives the magnitude \\(\sqrt{a^2+b^2}\\) for `z = a + bj`; `z.conjugate()` changes the sign of the imaginary part.
+
+Complex numbers support arithmetic such as addition, subtraction, multiplication, division, and exponentiation:
+
+```python
+first = 2 + 3j
+second = 1 - 1j
+
+print(first + second)  # (3+2j)
+print(first * second)  # (5+1j)
+print(first / second)  # (-0.5+2.5j)
+```
+
+Python does **not** define ordinary ordering comparisons between complex numbers: expressions such as `z < 2` raise `TypeError`. Equality (`==`) is supported. If a task needs ordering, compare a meaningful quantity such as the magnitude with `abs(z)`, provided that is what the problem requires.
+
+For complex-valued mathematical functions, use `cmath`, not `math`. The `math` module is designed for real-valued functions and generally rejects complex arguments.
+
+
 ---
 
 ## 2. Arithmetic operators
@@ -219,72 +255,146 @@ For a nonzero divisor, the relationship is `a = (a // b) * b + (a % b)`. The rem
 
 **Division by zero is invalid:** `/`, `//`, and `%` with a zero divisor raise `ZeroDivisionError`.
 
+
+### 2.5 Bitwise operators (integer bit operations)
+
+Bitwise operators work on the binary representation of integers. They are useful for flags, masks, packed fields, and low-level protocols; they are not a replacement for ordinary arithmetic on fractional measurements.
+
+| Operator | Name | Example | Result |
+| --- | --- | --- | --- |
+| `&` | bitwise AND | `0b1100 & 0b1010` | `8` (`0b1000`) |
+| `|` | bitwise OR | `0b1100 | 0b1010` | `14` (`0b1110`) |
+| `^` | bitwise XOR | `0b1100 ^ 0b1010` | `6` (`0b0110`) |
+| `~` | bitwise NOT / inversion | `~5` | `-6` |
+| `<<` | left shift | `5 << 1` | `10` |
+| `>>` | right shift | `5 >> 1` | `2` |
+
+Python's `0b` prefix writes an integer literal in binary. These operators return integers.
+
+```python
+a = 0b1100  # 12
+b = 0b1010  # 10
+
+print(a & b)   # 8
+print(a | b)   # 14
+print(a ^ b)   # 6
+print(5 << 1)  # 10
+print(5 >> 1)  # 2
+```
+
+#### Bit masks and flags
+
+A mask selects or changes particular bits. For example, the lowest bit can be tested with `value & 1`:
+
+```python
+value = 13  # binary 1101
+print(value & 1)  # 1: the lowest bit is set (odd)
+print(value & 2)  # 0: the bit represented by 2 is not set
+```
+
+For a flag represented by one bit, use AND to test it and OR to set it:
+
+```python
+RECEIVE_ENABLED = 0b0001
+TRANSMIT_ENABLED = 0b0010
+
+flags = RECEIVE_ENABLED
+print(bool(flags & RECEIVE_ENABLED))  # True
+
+flags |= TRANSMIT_ENABLED             # Set the transmit flag
+print(flags)                          # 3
+flags &= ~TRANSMIT_ENABLED            # Clear the transmit flag
+print(flags)                          # 1
+```
+
+#### Important details: inversion and shifts
+
+For Python integers, `~x == -x - 1`. Python integers behave as if they had an unbounded two's-complement representation for these operations, so `~5` is `-6`, not a positive fixed-width bit pattern. To display a fixed-width pattern, explicitly mask it, for example `(~x) & 0xff` for the low eight bits.
+
+Left shift by `n` corresponds to multiplication by `2**n` for non-negative integer `n`. Right shift by `n` is floor division by `2**n`; for negative integers, this rounds toward negative infinity. A negative shift count raises `ValueError`.
+
+```python
+print(3 << 2)    # 12
+print(12 >> 2)   # 3
+print(-3 >> 1)   # -2
+print(~5)        # -6
+print((~5) & 0xff)  # 250: low eight bits only
+```
+
+Do not use bitwise `&` or `|` as if they were Boolean `and` or `or`. Boolean operators work with truth values and short-circuit; bitwise operators work on integer bits (and can also be overloaded by other types).
+
+
 ---
 
 ## 3. Operator precedence and grouping
 
-Python does not simply evaluate every expression from left to right. Operators have precedence rules. Parentheses can make the intended order explicit.
+Precedence determines which operator binds more tightly. Associativity determines grouping when operators at the same precedence level occur together. Parentheses can make intent explicit and override the normal grouping.
 
-### 3.1 Basic precedence
+### 3.1 Common precedence levels used in this lesson
 
-For the operators introduced here, a useful simplified order from higher to lower precedence is:
+From higher precedence to lower precedence, the main groups taught here are:
 
-1. Parenthesized expressions: `(...)`
-2. Exponentiation: `**`
-3. Unary plus and minus: `+x`, `-x`
-4. Multiplication, true division, floor division, modulo: `*`, `/`, `//`, `%`
-5. Addition and subtraction: `+`, `-`
-6. Comparisons: `==`, `!=`, `<`, `<=`, `>`, `>=`
-7. Logical `not`, then `and`, then `or`
+1. Parentheses used for grouping, function calls, attribute access, and indexing.
+2. Exponentiation: `**` (right-associative; see the unary-sign caveat below).
+3. Unary numeric operators: `+x`, `-x`, and bitwise inversion `~x`.
+4. Multiplication, true division, floor division, and modulo: `*`, `/`, `//`, `%`.
+5. Addition and subtraction: `+`, `-`.
+6. Shifts: `<<`, `>>`.
+7. Bitwise AND: `&`.
+8. Bitwise XOR: `^`.
+9. Bitwise OR: `|`.
+10. Comparisons, including `<`, `<=`, `>`, `>=`, `==`, `!=`, `is`, `is not`, `in`, and `not in`.
+11. Boolean `not`.
+12. Boolean `and`.
+13. Boolean `or`.
 
-This is a learning aid, not the complete precedence table for every Python operator. Consult the official reference when working with unfamiliar operators.
+This is a focused guide to the operators taught in this lesson, not the complete language table. The full table also includes constructs such as conditional expressions, `lambda`, assignment expressions, and syntax introduced in later lessons.
 
-```python
-print(2 + 3 * 4)       # 14
-print((2 + 3) * 4)     # 20
-print(20 / 5 + 2)      # 6.0
-print(2 ** 3 ** 2)     # 512
-```
+**Official complete reference:** [Python Language Reference — Operator precedence](https://docs.python.org/3/reference/expressions.html#operator-precedence).
 
-Multiplication happens before addition, so `2 + 3 * 4` is `2 + 12`. Exponentiation groups from right to left, so `2 ** 3 ** 2` is `2 ** (3 ** 2)`, or `2 ** 9`.
+### 3.2 Associativity and edge cases
 
-Unary operators and exponentiation have a subtle interaction:
-
-```python
-print(-2 ** 2)    # -4
-print((-2) ** 2)  # 4
-```
-
-In the first expression, exponentiation happens before the leading minus. Use parentheses when a negative number is intended as the base.
-
-### 3.2 Same-precedence operators
-
-Many operators at the same precedence level group from left to right:
+Exponentiation groups from right to left:
 
 ```python
-print(20 / 5 * 2)  # 8.0
-print(20 - 5 - 2)  # 13
+print(2 ** 3 ** 2)    # 512, equivalent to 2 ** (3 ** 2)
 ```
 
-Exponentiation is an important exception because it groups from right to left.
+The unary sign on the right of exponentiation has a special relationship with `**`:
+
+```python
+print(-3 ** 2)        # -9: interpreted as -(3 ** 2)
+print((-3) ** 2)      # 9
+print(2 ** -2)        # 0.25
+```
+
+Most arithmetic operators at the same level group from left to right:
+
+```python
+print(20 / 5 * 2)     # 8.0: (20 / 5) * 2
+print(20 - 5 - 2)     # 13: (20 - 5) - 2
+```
+
+Comparisons can be chained:
+
+```python
+x = 12
+print(10 <= x < 15)   # True
+```
+
+A chained comparison behaves like comparisons joined with `and`, with each middle expression evaluated only once. Do not confuse this with bitwise operators, whose precedence is different.
 
 ### 3.3 Write for clarity
 
-Even when you know the precedence rules, use parentheses when they make a formula easier to read.
-
-Less explicit:
+Even when precedence is known, parentheses can help readers understand a formula:
 
 ```python
-average = first + second + third / 3
+average = (reading_1 + reading_2 + reading_3) / 3
+percentage_change = ((new_value - old_value) / old_value) * 100
 ```
 
-Clearer and correct for the average of three values:
+Use parentheses when they clarify the intended calculation. Do not add them mechanically to every expression; aim for readable, conventional code.
 
-```python
-average = (first + second + third) / 3
-```
-
-Parentheses are not merely cosmetic: they can change the result.
 
 ---
 
@@ -538,6 +648,52 @@ print(math.pi)         # Approximately 3.141592653589793
 
 These functions solve different problems. In particular, `math.floor(x)` explicitly returns a floor value, while `int(x)` truncates toward zero; for negative non-integers, those results differ.
 
+
+### 8.4 Quotients and remainders together: `divmod()`
+
+`divmod(a, b)` returns a pair `(a // b, a % b)`. It is useful when both the quotient and remainder are needed.
+
+```python
+quotient, remainder = divmod(17, 5)
+print(quotient, remainder)  # 3 2
+```
+
+It follows Python's floor-division and modulo rules, including for negative operands. Division by zero raises `ZeroDivisionError`.
+
+### 8.5 Powers and aggregate functions: `pow()`, `min()`, `max()`, and `sum()`
+
+```python
+print(pow(2, 5))            # 32; equivalent to 2 ** 5
+print(min(4, -2, 9))        # -2
+print(max(4, -2, 9))        # 9
+print(sum([2, 3, 5]))       # 10
+```
+
+- `pow(base, exponent)` calculates exponentiation; for ordinary two-argument use, it is equivalent to `base ** exponent`. A three-argument form, `pow(base, exponent, modulus)`, computes modular exponentiation efficiently for integer arguments.
+- `min()` returns the smallest item, and `max()` the largest item, among the supplied arguments or in an iterable.
+- `sum(iterable, start=0)` adds items from an iterable. It is suitable for numeric totals; do not use it to join strings.
+
+### 8.6 Choosing a suitable numeric tool
+
+Python's standard library offers different numeric models for different needs:
+
+- **`float` and `math`:** default choices for many measurements, ratios, and real-valued calculations when finite binary precision is acceptable. Use `math.isclose()` to compare calculated floats with a suitable tolerance.
+- **`complex` and `cmath`:** use complex numbers for values with real and imaginary parts; `cmath` provides complex-valued functions such as square roots and phase-related operations.
+- **`decimal.Decimal`:** useful when decimal arithmetic and decimal rounding rules matter, such as financial amounts. Construct from strings (for example, `Decimal("0.10")`) when preserving the intended decimal input matters.
+- **`fractions.Fraction`:** represents rational numbers as exact ratios of integers, useful when exact fractions are important and values can be represented as ratios. Construct from integers or strings such as `Fraction("1/10")` to avoid importing a float approximation.
+
+```python
+import cmath
+from fractions import Fraction
+from decimal import Decimal
+
+print(cmath.sqrt(-1))            # 1j
+print(Fraction("1/3") + Fraction("1/6"))  # 1/2
+print(Decimal("0.10") + Decimal("0.20")) # 0.30
+```
+
+These types are not interchangeable in every operation. Choose based on the meaning and precision requirements of the problem, and consult the linked documentation for their rules and limitations.
+
 ---
 
 ## 9. Engineering context: measurements, units, and readable calculations
@@ -668,6 +824,18 @@ Run the program with at least these cases:
 
 Check that the average, signs, units, and zero-denominator behavior are all correct. Do not round intermediate values unless the problem requires it; format values for display at the end.
 
+### Step 7 — Numeric-tool mini-experiments
+
+In a separate short script, try these small experiments and explain the output:
+
+- Use `divmod(17, 5)` and verify the quotient and remainder.
+- Use `min()`, `max()`, and `sum()` on a short list of measurements.
+- Calculate `abs(3 + 4j)` and inspect the real part, imaginary part, and conjugate of the complex number.
+- Use a bit mask to test whether the lowest bit of an integer is set.
+- Compare `0.1 + 0.2`, `Decimal("0.1") + Decimal("0.2")`, and `Fraction("1/10") + Fraction("2/10")`.
+
+Use these as short demonstrations; the independent exercises below require you to apply the ideas without a worked template.
+
 ---
 
 ## 12. Independent practice
@@ -748,6 +916,41 @@ In your own words, explain:
 4. What can go wrong if two values use different units?
 5. When would `Decimal` be a better choice than `float`?
 
+### Exercise 9 — Complex numbers
+
+Without running the code first, predict the results and explain each one:
+
+1. `z = 3 + 4j`; what are `z.real`, `z.imag`, and `abs(z)`?
+2. What does `z.conjugate()` return?
+3. Why does `z < 5` raise `TypeError`, while `z == 3 + 4j` is valid?
+4. Which module would you choose for a complex square root: `math` or `cmath`?
+
+### Exercise 10 — Bitwise operators and masks
+
+1. Convert decimal 12 and 10 to binary, then predict `12 & 10`, `12 | 10`, and `12 ^ 10`.
+2. Predict `~5` and explain the rule `~x == -x - 1`.
+3. Predict `3 << 2`, `12 >> 2`, and `-3 >> 1`.
+4. Write an expression that checks whether the bit represented by `0b0100` is set in `flags`.
+5. Given `flags = 0b0001`, write statements to set `0b0010` and then clear that flag.
+
+### Exercise 11 — Built-ins and numeric types
+
+1. Predict `divmod(23, 4)`.
+2. Use `pow()` to calculate 2 to the fifth power; then explain the difference between `pow(2, 5)` and `pow(2, 5, 7)`.
+3. Use `min()`, `max()`, and `sum()` to summarize `[4, 7, -2, 5]`.
+4. Choose `float`, `complex`, `Decimal`, or `Fraction` for each task and justify the choice: a sensor ratio, an AC signal calculation, a decimal currency amount, and an exact one-third.
+
+### Exercise 12 — Precedence and associativity
+
+Predict each result and add parentheses to show the grouping:
+
+1. `2 ** 3 ** 2`
+2. `-3 ** 2`
+3. `(-3) ** 2`
+4. `12 + 8 >> 1`
+5. `1 | 2 & 4`
+6. `not 2 == 2 and 3 < 4`
+
 ---
 
 ## 13. Knowledge check
@@ -764,21 +967,29 @@ Answer these without looking back at the notes:
 8. What is the difference between `round(value, 2)` and `f"{value:.2f}"`?
 9. Why should a percentage-change calculation check whether the original value is zero?
 10. How can variable names and unit conversions make engineering calculations safer?
+11. What is a complex number in Python, how do you inspect its parts, and why are ordering comparisons unsupported?
+12. What do the six bitwise operators do, and why is `~5` equal to `-6`?
+13. How does bitwise `&` differ from Boolean `and`?
+14. What is the difference between `pow()`, `divmod()`, `min()`, `max()`, and `sum()`?
+15. When might `cmath`, `Decimal`, or `Fraction` be a better fit than `math` or `float`?
+16. Where can you find the complete official operator-precedence table, and why are parentheses useful?
 
 ---
 
 ## 14. Summary
 
-- `int` represents integers; `float` represents binary floating-point approximations.
+- `int` represents integers, `float` represents binary floating-point approximations, and `complex` represents values with real and imaginary parts.
 - `+`, `-`, `*`, and `**` perform addition, subtraction, multiplication, and exponentiation.
 - `/` performs true division; `//` performs floor division; `%` returns a remainder.
 - Floor division rounds toward negative infinity, which matters for negative operands.
-- Operator precedence controls evaluation order; parentheses improve clarity and can change results.
+- Operator precedence and associativity control expression grouping; use parentheses to clarify intent and consult the [complete official precedence table](https://docs.python.org/3/reference/expressions.html#operator-precedence).
+- The six bitwise operators (`&`, `|`, `^`, `~`, `<<`, `>>`) operate on integer bits; inversion and right shifts have important negative-integer behavior.
 - Comparisons produce Boolean results; `and`, `or`, and `not` combine or invert conditions.
 - Augmented assignment offers concise ways to update a numeric variable.
 - Floating-point values have finite precision. Use tolerances for numerical comparisons when appropriate.
 - Use `round()` for a rounded numeric result and formatting for display.
-- Use `abs()` and selected `math` functions when they fit the problem.
+- Use `abs()`, `round()`, `pow()`, `divmod()`, `min()`, `max()`, `sum()`, and selected `math` functions when they fit the problem.
+- Use `cmath` for complex-valued functions, `Decimal` for decimal arithmetic requirements, and `Fraction` for exact rational values when appropriate.
 - Name measurements clearly, keep units consistent, and guard against invalid operations such as division by zero.
 
 ## References
@@ -787,6 +998,9 @@ Answer these without looking back at the notes:
 - [The Python Tutorial — More on Control Flow Tools (comparisons and Boolean operations)](https://docs.python.org/3/tutorial/controlflow.html)
 - [Built-in Types — Numeric Types](https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex)
 - [Built-in Functions — `round()`, `abs()`, `int()`, and `float()`](https://docs.python.org/3/library/functions.html)
+- [Expressions — complete operator precedence table](https://docs.python.org/3/reference/expressions.html#operator-precedence)
+- [cmath — Mathematical functions for complex numbers](https://docs.python.org/3/library/cmath.html)
+- [fractions — Rational numbers](https://docs.python.org/3/library/fractions.html)
 - [math — Mathematical functions](https://docs.python.org/3/library/math.html)
 - [decimal — Decimal fixed-point and floating-point arithmetic](https://docs.python.org/3/library/decimal.html)
 - [Floating-Point Arithmetic: Issues and Limitations](https://docs.python.org/3/tutorial/floatingpoint.html)
