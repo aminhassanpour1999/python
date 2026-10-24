@@ -4,6 +4,8 @@
 
 **Primary reference:** [Python documentation](https://docs.python.org/3/). The curriculum is not limited to one book or tutorial.
 
+**Scope:** This is a comprehensive, staged learning path for practical Python and the user's scientific/engineering direction—not an attempt to teach every third-party library or every CPython implementation detail. Required core language features have an explicit home; specialized topics are labeled for later study.
+
 > **Important:** A topic appearing in this roadmap means it is planned, not that it has already been taught or mastered. Progress must reflect demonstrated understanding and practice—not the existence of notes.
 
 ## How to read this roadmap
@@ -68,16 +70,16 @@ A file being present, a lesson being read, or code being copied is not sufficien
 
 The current lesson, [Numbers and Operators](./01-fundamentals/02-numbers-and-operators.md), must cover the following before it is considered complete:
 
-- Integer, floating-point, and complex-number literals and basic operations
+- Integer, floating-point, and complex-number literals and basic operations. For `complex`, cover real/imaginary parts, arithmetic, `abs()`, conjugation, and why ordering comparisons such as `<` are unsupported.
 - Arithmetic operators: `+`, `-`, `*`, `/`, `//`, `%`, and `**`
-- Unary signs; operator precedence and associativity, including important edge cases
+- Unary signs; operator precedence and associativity, including important edge cases. Include a clear precedence reference and link the full official precedence table; distinguish groups taught now from syntax introduced later.
 - Comparisons and chained comparisons
 - Boolean operators (`not`, `and`, `or`) and short-circuit evaluation
 - Augmented assignment (`+=`, `-=`, and related forms)
-- Bitwise operators: `&`, `|`, `^`, `~`, `<<`, and `>>`; binary representation, masks, and practical examples
+- Bitwise operators: `&`, `|`, `^`, `~`, `<<`, and `>>`; binary representation, masks, and practical examples. Explain `~x == -x - 1`, shift behavior (including negative integers), and that these operators are for integer bit operations, not fractional numeric values.
 - Difference between floor division and truncation, modulo sign behavior, and division by zero
 - Floating-point representation, rounding, formatting, tolerances, and when `math.isclose()` or `decimal.Decimal` is appropriate
-- Useful built-ins and selected `math` functions
+- Useful built-ins (`abs`, `round`, `pow`, `divmod`, `min`, `max`, `sum`) and selected `math` functions; introduce `cmath` for complex-valued math and explain when `decimal.Decimal` or `fractions.Fraction` is appropriate.
 - Units, dimensional awareness, readable formulas, and measurement calculations
 - A brief distinction between ordinary operator use and Python's numeric data model; deep operator overloading is deferred to Stage 5
 
@@ -193,7 +195,8 @@ Write small programs that combine numeric calculations, strings, input/output, c
 - Imports, module namespaces, and the import system at a practical level
 - Packages and a maintainable project layout
 - Main-module guard: `if __name__ == "__main__":`
-- Standard library versus third-party dependencies
+- Standard library versus third-party dependencies; learn to discover relevant standard-library modules instead of reinventing common tools
+- Practical standard-library toolkit: `pathlib`, `datetime`, `re`, `collections`, `itertools`, `functools`, `statistics`, `logging`, `argparse`, `subprocess`, and `sqlite3` as appropriate to projects
 - Virtual environments and reproducible dependency setup
 - Installing packages, package versions, and basic dependency management
 - Configuration, environment variables, and separating configuration from code
@@ -217,6 +220,7 @@ Write small programs that combine numeric calculations, strings, input/output, c
 - Performance measurement, profiling, algorithmic complexity, and avoiding premature optimization
 - Testing with a test framework, test organization, mocks only when useful, and code-quality tooling
 - Packaging and distribution, project configuration, and documentation quality
+- Practical use of regular expressions, dates/times, logging, command-line interfaces, databases, and subprocesses; apply only after the relevant fundamentals and discuss security/portability pitfalls
 - Memory behavior, references, garbage collection, and implementation-specific behavior where relevant
 - The distinction between language guarantees and CPython implementation details
 
@@ -307,9 +311,9 @@ These are known coverage requirements to check during lesson development. A row 
 
 | Topic | Planned home | Required coverage | Current status |
 |---|---|---|---|
-| Complex numbers (`complex`) | Stage 1: Numbers and Operators; revisit Stage 9–10 | Literals, real/imaginary parts, basic arithmetic, conjugation or magnitude at an introductory level; engineering applications later | **Gap to add to Lesson 2** |
-| Bitwise operators | Stage 1: Numbers and Operators; revisit in practical computing | All six operators, binary examples, shifts, masks, signed-integer caveats where relevant, and practice | **Gap to add to Lesson 2** |
-| Complete operator precedence | Stage 1, then revisit when new operators appear | Teach all relevant precedence groups used in the course; distinguish the beginner summary from the full official table | **Needs explicit verification** |
+| Complex numbers (`complex`) | Stage 1: Numbers and Operators; revisit Stage 9–10 | Literals, real/imaginary parts, arithmetic, magnitude with `abs()`, conjugation, unsupported ordering comparisons, and later engineering applications | **Gap to add to Lesson 2** |
+| Bitwise operators | Stage 1: Numbers and Operators; revisit in practical computing | All six operators, binary examples, shifts, masks, negative-integer behavior, and practice | **Gap to add to Lesson 2** |
+| Operator precedence and associativity | Stage 1, then revisit when new syntax appears | Teach arithmetic, shifts, bitwise, comparisons, identity/membership, Boolean, conditional, lambda, and assignment-expression precedence at the appropriate point; include the official full table as a reference and work through edge cases | **Needs explicit verification** |
 | Numeric data model and protocols | Stage 5: OOP and Python Data Model | Special methods, dispatch model, reflected/in-place operations, comparisons, conversion protocols, consistency and tests | **Planned** |
 | Floating-point and numerical error | Stage 1 introduction; Stage 9 depth | Representation, rounding, tolerances, error, conditioning, stability, and practical decision-making | **Introductory coverage present; advanced coverage planned** |
 | Numerical algorithms | Stage 9: Scientific Python | Root finding, interpolation, differentiation/integration, linear systems, optimization, convergence and error | **Planned** |
@@ -340,7 +344,10 @@ At the beginning of a new lesson, check its place and prerequisites in this road
 - [Built-in Types](https://docs.python.org/3/library/stdtypes.html)
 - [Built-in Functions](https://docs.python.org/3/library/functions.html)
 - [Numeric Types — `int`, `float`, `complex`](https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex)
-- [Expressions and operator precedence](https://docs.python.org/3/reference/expressions.html#operator-precedence)
+- [Expressions and the complete operator-precedence table](https://docs.python.org/3/reference/expressions.html#operator-precedence)
+- [Complex number operations](https://docs.python.org/3/library/cmath.html)
+- [Decimal arithmetic](https://docs.python.org/3/library/decimal.html)
+- [Rational numbers](https://docs.python.org/3/library/fractions.html)
 - [Emulating numeric types](https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types)
 - [PEP 8 — Style Guide for Python Code](https://peps.python.org/pep-0008/)
 - [NumPy documentation](https://numpy.org/doc/)
