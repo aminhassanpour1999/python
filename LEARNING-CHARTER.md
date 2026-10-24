@@ -4,7 +4,7 @@ This file is the source of truth for how learning materials in this repository a
 
 ## Mission
 
-Build deep, independent programming and scientific problem-solving ability—not merely collect notes or finish a book. Python's official documentation is a primary reference, but learning may draw on high-quality books, official documentation, exercises, projects, and other reliable resources. No single book controls the curriculum.
+Build deep, independent Python programming ability and the problem-solving skills needed to apply it—not merely collect notes or finish a book. Python's official documentation is a primary reference, but learning may draw on high-quality books, official documentation, exercises, projects, and other reliable resources. No single book controls the curriculum.
 
 ## Language and scope
 

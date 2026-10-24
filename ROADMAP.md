@@ -232,7 +232,7 @@ Write small programs that combine numeric calculations, strings, input/output, c
 
 ## Stage 9 — Scientific Python and Numerical Computing
 
-**Related repository sections:** [Scientific Computing](../scientific-computing/) and [Mathematics](../mathematics/)
+**Related future study areas:** scientific computing and mathematics. These will be maintained in separate, subject-specific repositories; this roadmap tracks only the Python skills needed for later work.
 
 This is a dedicated application track, not a replacement for core Python.
 
@@ -274,7 +274,7 @@ Use NumPy, SciPy, pandas, and Matplotlib where appropriate. Implement small algo
 
 ## Stage 10 — Engineering, Signals, Communications, and Applied AI
 
-**Related repository sections:** [Signals and Systems / Communications](../communications/), [Machine Learning](../machine-learning/), and [Research](../research/)
+**Related future study areas:** signals and systems, communications, machine learning, and research. Their subject-specific notes belong in separate repositories; this roadmap covers Python prerequisites and applications only.
 
 The order of these topics depends on the supporting mathematics and signal-processing prerequisites.
 
