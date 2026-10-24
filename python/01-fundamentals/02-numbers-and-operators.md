@@ -1,6 +1,25 @@
 # Numbers and Operators
 
-> **Purpose:** Learn how Python represents numbers, evaluates arithmetic expressions, compares values, and handles the precision limits of floating-point arithmetic. This lesson combines core language rules with practical measurement calculations.
+**Module:** Programming Fundamentals  
+**Lesson:** 2 of 9  
+**Level:** Beginner  
+**Suggested study time:** 75–90 minutes  
+**Prerequisites:** Variables and Data Types (Lesson 1)  
+**Study method:** Read one section at a time, predict results before running code, and explain why each result occurs.
+
+## Lesson guide
+
+This lesson builds directly on **Variables and Data Types**. In the previous lesson, you learned that names are bound to objects and that objects have types. Here, you will use numeric objects and operators to perform calculations, compare results, and understand why some numeric results need careful handling.
+
+**Recommended workflow**
+
+1. Review the short connection-to-the-previous-lesson note below.
+2. Read one section at a time and type the examples yourself.
+3. Predict each result before running the code; then explain any difference.
+4. Complete the coding lab and independent practice without looking up solutions first.
+5. Use the knowledge check to identify concepts that need another review.
+
+**Purpose:** Learn how Python represents numbers, evaluates arithmetic expressions, compares values, and handles the precision limits of floating-point arithmetic. This lesson combines core language rules with practical measurement calculations.
 
 ## Learning objectives
 
@@ -20,7 +39,30 @@ By the end of this lesson, you should be able to:
 
 ## 1. Numeric types
 
-Python's two everyday numeric types are `int` and `float`.
+Before choosing an operator, understand the kind of number you are working with. Python's numeric type affects how a value is represented and what result an operation produces. The two everyday numeric types are `int` and `float`.
+
+### Connection to Lesson 1: variables and types
+
+In the previous lesson, you learned to assign values to names and inspect their types with `type()`. Those same ideas apply here:
+
+```python
+sample_count = 12
+voltage = 3.3
+
+print(sample_count, type(sample_count))
+print(voltage, type(voltage))
+```
+
+Output:
+
+```text
+12 <class 'int'>
+3.3 <class 'float'>
+```
+
+The names `sample_count` and `voltage` refer to objects; the objects have different types. That difference matters when you calculate with them. For example, dividing two integers with `/` still produces a floating-point result in Python 3. We will examine this and the other arithmetic operators in Section 2.
+
+A practical rule: choose a numeric type that fits the meaning of the data, use readable variable names, and check a value's type when the result surprises you. Type conversion is covered below, but conversion should be deliberate rather than used to hide an unexplained result.
 
 ### 1.1 Integers: `int`
 
