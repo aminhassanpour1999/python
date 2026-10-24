@@ -2,7 +2,7 @@
 
 This module develops the basic Python skills needed to write, read, test, and debug small programs. It follows Introduction and comes before Control Flow.
 
-> **Status:** The curriculum and lesson outlines are organized. The lesson files are outlines, not finished teaching notes. We will develop each lesson with explanations, runnable examples, a coding lab, exercises, a knowledge check, and references when we study it.
+> **Status:** The module structure is organized, and lesson files may contain complete teaching notes before or during study. File completeness and learning progress are tracked separately: a complete lesson is not proof that it has been studied or mastered. We will review each lesson, practice independently, and update the progress tracker only after study.
 
 ## Learning outcomes
 
@@ -65,7 +65,7 @@ Each lesson should eventually contain:
 
 ## Progress tracker
 
-Tick a lesson only after studying its content, attempting the exercises, and reviewing mistakes. The files currently provide the syllabus; completion should reflect actual study, not the existence of a file.
+Tick a lesson only after studying its content, attempting the exercises, and reviewing mistakes. Lesson files provide teaching material, but completion should reflect actual study and practice—not the existence of a file.
 
 - [ ] 01 — Variables and Data Types
 - [ ] 02 — Numbers and Operators
