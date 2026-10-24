@@ -146,6 +146,7 @@ Write small programs that combine numeric calculations, strings, input/output, c
 - Tuples and sequence unpacking
 - Dictionaries: keys, values, lookup, mutation, iteration, and key constraints
 - Sets, uniqueness, membership, and set operations
+- Bytes and bytearray: binary data, indexing behavior, and encoding/decoding text; memoryview is a later efficiency topic
 - Nested structures and choosing a suitable representation
 - Iteration protocols at a practical level; iterable versus iterator
 - Mutability, aliasing, shallow copy, deep copy, and identity
@@ -181,7 +182,8 @@ Write small programs that combine numeric calculations, strings, input/output, c
 - `try`, `except`, `else`, and `finally`; catching specific exceptions
 - Raising exceptions, designing useful error messages, and exception chaining at a practical level
 - Input validation and failure handling
-- File paths, `pathlib`, reading and writing text files, and encoding
+- File paths, `pathlib`, reading and writing text files, and explicit encodings
+- Binary file I/O, bytes-like objects, and distinguishing text from raw bytes
 - Context managers and `with`
 - Structured data files such as CSV and JSON
 - Resource cleanup, robust file operations, and testing failure paths
@@ -209,13 +211,13 @@ Write small programs that combine numeric calculations, strings, input/output, c
 
 **Repository section:** [08-advanced-python](./08-advanced-python/README.md)
 
-- Iterables, iterators, generators, `yield`, and generator expressions
+- Iterables, iterators, generators, `yield`, generator expressions, and asynchronous iteration/generators at an appropriate level
 - Decorators, closures, and preserving wrapped-function metadata
 - Context-manager protocol and custom context managers
 - Comprehension and generator-expression trade-offs
 - Type annotations beyond the basics: unions, generics, protocols, and static checking as appropriate
 - Python's object model and attribute lookup at a practical depth
-- Descriptors and metaprogramming only after the data model is understood
+- Descriptors, `__new__`, method resolution order, `__slots__`, and metaprogramming only after the data model is understood; teach these as advanced/optional depth rather than prerequisites for ordinary Python work
 - Concurrency overview: threads, processes, asynchronous I/O, `async` / `await`, and choosing the right model
 - Performance measurement, profiling, algorithmic complexity, and avoiding premature optimization
 - Testing with a test framework, test organization, mocks only when useful, and code-quality tooling
