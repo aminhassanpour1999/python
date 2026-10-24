@@ -26,7 +26,7 @@ By the end of this lesson, you should be able to:
 - Explain the relationship between a value, an object, a name, and assignment.
 - Create variables and reassign names to new values.
 - Follow Python's identifier rules and use readable snake_case names.
-- Recognize the built-in types `int`, `float`, `str`, `bool`, and `NoneType`, and know that `complex` is another built-in numeric type explored in Lesson 2.
+- Recognize the built-in types `int`, `float`, `complex`, `str`, `bool`, and `NoneType`, and distinguish the introductory overview here from the detailed numeric treatment in Lesson 2.
 - Use type() to inspect an object's type.
 - Distinguish assignment (=), value equality (==), and object identity (is).
 - Predict short assignment sequences and diagnose common beginner mistakes.
@@ -269,7 +269,7 @@ This module is not needed for everyday variable declarations, but it helps expla
 
 ## 4. Core built-in data types
 
-A **data type** describes the kind of value an object represents and helps determine which operations are meaningful for it. Python has many built-in types. This lesson introduces `int`, `float`, `str`, `bool`, and `NoneType`. The built-in numeric type `complex` is introduced in the next lesson, where its arithmetic and practical uses can be explained alongside other numeric operations.
+A **data type** describes the kind of value an object represents and helps determine which operations are meaningful for it. Python has many built-in types. This lesson introduces `int`, `float`, `complex`, `str`, `bool`, and `NoneType`. The complex type receives a short introduction here; Lesson 2 develops complex-number arithmetic and its practical uses in more detail.
 
 These are the types of the example values in this lesson, not a complete list of Python's types. Lists, dictionaries, tuples, sets, and other types will be introduced when the course reaches them. The dedicated **Booleans and None** lesson will explore Boolean logic and truth-value testing in more depth.
 
@@ -319,7 +319,33 @@ A number written with a decimal point is normally a float, even if its fractiona
 
 **Important:** floating-point numbers use a finite binary representation. Some decimal fractions cannot be represented exactly, so calculations may produce tiny rounding differences. We will examine numeric operations and precision in the next lesson.
 
-### 4.3 Strings: str
+### 4.3 Complex numbers: complex
+
+Python also has a built-in numeric type called `complex`. A complex number has a real part and an imaginary part. Python uses `j` to write the imaginary unit, where \(j^2 = -1\).
+
+~~~python
+impedance = 3 + 4j
+
+print(impedance)
+print(type(impedance))
+print(impedance.real)
+print(impedance.imag)
+~~~
+
+Output:
+
+~~~text
+(3+4j)
+<class 'complex'>
+3.0
+4.0
+~~~
+
+The `.real` and `.imag` attributes expose the real and imaginary parts as floating-point values. The `j` notation is Python's convention; in mathematics and electrical engineering, the imaginary unit is often written as `i` or `j`. Complex values are useful in areas such as AC circuit analysis and signal processing. Their arithmetic, magnitude, and related functions are covered in **Numbers and Operators**.
+
+A value such as `3` has type `int`, `3.0` has type `float`, and `3 + 0j` has type `complex`. They may represent closely related mathematical quantities, but they are objects of different types.
+
+### 4.4 Strings: str
 
 A string represents text. String literals can be written with single or double quotes.
 
@@ -360,7 +386,7 @@ Output:
 
 The string `"2400"` and the integer `2400` may look similar when printed, but they have different types. Python does not automatically treat every string of digits as a number. Converting between types is a separate topic in Lesson 4, **Type Conversion**.
 
-### 4.4 Booleans: bool
+### 4.5 Booleans: bool
 
 A Boolean represents one of two truth values: True or False. Boolean values are often used for yes/no conditions and status flags.
 
@@ -383,7 +409,7 @@ Capitalize the first letter exactly as shown: `True` and `False`. The lowercase 
 
 We will study comparisons, truthiness, and Boolean logic more thoroughly in the lesson on **Booleans and None**.
 
-### 4.5 The absence of a value: None
+### 4.6 The absence of a value: None
 
 Python uses the special value `None` to represent the absence of a value or a value that has not been provided.
 
@@ -835,7 +861,7 @@ Use these only after answering the questions from memory.
 - Assignment (=) binds or rebinds a name to the result of an expression.
 - Reassigning one name does not automatically reassign other names.
 - Follow readable naming conventions, especially snake_case, and avoid shadowing built-ins.
-- The core types studied in detail here are `int`, `float`, `str`, `bool`, and `NoneType`; `complex` is introduced with numeric operations in Lesson 2.
+- The types introduced here are `int`, `float`, `complex`, `str`, `bool`, and `NoneType`; complex-number arithmetic is developed further in Lesson 2.
 - Use type() to inspect an object's type.
 - Use == for value equality and is None to check for None.
 
@@ -844,7 +870,7 @@ Use these only after answering the questions from memory.
 Before moving to Lesson 2, make sure you can do all of the following without copying the examples:
 
 - [ ] Explain assignment and reassignment using your own words.
-- [ ] Correctly identify `int`, `float`, `str`, `bool`, and `NoneType` values.
+- [ ] Correctly identify `int`, `float`, `complex`, `str`, `bool`, and `NoneType` values.
 - [ ] Choose readable, valid variable names.
 - [ ] Predict the output of the exercises and explain why.
 - [ ] Explain when to use `==` and when to use `is None`.
