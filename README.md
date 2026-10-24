@@ -14,4 +14,4 @@ A long-term, structured learning workspace for Python, mathematics, scientific c
 
 ## Important
 
-Topic files are initially outlines only. We develop each lesson collaboratively when it is time to study it. A file existing does not mean its topic has been learned.
+Topic files may be outlines, working drafts, or reviewed teaching notes. Their status must be stated accurately in the file or roadmap. A file existing—or containing complete notes—does not mean its topic has been studied, demonstrated, or mastered. We improve materials for accuracy, clarity, depth, and practice quality; we do not shorten a lesson merely to reduce its length.
