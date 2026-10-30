@@ -35,9 +35,9 @@ A lesson with an essential gap is not 100/100. If an item genuinely does not app
 
 | Lesson | Current state | Audit result |
 |---|---|---|
-| 01 — Variables and Data Types | Expanded revision committed; includes a deeper names/objects model, identity/type/value distinctions, assignment evaluation, chained assignment, dynamic/strong typing distinction, mutability preview, additional exercises and answers | **Pending full technical, structural, and example verification** |
+| 01 — Variables and Data Types | Expanded revision committed (~5,940 words); includes a deeper names/objects model, identity/type/value distinctions, assignment evaluation, chained assignment, dynamic/strong typing distinction, mutability preview, and 12 exercises; full audit still pending | **Pending full technical, structural, and example verification** |
 | 02 — Numbers and Operators | Canonical reference lesson selected by agreement | **Benchmark; do not infer that the other lessons meet this standard** |
-| 03 — Strings | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
+| 03 — Strings | Expanded revision committed (~4,940 words); includes deeper literal, slicing, method, formatting, Unicode, encoding, lab, and exercise coverage | **Full technical and structural audit pending** |
 | 04 — Type Conversion | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
 | 05 — Input and Output | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
 | 06 — Booleans and None | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
