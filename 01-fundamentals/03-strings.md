@@ -122,7 +122,7 @@ Strings support equality and ordering comparisons. Ordering is based on Unicode 
 | count(sub) | Count non-overlapping occurrences |
 | startswith(), endswith() | Test a prefix or suffix |
 | split(sep) | Split text into a list of strings |
-| join(iterable) | Join strings using the receiver as separator |
+| isalpha(), isdigit(), isdecimal(), isalnum(), isspace() | Test character categories; do not confuse Unicode digit categories |\n| removeprefix(), removesuffix() | Remove an exact prefix or suffix when present |\n| partition(sep) | Split once into a three-part tuple |\n| center(), ljust(), rjust(), zfill() | Align or pad text for simple display |\n| join(iterable) | Join strings using the receiver as separator |
 
     raw = "  QPSK Receiver  "
     label = raw.strip().upper()

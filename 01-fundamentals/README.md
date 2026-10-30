@@ -44,7 +44,7 @@ By the end of this module, you should be able to:
 
 ### D. Assessment
 
-10. [Programming Fundamentals — Final Assessment](./10-final-assessment.md)
+10. [Programming Fundamentals — Final Assessment](./10-final-assessment.md) and its [separate solutions](./10-final-assessment-solutions.md)
 
 The nine lessons build concepts in prerequisite order. The assessment is a cumulative checkpoint, not a teaching lesson.
 

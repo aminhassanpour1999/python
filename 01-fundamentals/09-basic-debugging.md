@@ -114,7 +114,7 @@ A debugger lets you pause execution and inspect state.
 - **Variables/watch:** displays current values.
 - **Call stack:** shows how execution reached the current point.
 
-These concepts apply across editors and debuggers. Learn the interface of your chosen tool separately; the reasoning method matters more than a particular button.
+These concepts apply across editors and debuggers. Learn the interface of your chosen tool separately; the reasoning method matters more than a particular button. Python also provides the built-in breakpoint() function, which enters the configured debugger at that point in the program. Use it deliberately during development and remove temporary breakpoints when they are no longer needed.
 
 ## 7. Assertions are not general input validation
 

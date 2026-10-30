@@ -13,7 +13,7 @@
 - For practical tasks, test more than one input.
 - Explain reasoning. Correct output without a sound explanation earns limited credit.
 
-## Part A — Core concepts (10 points)
+**Answer key:** See [Programming Fundamentals — Final Assessment Solutions](./10-final-assessment-solutions.md) only after completing the assessment.\n\n## Part A — Core concepts (10 points)
 
 Answer each in 1–3 sentences. Each is worth 1 point.
 
