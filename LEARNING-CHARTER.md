@@ -41,7 +41,7 @@ When a lesson is actually studied, its notes should include the relevant items f
 - Common mistakes, edge cases, and debugging
 - Best practices and when a feature is appropriate
 - Exercises ordered from basic to challenging
-- Separate solutions so the learner can attempt problems first
+- Model answers placed after the exercise prompts in the same lesson file, so the learner can attempt problems first; do not create separate solution files
 - A knowledge check and concise summary
 - Reliable references, preferring official documentation when suitable
 - A small project or real-world connection when it adds learning value
@@ -67,6 +67,10 @@ The learner and assistant work through one topic at a time. The assistant checks
 
 Build a strong foundation in Python and programming, then progress into mathematics, scientific computing, signals and systems, communications, machine learning, and research workflows. Respect prerequisite order and connect these areas through projects when appropriate.
 
+
+## Repository organization rule
+
+Keep the learning path easy to navigate. Do not create separate answer-key or solutions files for individual lessons. Put exercise prompts first and model answers later in the same lesson file. Keep a single cumulative assessment with its model answers at the end of that assessment file. Add a new file only when it represents a genuinely distinct lesson, project, reference, or reusable tool.
 
 ## Additional lesson approval gate
 
