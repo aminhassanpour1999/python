@@ -790,9 +790,7 @@ You are ready to move on when you can answer these questions clearly and complet
 
 ## Solutions — open after attempting the exercises
 
-## Exercise solutions
-
-Use this only after attempting the exercises.
+### Exercise answers
 
 ### Exercise 1
 
