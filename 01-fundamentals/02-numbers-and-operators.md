@@ -978,9 +978,7 @@ Answer these without looking back at the notes:
 
 ## Solutions — open after attempting the independent practice
 
-## Exercise solutions
-
-Attempt the independent practice and knowledge check before reading this section. The solutions below are reference answers, not the only acceptable solutions to open-ended programming tasks. For code-writing exercises, equivalent solutions are correct when they meet the requirements, handle the stated edge cases, and produce the expected behavior.
+### Exercise answers The solutions below are reference answers, not the only acceptable solutions to open-ended programming tasks. For code-writing exercises, equivalent solutions are correct when they meet the requirements, handle the stated edge cases, and produce the expected behavior.
 
 ### Exercise 1 — Numeric types
 
