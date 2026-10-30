@@ -31,7 +31,9 @@ Build deep, independent Python programming ability and the problem-solving skill
 
 ## Lesson content standard
 
-When a lesson is actually studied, its notes should include the relevant items from this list:
+For the nine Programming Fundamentals lessons, use [Lesson 2 — Numbers and Operators](./01-fundamentals/02-numbers-and-operators.md) as the canonical reference for instructional depth, organization, worked examples, practical application, exercise design, and model answers. The detailed mandatory standard and scoring gate live in the [Roadmap](./ROADMAP.md#canonical-lesson-standard--mandatory-for-all-nine-lessons). Do not mechanically copy its subject-specific content or force identical word counts; match its completeness and explanatory depth.
+
+When a lesson is actually studied, its notes should account for every applicable item from this list:
 
 - Learning objectives and prerequisites
 - Clear concept explanations and mental models
@@ -40,10 +42,11 @@ When a lesson is actually studied, its notes should include the relevant items f
 - Step-by-step worked examples where useful
 - Common mistakes, edge cases, and debugging
 - Best practices and when a feature is appropriate
-- Exercises ordered from basic to challenging
+- Approximately 10–12 independent exercises where the topic supports them, ordered from prediction and recall through application, debugging, and transfer
 - Model answers placed after the exercise prompts in the same lesson file, so the learner can attempt problems first; do not create separate solution files
 - A knowledge check and concise summary
 - Reliable references, preferring official documentation when suitable
+- A meaningful coding lab with staged tasks, expected behavior, explicit acceptance criteria, and ordinary/boundary/invalid tests where applicable
 - A small project or real-world connection when it adds learning value
 
 Do not force every item into every lesson. Depth and format should fit the topic.
@@ -74,14 +77,14 @@ Keep the learning path easy to navigate. Do not create separate answer-key or so
 
 ## Additional lesson approval gate
 
-Before a lesson is labeled an approved teaching reference, review it against these questions:
+Before a lesson is labeled an approved teaching reference, review it against these questions and the full mandatory checklist in the Roadmap:
 
 1. **Coverage:** Are the essential concepts for this stage explicitly covered? Are deferred topics assigned to a later roadmap location?
 2. **Depth:** Does the lesson explain why and how, not only list syntax or method names?
 3. **Precision:** Are terminology, examples, edge cases, and expected outputs technically correct?
 4. **Runnable practice:** Are there enough small examples to demonstrate each central idea? Are outputs shown where prediction matters?
 5. **Transfer:** Does practice progress from recall to application, debugging, and unfamiliar reasoning?
-6. **Independent attempt:** Are solutions separate from the lesson's exercise prompts?
+6. **Independent attempt:** Do all exercise prompts appear before the explanatory model answers in the same lesson file, with no separate per-lesson solution file?
 7. **Application:** Is there a lab or project when it adds real learning value?
 8. **Boundaries:** Does the lesson avoid making later-stage features hidden prerequisites?
 9. **References:** Are authoritative sources linked for version-sensitive or nuanced behavior?
