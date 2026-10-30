@@ -78,6 +78,47 @@ is_valid = 0.0 <= voltage_v <= 5.0
 
 Avoid unnecessary alignment that makes edits fragile. Follow a consistent line-length convention and split long expressions where it improves readability. PEP 8 is a style guide, not a language syntax specification: code can run while violating style guidance.
 
+### 4.1 A practical PEP 8 checklist
+
+For beginner scripts, use this review list:
+
+- Use four spaces per indentation level; never mix tabs and spaces.
+- Use snake_case for variables and functions.
+- Use UPPER_SNAKE_CASE for module-level constants by convention.
+- Put spaces around binary operators and after commas.
+- Use blank lines to separate logical groups of top-level code.
+- Keep imports at the top of the file, grouped by standard library, third-party, and local imports when a project uses them.
+- Avoid trailing whitespace and unnecessary semicolons.
+- Keep lines reasonably short; PEP 8's traditional recommendation is 79 characters for code and 72 for comments/docstrings, though project tools may define a different consistent limit.
+- Prefer clear names and straightforward expressions over clever compression.
+
+PEP 8 is guidance, not a syntax checker. A program may run while being difficult to read, and style compliance alone does not prove correctness.
+
+### 4.2 Comments: placement and quality
+
+A full-line comment should normally explain intent, assumptions, constraints, or a non-obvious decision. An inline comment should be used sparingly and separated from the statement by at least two spaces.
+
+~~~python
+# The report specification defines the first displayed sample as 1.
+displayed_sample_number = zero_based_index + 1
+
+voltage_v = 3.3  # Measured at the receiver input.
+~~~
+
+Do not leave obsolete comments after changing code. A comment that disagrees with the code is worse than no comment because it misleads the reader.
+
+### 4.3 A readable script layout
+
+A simple script can be organized in this order:
+
+1. Module docstring, if the script needs one.
+2. Imports.
+3. Named constants.
+4. Main straight-line program statements.
+5. Output and a brief explanation of assumptions.
+
+The module docstring and import organization are introduced here as conventions; functions, the main guard, and larger project layouts are covered later.
+
 ## 5. Constants and magic numbers
 
 A magic number is a literal whose meaning is unclear in context.
@@ -171,9 +212,37 @@ print("result",z)
 12. Explain how to verify a refactor preserves behavior.
 13. Give an example of a useful comment that a long variable name cannot replace.
 
-## Exercise solutions
+## Exercise solutions — open after attempting the exercises
 
-Attempt the exercises and knowledge check before opening the separate [comments-and-code-style — Exercise Solutions](./08-comments-and-code-style-solutions.md).
+Open only after attempting the lesson.
+
+## Level 1
+1. first_reading, second_reading, average_reading, elapsed_seconds.
+2. str, list, type, sum, print, input, int.
+3. A comment is ignored by Python; a string is a value; a docstring is a string literal in the documentation position.
+4. Four spaces.
+## Level 2
+5. Use names that communicate quantity and unit, such as distance_km and elapsed_hours.
+6. Split a long expression into meaningful intermediate values.
+7. Repeating the next line adds little; explaining an external constraint or non-obvious assumption is useful.
+8. CALIBRATION_FACTOR.
+## Level 3
+9. Improve names, units, spacing, grouping, and comments that explain intent.
+10. No. Uppercase is a convention, not an immutability mechanism.
+11. Determine the actual source unit and intended formula; correct code or comment to agree.
+12. Run the same representative and boundary tests before and after and compare outputs.
+13. A comment can explain why an unusual threshold is required by a standard or hardware constraint.
+## Knowledge check
+1. It communicates meaning or role.
+2. It hides a built-in and can cause confusing errors.
+3. Intent, assumptions, constraints, or non-obvious decisions.
+4. A string literal in a designated documentation position.
+5. Four spaces per level.
+6. An unexplained literal whose meaning is unclear.
+7. Improving internal structure without intentionally changing behavior.
+8. Compare the same tests and outputs before and after.
+## Lab review
+The refactored code should preserve the formula, communicate units, and produce equivalent results for the same inputs.
 
 ## Knowledge check
 
