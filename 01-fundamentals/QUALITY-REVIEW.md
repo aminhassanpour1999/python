@@ -1,59 +1,77 @@
-# Programming Fundamentals — Final Quality Review
+# Programming Fundamentals — Quality Review
 
-**Review:** Revision 2  
-**Scope:** Lessons 1–9, the cumulative assessment and its embedded model answers, module guide, project brief, Learning Charter, and Roadmap.  
-**Review basis:** Full written-content review, structure/link consistency review, technical inspection of examples, and execution of the representative new examples added in this revision.
+**Review state:** Revision 3 — alignment in progress  
+**Canonical reference:** [02 — Numbers and Operators](./02-numbers-and-operators.md)  
+**Mandatory standard:** [Canonical lesson standard in the main Roadmap](../ROADMAP.md#canonical-lesson-standard--mandatory-for-all-nine-lessons)
 
-## Scoring method
+## Purpose and scope
 
-| Criterion | Weight | Standard for full credit |
-|---|---:|---|
-| Stage-appropriate coverage | 25 | All required beginner-stage concepts are covered; later topics are explicitly deferred |
-| Explanatory depth | 20 | Concepts are taught with mental models, worked examples, distinctions, and meaningful edge cases |
-| Technical precision | 20 | Terminology, Python behavior, formulas, examples, and expected outputs are accurate |
-| Practice and application | 15 | Every lesson has a meaningful lab and independent practice; the assessment includes transfer work |
-| Answer-key design | 10 | Model answers are explanatory, placed after prompts in the same file, and do not fragment the repository |
-| References and curriculum alignment | 10 | Official references, prerequisites, scope, progress tracking, and links are consistent |
-| **Total** | **100** | |
+This file records the actual state of the teaching materials. It must not award perfect scores merely because a file exists, has many words, or contains the expected headings.
 
-## Lesson scores
+Lesson 2 is the agreed benchmark for the depth, explanatory approach, organization, worked examples, practical application, independent practice, and model answers expected from the other Fundamentals lessons. It is a subject-specific reference, not a requirement to copy its exact headings or word count.
 
-| Lesson | Score | Final review |
-|---|---:|---|
-| 01 — Variables and Data Types | **100/100** | Names, objects, values, assignment, rebinding, identifiers, scalar types, dynamic typing, inspection, equality, identity, lab, exercises, and embedded model answers are aligned. |
-| 02 — Numbers and Operators | **100/100** | Numeric types, arithmetic, negative floor/modulo behavior, precedence, associativity, comparisons, logic, bitwise masks, floating-point precision, rounding, Decimal, Fraction, cmath, built-ins, units, lab, exercises, and embedded answers are covered. |
-| 03 — Strings | **100/100** | Literals, escapes, raw and multiline text, indexing, slicing, immutability, searching, cleaning, classification, splitting, joining, formatting, Unicode, normalization, code points, graphemes, bytes, and embedded answers are covered. The Unicode normalization example was corrected and checked. |
-| 04 — Type Conversion | **100/100** | Conversion, parsing, validation, formatting, bases, truncation, Boolean parsing, complex conversion boundaries, NaN/infinity, finite checks, information loss, and conversion errors are explained with practical examples. |
-| 05 — Input and Output | **100/100** | input(), print(), return behavior, separators, line endings, streams, flushing, EOF behavior, prompts, conversion boundaries, testability, and a complete interaction example are covered. |
-| 06 — Booleans and None | **100/100** | Truthiness, falsy values, truth tables, chained comparisons, short-circuiting, operand-return behavior, precedence, absence checks, and the zero-versus-None distinction are covered. |
-| 07 — Expressions and Statements | **100/100** | Expressions, statements, expression statements, script versus REPL behavior, evaluation, assignment, unpacking previews, side effects, precedence, tracing, and error categories are covered. |
-| 08 — Comments and Code Style | **100/100** | Naming, comments, strings, docstrings, PEP 8 layout, imports, constants, magic numbers, refactoring, and behavior-preservation checks are covered. |
-| 09 — Basic Debugging | **100/100** | Error categories, annotated traceback, common exceptions, hypothesis-driven debugging, repr/type inspection, minimal reproduction, debugger concepts, assertions, defect reports, labs, and embedded answers are covered. |
+The current task is to bring Lessons 1 and 3–9 up to that standard, verify them, and then re-audit the cumulative assessment and supporting documents. The learner's study progress is separate and must not be changed by editorial work.
 
-## Supporting material scores
+## Review rubric
 
-| Component | Score | Final review |
-|---|---:|---|
-| Module README | **100/100** | Lesson map, prerequisites, progress status, study process, answer-key location, scope, and exit criteria are consistent. |
-| Learning Charter | **100/100** | Teaching standard and repository organization now explicitly avoid separate per-lesson solution files. |
-| Roadmap | **100/100** | Required coverage, deferred topics, material status, learner status, and assessment criteria match the module. |
-| Final assessment | **100/100** | The 50-point assessment covers the nine lessons; an additional unscored transfer task checks independent application. Model answers are embedded at the end of the same file. |
-| Measurement Report project brief | **100/100** | The project integrates the stage's concepts without requiring loops, functions, classes, files, or exception handling prematurely. |
+Each lesson will be reviewed against all ten dimensions below. A perfect score requires evidence for every applicable requirement in the Roadmap's canonical standard.
 
-## Overall result
+| Dimension | What must be demonstrated |
+|---|---|
+| 1. Scope and objectives | Accurate prerequisites, explicit scope, observable objectives, and complete coverage of the lesson's promised outcomes |
+| 2. Conceptual depth | Clear mental models, precise terminology, explanations of why and how, and distinctions between easily confused concepts |
+| 3. Technical accuracy | Correct Python syntax, semantics, outputs, terminology, examples, and version-sensitive claims |
+| 4. Coverage and boundaries | Relevant variants, edge cases, limitations, failure modes, and clearly deferred later-stage material |
+| 5. Worked examples | Progressive, understandable, runnable examples with expected output and reasoning where appropriate |
+| 6. Practical application | A meaningful lab with staged tasks, explicit acceptance criteria, and suitable tests |
+| 7. Independent practice | Approximately 10–12 progressively challenging exercises where appropriate, covering all major objectives and including debugging or transfer |
+| 8. Model answers | Explanatory answers after all prompts in the same lesson file; no separate per-lesson solution files |
+| 9. Retrieval and completion | Knowledge check with later answers, substantive summary, and demonstrable completion criteria |
+| 10. References and editorial integrity | Relevant official references, consistent structure, working links, no duplicate/orphan sections, and honest verification notes |
 
-# 100/100 — Approved for the Programming Fundamentals stage
+A lesson with an essential gap is not 100/100. If an item genuinely does not apply to a topic, the reviewer must explain why rather than silently ignore it.
 
-This score evaluates the written curriculum and its stage-appropriate teaching design. It does **not** mean that the learner has completed the module, passed the assessment, or reached senior-level Python ability. Learner progress remains tracked separately in the module README and Roadmap.
+## Lesson-by-lesson status
 
-## Verification notes
+| Lesson | Current state | Audit result |
+|---|---|---|
+| 01 — Variables and Data Types | Expanded revision committed; includes a deeper names/objects model, identity/type/value distinctions, assignment evaluation, chained assignment, dynamic/strong typing distinction, mutability preview, additional exercises and answers | **Pending full technical, structural, and example verification** |
+| 02 — Numbers and Operators | Canonical reference lesson selected by agreement | **Benchmark; do not infer that the other lessons meet this standard** |
+| 03 — Strings | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
+| 04 — Type Conversion | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
+| 05 — Input and Output | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
+| 06 — Booleans and None | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
+| 07 — Expressions and Statements | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
+| 08 — Comments and Code Style | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
+| 09 — Basic Debugging | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
 
-- The new conversion, Boolean, expression, input/output, Unicode, and debugging examples added in Revision 2 were executed in a Python environment; the stated results matched.
-- Existing lesson examples and answer keys were checked for consistency during the content review.
-- The Unicode normalization example now uses a combining-character escape rather than a literal backslash sequence.
-- Per-lesson answer keys are embedded after the exercises in the same lesson files. Separate solution files are not part of the intended module structure.
-- The learner progress tracker was not advanced by this content revision.
+No numerical lesson scores are assigned in this revision. Scores will be recorded only after the corresponding audit is complete.
 
-## Sign-off conditions for the learner
+## Supporting material status
 
-The module is ready to study. It becomes **Demonstrated** only after the learner independently completes the labs, attempts the exercises, scores at least 40/50, completes the transfer task, explains the code, and reviews mistakes without copying the answer key.
+| Component | Current state |
+|---|---|
+| Module README | Updated to identify Lesson 2 as the benchmark and state that alignment is in progress |
+| Learning Charter | Updated to point to the canonical lesson and the mandatory Roadmap standard |
+| Main Roadmap | Updated with the complete Fundamentals lesson standard, review rubric, implementation order, and honest teaching-material status |
+| Final assessment | Requires a consistency review after all nine lessons are aligned |
+| Measurement Report project brief | Requires a consistency review against the final lesson scope and prerequisites |
+
+## Verification policy
+
+For each lesson, record what was actually checked:
+
+- Review every objective against the teaching sections, lab, exercises, and answers.
+- Check code fences, syntax, outputs, formulas, examples, and answer-key consistency.
+- Execute all newly introduced or materially changed examples when practical; execute the lab's core solution and representative boundary cases.
+- Check internal links and relevant official documentation references.
+- Inspect heading order, numbering, repeated sections, orphan headings, tables, and Markdown structure.
+- State clearly which examples were executed and which were only inspected. Never claim that all code was run if it was not.
+- Keep the answer key after the exercise prompts in the same file.
+- Do not update the learner's progress tracker as a side effect of editing lessons.
+
+## Overall status
+
+**Not yet approved as a fully aligned module.** Lesson 2 is the agreed reference. Lesson 1 has been expanded and is awaiting a complete audit; Lessons 3–9 still require alignment. The overall 100/100 approval from the previous review is withdrawn because the lessons were not, in fact, at a consistent depth.
+
+This is a review of teaching-material quality only. It says nothing about the learner's mastery, which must be established through independent practice, assessment, and transfer work.
