@@ -38,7 +38,7 @@ A lesson with an essential gap is not 100/100. If an item genuinely does not app
 | 01 — Variables and Data Types | Expanded revision committed (~5,940 words); includes a deeper names/objects model, identity/type/value distinctions, assignment evaluation, chained assignment, dynamic/strong typing distinction, mutability preview, and 12 exercises; full audit still pending | **Pending full technical, structural, and example verification** |
 | 02 — Numbers and Operators | Canonical reference lesson selected by agreement | **Benchmark; do not infer that the other lessons meet this standard** |
 | 03 — Strings | Expanded revision committed (~4,940 words); includes deeper literal, slicing, method, formatting, Unicode, encoding, lab, and exercise coverage | **Full technical and structural audit pending** |
-| 04 — Type Conversion | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
+| 04 — Type Conversion | Expanded revision committed (~3,450 words); adds a conversion pipeline, constructor boundaries, base parsing, truncation/rounding/floor distinctions, truthiness, finite checks, information-loss guidance, lab criteria, and explanatory examples | **Full technical and structural audit pending** |
 | 05 — Input and Output | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
 | 06 — Booleans and None | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
 | 07 — Expressions and Statements | Existing material retained pending alignment | **Not yet audited against the canonical standard** |
@@ -56,6 +56,13 @@ No numerical lesson scores are assigned in this revision. Scores will be recorde
 | Main Roadmap | Updated with the complete Fundamentals lesson standard, review rubric, implementation order, and honest teaching-material status |
 | Final assessment | Requires a consistency review after all nine lessons are aligned |
 | Measurement Report project brief | Requires a consistency review against the final lesson scope and prerequisites |
+
+## Verification progress
+
+- Selected newly added examples from Variables and Data Types were executed successfully, including reassignment, right-hand-side evaluation, tuple assignment, chained assignment, and string rebinding.
+- Selected newly added Strings examples were executed successfully. A format-width example initially had an incorrect expected padding count; execution exposed it, the expected output was corrected, and the selected examples then passed.
+- Selected newly added Type Conversion examples were executed successfully, including base parsing, negative truncation/rounding/floor behavior, Boolean text truthiness, and finite-number checks.
+- These are representative checks, not a claim that every code block in the three revised lessons has been executed. Full lesson audits remain pending.
 
 ## Verification policy
 
