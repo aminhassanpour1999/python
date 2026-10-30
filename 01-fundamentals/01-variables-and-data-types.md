@@ -972,8 +972,6 @@ Choose the correct operator for each task and explain your choice:
 1. Check whether `status` has the same value as `"ready"`.
 2. Check whether `result is None`.
 
-## 10. Knowledge check
-
 ### Exercise 7 — Names and object identity
 
 Explain the difference between object identity and value equality. In your answer, explain why `==` is the normal choice for comparing numbers.
@@ -1014,6 +1012,9 @@ Why does `label = label + "!"` not mutate the original string object? Explain wh
 Choose a suitable type for each item and justify your choice: a number of packets, a measured temperature with a fractional part, a device's display label, a connection status, and a reading that has not arrived yet.
 
 
+
+## 10. Knowledge check
+
 Answer these from memory before moving on:
 
 1. What is the difference between a name and the object it refers to?
@@ -1028,49 +1029,6 @@ Answer these from memory before moving on:
 You are ready to move on when you can answer these questions clearly and complete the exercises without relying on memorized output.
 
 ## Solutions — open after attempting the exercises
-
-### Exercise 7
-
-Value equality asks whether two objects compare as equal; identity asks whether two references point to the same object. Use `==` for numeric value comparisons because two separately created numeric objects can represent the same value without needing to be the same object.
-
-### Exercise 8
-
-Output:
-
-```text
-8 5
-```
-
-Python evaluates the right-hand values before assigning the targets. The two values are then bound to the opposite names.
-
-### Exercise 9
-
-Output:
-
-```text
-12 0
-```
-
-Both names were initially bound to the integer value `0`. Rebinding `left` to `12` does not reassign `right`.
-
-### Exercise 10
-
-Dynamic typing means a name can be rebound to objects of different types. Strong type rules still apply to operations: string concatenation expects another string, not an integer. Convert deliberately when the task requires it; conversion is covered in Lesson 4.
-
-### Exercise 11
-
-Strings are immutable. The concatenation expression creates a new string value; assignment then rebinds `label` to that new object. It does not alter the original string object.
-
-### Exercise 12
-
-- Packet count: `int`, because it is a discrete whole-number count.
-- Fractional temperature: `float`, for an ordinary approximate measurement.
-- Display label: `str`, because it is text.
-- Connection status: `bool`, because it has two truth states.
-- Reading not yet received: `None`, to represent absence rather than pretending the reading is zero.
-
-The correct choice can depend on domain requirements and precision needs; the answers above are suitable for the examples as stated.
-
 
 ### Exercise answers
 
@@ -1125,6 +1083,50 @@ print(sample_count, type(sample_count))
 
 1. Use `status == "ready"` to compare values.
 2. Use `result is None` to check whether the name `result` is bound to the special singleton object `None`.
+
+### Exercise 7
+
+Value equality asks whether two objects compare as equal; identity asks whether two references point to the same object. Use `==` for numeric value comparisons because two separately created numeric objects can represent the same value without needing to be the same object.
+
+### Exercise 8
+
+Output:
+
+```text
+8 5
+```
+
+Python evaluates the right-hand values before assigning the targets. The two values are then bound to the opposite names.
+
+### Exercise 9
+
+Output:
+
+```text
+12 0
+```
+
+Both names were initially bound to the integer value `0`. Rebinding `left` to `12` does not reassign `right`.
+
+### Exercise 10
+
+Dynamic typing means a name can be rebound to objects of different types. Strong type rules still apply to operations: string concatenation expects another string, not an integer. Convert deliberately when the task requires it; conversion is covered in Lesson 4.
+
+### Exercise 11
+
+Strings are immutable. The concatenation expression creates a new string value; assignment then rebinds `label` to that new object. It does not alter the original string object.
+
+### Exercise 12
+
+- Packet count: `int`, because it is a discrete whole-number count.
+- Fractional temperature: `float`, for an ordinary approximate measurement.
+- Display label: `str`, because it is text.
+- Connection status: `bool`, because it has two truth states.
+- Reading not yet received: `None`, to represent absence rather than pretending the reading is zero.
+
+The correct choice can depend on domain requirements and precision needs; the answers above are suitable for the examples as stated.
+
+
 
 ### Knowledge check — Suggested answers
 
