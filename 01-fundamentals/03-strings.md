@@ -37,12 +37,6 @@ By the end of this lesson, you should be able to:
 - Build and test a small text-processing program with explicit assumptions and edge cases.
 
 
-## Purpose and learning outcomes
-
-Text is data: labels, names, identifiers, prompts, messages, and structured records. This lesson teaches a reliable mental model for Python strings, rather than a list of methods to memorize.
-
-By the end, you can create and inspect string literals; explain immutability; use indexing, slicing, searching, splitting, joining, and formatting; recognize Unicode pitfalls; and test text-processing code with edge cases.
-
 ## 1. The string mental model
 
 ### 1.1 Text is not a byte sequence
@@ -805,7 +799,7 @@ Open only after attempting the lesson. Equivalent correct reasoning is acceptabl
 ## Lab review
 Preserve the original, save transformations separately, use repr() to expose whitespace, test missing substrings, format units, and explain why len() is neither grapheme count nor byte count.
 
-### Knowledge check — Suggested answers
+## Knowledge check — Suggested answers
 
 1. String contents cannot be changed in place.
 2. Unicode code points.
@@ -830,7 +824,8 @@ Preserve the original, save transformations separately, use repr() to expose whi
 9. str versus bytes?
 10. Why is a serial number usually text?
 
-## Summary and completion criteria
+
+### Summary and completion criteria
 
 A str is an immutable sequence of Unicode code points. Indexing selects one code point; slicing extracts a range. Methods return new strings. Search, split, join, and formatting tools should be selected according to their precise behavior. Code points, grapheme clusters, and encoded bytes are different.
 
