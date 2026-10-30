@@ -82,6 +82,30 @@ After the second assignment, the name `temperature` refers to the new integer ob
 
 ### Assignment creates or updates a name binding
 
+### 1.1 A practical mental model: names, objects, and references
+
+It is useful to avoid the “variable is a box” picture when reasoning about Python. A more accurate beginner model is:
+
+- An **object** exists at runtime. It has an identity, a type, and a value.
+- A **name** is an identifier in a namespace.
+- An **assignment** evaluates an expression and binds a target name to the resulting object.
+- More than one name can refer to the same object.
+- Rebinding one name does not automatically rebind another name.
+
+Consider:
+
+```python
+first = 42
+second = first
+
+print(first, second)
+```
+
+Both names refer to the integer object represented by the value `42`. The assignment to `second` does not create a special live connection that keeps the two names synchronized. It binds `second` to the object that `first` referred to when the assignment was evaluated.
+
+This distinction becomes especially important with mutable objects such as lists and dictionaries, which are introduced in a later stage. For now, remember that names refer to objects; they are not permanently attached to a particular value or type.
+
+
 Consider this sequence:
 
 ```python
@@ -109,6 +133,40 @@ Read it line by line:
 **Key idea:** Python evaluates the right-hand side of an assignment and then binds the target name to the resulting object. Reassigning one name does not automatically reassign other names.
 
 ## 2. Assignment and reassignment
+
+### 1.2 Objects have identity, type, and value
+
+Python's data model describes an object in terms of three properties:
+
+| Property | Meaning | Example question |
+|---|---|---|
+| Identity | Which particular object is this? | Are these two references to the same object? |
+| Type | What kind of object is it? | Is this object an `int`, `str`, or `bool`? |
+| Value | What data does it represent? | Does it represent the number `42`? |
+
+You can inspect an object's type with `type()`. Python also provides `id()`, which returns an integer associated with the object's identity during its lifetime:
+
+```python
+reading = 42
+
+print(type(reading))
+print(id(reading))
+```
+
+The exact integer returned by `id()` is not a useful value to memorize. Do not use it as a persistent identifier, and do not assume it is a memory address on every Python implementation. Object identity is normally tested with `is`, not by comparing printed `id()` values.
+
+Two different objects can have equal values. Conversely, two names can refer to the same object. These are separate questions:
+
+```python
+left = 1000
+right = 1000
+
+print(left == right)  # Do their values compare equal?
+print(left is right)  # Are they the same object?
+```
+
+For ordinary value comparisons, rely on `==`. The identity result for independently created immutable values is not a programming contract and must not be relied on.
+
 
 The assignment operator is a single equals sign: `=`.
 
@@ -268,6 +326,49 @@ False
 This module is not needed for everyday variable declarations, but it helps explain why some names cannot be used as identifiers.
 
 ## 4. Core built-in data types
+
+### 2.1 Assignment evaluates the right-hand side first
+
+For an ordinary assignment such as `total = price + tax`, Python evaluates the expression on the right before binding the target name on the left.
+
+```python
+count = 4
+count = count + 1
+print(count)  # 5
+```
+
+The second line means: read the current object referred to by `count`, calculate a new result, then bind `count` to that result. It is not a mathematical equation asserting that the old and new values are simultaneously equal.
+
+This also explains why the following works:
+
+```python
+first = 10
+second = 20
+first, second = second, first
+print(first, second)  # 20 10
+```
+
+The right-hand values are evaluated before the target names are assigned. This is a preview of multiple assignment and unpacking; more complex unpacking patterns belong with sequence types later.
+
+### 2.2 Chained assignment
+
+Python allows one value to be assigned to multiple names in a single statement:
+
+```python
+minimum = maximum = 0
+print(minimum, maximum)  # 0 0
+```
+
+This is concise, but it does not mean that the names become permanently linked. Rebinding one name later does not rebind the other:
+
+```python
+minimum = maximum = 0
+minimum = -10
+print(minimum, maximum)  # -10 0
+```
+
+For immutable numbers and strings, this pattern is straightforward. With mutable objects, chained assignment makes multiple names refer to the same object; that behavior is important and will be studied when mutable collections are introduced. Avoid using chained assignment for mutable containers until you understand aliasing.
+
 
 A **data type** describes the kind of value an object represents and helps determine which operations are meaningful for it. Python has many built-in types. This lesson introduces `int`, `float`, `complex`, `str`, `bool`, and `NoneType`. The complex type receives a short introduction here; Lesson 2 develops complex-number arithmetic and its practical uses in more detail.
 
@@ -453,6 +554,22 @@ The if statement is a preview; control flow will be studied later.
 
 ## 5. Inspecting values with type()
 
+### 4.7 Quick comparison of the six types
+
+| Type | Example literal/value | Represents | Common beginner use |
+|---|---|---|---|
+| `int` | `-12`, `0`, `250` | Whole-number value | Counts and discrete quantities |
+| `float` | `3.5`, `-0.25`, `2.0` | Binary floating-point value | Measurements and ratios |
+| `complex` | `3 + 4j` | Real and imaginary components | Complex-valued calculations |
+| `str` | `"receiver"` | Text | Labels and messages |
+| `bool` | `True`, `False` | A truth value | Status and conditions |
+| `NoneType` | `None` | Absence of a value | A result not supplied or not available |
+
+This is the set of scalar types emphasized in this lesson, not a complete inventory of Python's built-in types. In later lessons you will study collection types and binary data types.
+
+A practical distinction: the *meaning* of a value should guide the type you choose. A sample count is usually an integer; a measured voltage may be a float; a device label is text; and an unavailable reading may be represented by `None`. Choosing a type because it makes one line of code convenient can create confusion later.
+
+
 The built-in `type()` function reports the type of an object.
 
 ```python
@@ -518,6 +635,29 @@ This flexibility is useful, but reusing a name for unrelated kinds of data can m
 
 ## 6. Equality (==) versus identity (is)
 
+### 5.1 Dynamic typing does not mean “no types”
+
+Python is dynamically typed, but it is not untyped. Every object has a type, and that type determines the operations supported by the object.
+
+```python
+value = 12
+print(type(value).__name__)  # int
+
+value = "twelve"
+print(type(value).__name__)  # str
+```
+
+The name can be rebound to an object of another type. The integer object did not change into text; the name now refers to a different object.
+
+Python is also strongly typed in the practical sense that it does not silently combine unrelated types in every situation:
+
+```python
+# "12" + 3  # TypeError: str and int cannot be added this way
+```
+
+The exact rules depend on the operation and types involved. Some numeric types support mixed arithmetic, while a string and integer do not support numeric addition. Learn the operation's documented behavior rather than assuming that every value can be converted automatically.
+
+
 These operators answer different questions:
 
 - **Equality (`==`)** asks whether two objects have equal values.
@@ -559,6 +699,42 @@ Practical rule:
 - Check for the special value `None` with `is None` (or `is not None`).
 
 ## 7. Common beginner mistakes
+
+### 6.1 Equality, identity, and the None singleton
+
+Use these questions to choose the right operator:
+
+- “Do these values compare equal?” → use `==`.
+- “Is this reference the special object `None`?” → use `is None`.
+- “Are these references to the exact same object?” → use `is` only when identity itself is the requirement.
+
+`None` is a singleton: there is one `None` object in a Python process. This is why identity is the conventional and reliable test:
+
+```python
+result = None
+
+if result is None:
+    print("No result is available.")
+```
+
+Do not use `result == None` as the preferred style. Equality can be customized by other objects; identity expresses the exact question you intend to ask.
+
+### 6.2 Mutability: an important preview
+
+An object's type also determines whether its value can be changed in place. An immutable object cannot have its value changed after it is created; operations that appear to “change” an immutable value produce another object and rebind a name.
+
+Integers, floats, complex numbers, strings, and Booleans are immutable. For example:
+
+```python
+label = "radio"
+label = label + " receiver"
+print(label)  # radio receiver
+```
+
+The original string was not modified character by character. The expression created a new string value, and the name `label` was rebound to it.
+
+Lists and dictionaries are mutable, but they are deliberately taught in the data-structures stage. This lesson only previews the distinction so that the word *object* and the behavior of assignment do not become misleading.
+
 
 ### Mistake 1: Using a name before assigning it
 
@@ -634,6 +810,15 @@ Avoid assignments such as str = "hello" or type = 5. Choose names such as messag
 Use `count == 3` to check whether the value of `count` equals three. Reserve identity checks for cases where object identity matters, especially `value is None`.
 
 ## 8. Coding lab: Measurement summary
+
+### 7.1 Mistake 8: Assuming names are permanently tied to a type
+
+A name can refer to an integer at one point and a string later. This is legal, but reusing a name for unrelated meanings can make code harder to read. Prefer clear, consistent meaning even though Python permits rebinding to another type.
+
+### 7.2 Mistake 9: Assuming assignment copies every object
+
+Assignment binds a name to an object; it is not a universal “make a separate copy” operation. With immutable values this distinction is often invisible. With mutable collections it matters greatly, so learn the collection-specific copying rules when those types are introduced.
+
 
 **Goal:** Create a small, readable summary of two measurements, inspect their types, and observe reassignment.
 
@@ -716,6 +901,20 @@ The distinction is important: changing `measurement_1` does not automatically up
 
 ## 9. Exercises
 
+### Lab acceptance criteria
+
+Your completed program must:
+
+- Use descriptive `snake_case` names and keep units in the output.
+- Display the value and type of each original measurement.
+- Calculate the initial average, then show that it remains unchanged after one input name is rebound.
+- Recalculate the average explicitly and show the new result.
+- Include a short written explanation of why rebinding does not automatically rerun earlier statements.
+- Run from top to bottom without an exception and produce the expected values.
+
+**Expected numerical checkpoints:** initial average `19.75`; updated average `20.5`.
+
+
 Try these without looking at the answers. Write down your predictions first, then run the code to check them.
 
 ### Exercise 1 — Identify the types
@@ -775,6 +974,46 @@ Choose the correct operator for each task and explain your choice:
 
 ## 10. Knowledge check
 
+### Exercise 7 — Names and object identity
+
+Explain the difference between object identity and value equality. In your answer, explain why `==` is the normal choice for comparing numbers.
+
+### Exercise 8 — Right-hand-side evaluation
+
+Predict the output and explain the order of evaluation:
+
+```python
+first = 5
+second = 8
+first, second = second, first
+print(first, second)
+```
+
+### Exercise 9 — Chained assignment
+
+Predict the output:
+
+```python
+left = right = 0
+left = 12
+print(left, right)
+```
+
+Explain why the second name does not change.
+
+### Exercise 10 — Dynamic but strongly typed
+
+Explain why Python can rebind a name from an integer to a string but still raise a `TypeError` for `"12" + 3`.
+
+### Exercise 11 — Immutability preview
+
+Why does `label = label + "!"` not mutate the original string object? Explain what happens to the name.
+
+### Exercise 12 — Choose a representation
+
+Choose a suitable type for each item and justify your choice: a number of packets, a measured temperature with a fractional part, a device's display label, a connection status, and a reading that has not arrived yet.
+
+
 Answer these from memory before moving on:
 
 1. What is the difference between a name and the object it refers to?
@@ -789,6 +1028,49 @@ Answer these from memory before moving on:
 You are ready to move on when you can answer these questions clearly and complete the exercises without relying on memorized output.
 
 ## Solutions — open after attempting the exercises
+
+### Exercise 7
+
+Value equality asks whether two objects compare as equal; identity asks whether two references point to the same object. Use `==` for numeric value comparisons because two separately created numeric objects can represent the same value without needing to be the same object.
+
+### Exercise 8
+
+Output:
+
+```text
+8 5
+```
+
+Python evaluates the right-hand values before assigning the targets. The two values are then bound to the opposite names.
+
+### Exercise 9
+
+Output:
+
+```text
+12 0
+```
+
+Both names were initially bound to the integer value `0`. Rebinding `left` to `12` does not reassign `right`.
+
+### Exercise 10
+
+Dynamic typing means a name can be rebound to objects of different types. Strong type rules still apply to operations: string concatenation expects another string, not an integer. Convert deliberately when the task requires it; conversion is covered in Lesson 4.
+
+### Exercise 11
+
+Strings are immutable. The concatenation expression creates a new string value; assignment then rebinds `label` to that new object. It does not alter the original string object.
+
+### Exercise 12
+
+- Packet count: `int`, because it is a discrete whole-number count.
+- Fractional temperature: `float`, for an ordinary approximate measurement.
+- Display label: `str`, because it is text.
+- Connection status: `bool`, because it has two truth states.
+- Reading not yet received: `None`, to represent absence rather than pretending the reading is zero.
+
+The correct choice can depend on domain requirements and precision needs; the answers above are suitable for the examples as stated.
+
 
 ### Exercise answers
 
