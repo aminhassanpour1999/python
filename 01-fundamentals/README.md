@@ -4,7 +4,7 @@ This module develops the basic Python knowledge needed to read, write, reason ab
 
 ## Module status
 
-<badge>Teaching material: complete draft</badge>
+**Teaching material status:** Complete draft
 
 All nine teaching lessons and the final assessment now have substantive material. This is a **content status**, not a learner mastery claim. Your study progress remains unverified until each lesson has been studied, practiced independently, and reviewed.
 
