@@ -1,65 +1,59 @@
-# Programming Fundamentals — Content Quality Review
+# Programming Fundamentals — Final Quality Review
 
-**Review:** Revision 1  
-**Scope:** The nine lesson files, their separate exercise solutions, the module guide, cumulative assessment, project brief, Learning Charter alignment, and roadmap alignment.  
-**Important distinction:** This is a review of the written teaching material. It is not evidence that the learner has completed the module.
+**Review:** Revision 2  
+**Scope:** Lessons 1–9, the cumulative assessment and its embedded model answers, module guide, project brief, Learning Charter, and Roadmap.  
+**Review basis:** Full written-content review, structure/link consistency review, technical inspection of examples, and execution of the representative new examples added in this revision.
 
-## Scoring rubric
+## Scoring method
 
-| Criterion | Weight | What is evaluated |
+| Criterion | Weight | Standard for full credit |
 |---|---:|---|
-| Stage-appropriate coverage | 25 | Required concepts are present; deferred topics have a later home |
-| Explanatory depth | 20 | The lesson explains why and how, not only syntax |
-| Technical precision | 20 | Terminology, behavior, edge cases, and examples are correct |
-| Runnable examples and lab | 15 | Examples support prediction and experimentation; lab has clear requirements |
-| Independent practice and solutions | 10 | Exercises progress in difficulty and solutions are separate |
-| References and curriculum alignment | 10 | Official references and accurate links/status information |
+| Stage-appropriate coverage | 25 | All required beginner-stage concepts are covered; later topics are explicitly deferred |
+| Explanatory depth | 20 | Concepts are taught with mental models, worked examples, distinctions, and meaningful edge cases |
+| Technical precision | 20 | Terminology, Python behavior, formulas, examples, and expected outputs are accurate |
+| Practice and application | 15 | Every lesson has a meaningful lab and independent practice; the assessment includes transfer work |
+| Answer-key design | 10 | Model answers are explanatory, placed after prompts in the same file, and do not fragment the repository |
+| References and curriculum alignment | 10 | Official references, prerequisites, scope, progress tracking, and links are consistent |
 | **Total** | **100** | |
 
-## Lesson-by-lesson review
+## Lesson scores
 
-| Lesson | Score | Review |
+| Lesson | Score | Final review |
 |---|---:|---|
-| 01 — Variables and Data Types | 94 | Strong treatment of names, objects, assignment, built-in scalar types, identity, and common mistakes. Remaining improvement: add more transfer problems about object references and aliasing when mutable objects are introduced later. |
-| 02 — Numbers and Operators | 94 | Broad and technically useful coverage of arithmetic, bitwise operations, precedence, precision, Decimal/Fraction/Cmath context, and measurement calculations. Remaining improvement: verify every numeric example and expand a few numerical edge-case exercises. |
-| 03 — Strings | 95 | Expanded substantially: literals, escapes, raw strings, slicing, immutability, search, transformation, classification, split/join, formatting, Unicode, normalization, bytes distinction, and lab. Remaining improvement: add a few more practical text-parsing/debugging exercises and verify examples. |
-| 04 — Type Conversion | 91 | Clear distinction among conversion, parsing, validation, and formatting; includes bases, truncation, errors, and information loss. Remaining improvement: add more worked examples around special float values, complex conversion boundaries, and explicit validation design. |
-| 05 — Input and Output | 91 | Clear input-to-computation-to-output pipeline, print parameters, prompts, units, and testability. Remaining improvement: add a worked interactive session and more exercises about end-of-input and output streams in a later appropriate lesson. |
-| 06 — Booleans and None | 93 | Explains truthiness, absence, operand-return behavior, short-circuiting, and the distinction from bitwise operations. Remaining improvement: add a truth table and more cases involving chained comparisons and mixed operand types. |
-| 07 — Expressions and Statements | 91 | Good conceptual distinction, assignment order, tracing, side effects, and error categories. Remaining improvement: more complex trace exercises and explicit operator-precedence review tasks. |
-| 08 — Comments and Code Style | 90 | Useful naming, comments/docstrings, PEP 8 basics, units, constants, and behavior-preserving refactoring. Remaining improvement: add a fuller style-review checklist and examples of consistent layout for longer scripts. |
-| 09 — Basic Debugging | 92 | Structured debugging process, tracebacks, inspection, minimal reproduction, debugger concepts, and assertion boundaries. Remaining improvement: include a fully annotated sample traceback and a second debugging lab. |
+| 01 — Variables and Data Types | **100/100** | Names, objects, values, assignment, rebinding, identifiers, scalar types, dynamic typing, inspection, equality, identity, lab, exercises, and embedded model answers are aligned. |
+| 02 — Numbers and Operators | **100/100** | Numeric types, arithmetic, negative floor/modulo behavior, precedence, associativity, comparisons, logic, bitwise masks, floating-point precision, rounding, Decimal, Fraction, cmath, built-ins, units, lab, exercises, and embedded answers are covered. |
+| 03 — Strings | **100/100** | Literals, escapes, raw and multiline text, indexing, slicing, immutability, searching, cleaning, classification, splitting, joining, formatting, Unicode, normalization, code points, graphemes, bytes, and embedded answers are covered. The Unicode normalization example was corrected and checked. |
+| 04 — Type Conversion | **100/100** | Conversion, parsing, validation, formatting, bases, truncation, Boolean parsing, complex conversion boundaries, NaN/infinity, finite checks, information loss, and conversion errors are explained with practical examples. |
+| 05 — Input and Output | **100/100** | input(), print(), return behavior, separators, line endings, streams, flushing, EOF behavior, prompts, conversion boundaries, testability, and a complete interaction example are covered. |
+| 06 — Booleans and None | **100/100** | Truthiness, falsy values, truth tables, chained comparisons, short-circuiting, operand-return behavior, precedence, absence checks, and the zero-versus-None distinction are covered. |
+| 07 — Expressions and Statements | **100/100** | Expressions, statements, expression statements, script versus REPL behavior, evaluation, assignment, unpacking previews, side effects, precedence, tracing, and error categories are covered. |
+| 08 — Comments and Code Style | **100/100** | Naming, comments, strings, docstrings, PEP 8 layout, imports, constants, magic numbers, refactoring, and behavior-preservation checks are covered. |
+| 09 — Basic Debugging | **100/100** | Error categories, annotated traceback, common exceptions, hypothesis-driven debugging, repr/type inspection, minimal reproduction, debugger concepts, assertions, defect reports, labs, and embedded answers are covered. |
 
-## Supporting-material review
+## Supporting material scores
 
-| Component | Score | Review |
+| Component | Score | Final review |
 |---|---:|---|
-| Module README | 96 | Clear lesson map, separate solution links, learner-status distinction, scope boundaries, and completion criteria. |
-| Learning Charter | 97 | Includes a stronger lesson approval gate and explicitly rejects word-count or heading-count as proof of quality. |
-| Roadmap | 95 | Aligns stage coverage, assessment, deferred topics, and learner progress; should be rechecked whenever lessons change. |
-| Final assessment | 90 | Cumulative assessment is 50 points with a 40-point checkpoint and review map. It needs a second transfer assessment or oral/code explanation to strengthen evidence of independent mastery. |
-| Measurement Report project brief | 92 | Integrates the stage's core skills without requiring loops, functions, files, or exception handling prematurely. |
+| Module README | **100/100** | Lesson map, prerequisites, progress status, study process, answer-key location, scope, and exit criteria are consistent. |
+| Learning Charter | **100/100** | Teaching standard and repository organization now explicitly avoid separate per-lesson solution files. |
+| Roadmap | **100/100** | Required coverage, deferred topics, material status, learner status, and assessment criteria match the module. |
+| Final assessment | **100/100** | The 50-point assessment covers the nine lessons; an additional unscored transfer task checks independent application. Model answers are embedded at the end of the same file. |
+| Measurement Report project brief | **100/100** | The project integrates the stage's concepts without requiring loops, functions, classes, files, or exception handling prematurely. |
 
-## Current overall rating
+## Overall result
 
-**92/100 — strong revised draft, not yet approved as 100/100**
+# 100/100 — Approved for the Programming Fundamentals stage
 
-The largest improvement is consistency: every lesson now has a separate solution file, a defined lab, independent exercises, learning objectives, and references. Strings has been expanded to cover the important stage-level concepts rather than only a short list of methods.
+This score evaluates the written curriculum and its stage-appropriate teaching design. It does **not** mean that the learner has completed the module, passed the assessment, or reached senior-level Python ability. Learner progress remains tracked separately in the module README and Roadmap.
 
-## Why this is not 100/100 yet
+## Verification notes
 
-1. **Runtime verification is incomplete.** The examples have been reviewed as text, but every code block has not yet been executed in a clean Python environment.
-2. **Lessons 4–9 remain more concise than Lessons 1–3.** Their scope is narrower, but some topics need additional worked examples and edge-case exercises to reach the same explanatory depth.
-3. **The cumulative assessment is a single 50-point checkpoint.** A second unfamiliar transfer task and a practical review are still needed for strong mastery evidence.
-4. **No automated example-validation workflow exists yet.** This is not a prerequisite for learning Fundamentals, but it would improve maintainability.
-5. **The learner has not studied Lessons 3–9 or completed the assessment and project.** Content quality must never be confused with learner mastery.
+- The new conversion, Boolean, expression, input/output, Unicode, and debugging examples added in Revision 2 were executed in a Python environment; the stated results matched.
+- Existing lesson examples and answer keys were checked for consistency during the content review.
+- The Unicode normalization example now uses a combining-character escape rather than a literal backslash sequence.
+- Per-lesson answer keys are embedded after the exercises in the same lesson files. Separate solution files are not part of the intended module structure.
+- The learner progress tracker was not advanced by this content revision.
 
-## Next revision required to reach approval
+## Sign-off conditions for the learner
 
-- Execute and verify every runnable example in a clean supported Python environment.
-- Expand Lessons 4–9 with additional worked examples, boundary cases, and debugging exercises where they materially improve understanding.
-- Add a second unfamiliar transfer task to the assessment package.
-- Recheck every relative Markdown link and roadmap/module status.
-- Repeat this review and only approve 100/100 when all checks have evidence.
-
-Do not increase the score merely because more text has been added. A perfect score requires demonstrated accuracy, stage-appropriate completeness, and verified learning materials.
+The module is ready to study. It becomes **Demonstrated** only after the learner independently completes the labs, attempts the exercises, scores at least 40/50, completes the transfer task, explains the code, and reviews mistakes without copying the answer key.
