@@ -52,6 +52,7 @@ A comment begins with # outside a string and is ignored by Python.
 
 ~~~python
 # Convert elapsed time to seconds before calculating speed.
+elapsed_minutes = 5
 elapsed_seconds = elapsed_minutes * 60
 ~~~
 
@@ -62,6 +63,7 @@ A comment should explain intent, an assumption, a constraint, or a non-obvious d
 count = count + 1
 
 # Better: The external report numbers its first sample as 1.
+zero_based_index = 0
 sample_number = zero_based_index + 1
 ~~~
 
