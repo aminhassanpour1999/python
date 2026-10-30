@@ -535,7 +535,7 @@ A format specification can control fill character, alignment, sign, width, group
 
 ~~~python
 value = 12345.678
-print(f"{value:*>12,.2f}")  # ****12,345.68
+print(f"{value:*>12,.2f}")  # ***12,345.68
 print(f"{-7:+d}")           # -7
 print(f"{42:06d}")          # 000042
 ~~~
