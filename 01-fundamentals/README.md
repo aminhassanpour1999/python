@@ -6,7 +6,7 @@ This module develops the basic Python knowledge needed to read, write, reason ab
 
 **Teaching material status:** Complete draft
 
-All nine teaching lessons and the final assessment now have substantive material. This is a **content status**, not a learner mastery claim. Your study progress remains unverified until each lesson has been studied, practiced independently, and reviewed.
+All nine teaching lessons and the final assessment now have substantive material. This is a **content status**, not a learner mastery claim. The current study position is Lesson 1 complete and Lesson 2 in progress; all later lessons remain pending.
 
 ## Learning outcomes
 
@@ -81,8 +81,8 @@ Not every lesson needs a separate mini-project; a focused lab is preferable when
 
 Tick a lesson only after studying it, attempting the exercises, and reviewing mistakes. Do not mark it complete merely because its notes exist.
 
-- [ ] 01 — Variables and Data Types
-- [ ] 02 — Numbers and Operators
+- [x] 01 — Variables and Data Types
+- [ ] 02 — Numbers and Operators (in progress; do not mark complete yet)
 - [ ] 03 — Strings
 - [ ] 04 — Type Conversion
 - [ ] 05 — Input and Output
