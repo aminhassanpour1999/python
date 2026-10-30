@@ -28,12 +28,18 @@ A file being present, a lesson being read, or code being copied is not sufficien
 2. Keep foundational lessons focused, but do not silently omit important features from the overall curriculum.
 3. Mark the difference between **introduce**, **use fluently**, and **understand deeply**.
 4. Include syntax, semantics, edge cases, common mistakes, runnable examples, independent practice, and suitable references.
-5. Keep exercise solutions separate from the first attempt.
+5. Place exercise prompts before their model answers in the same lesson file; clearly label the answer section so learners can attempt the work first, and do not create separate per-lesson solution files.
 6. Revisit topics through cumulative exercises and projects.
 7. Use official documentation as a primary reference and verify version-sensitive details.
 8. Keep repository notes in English; use Persian for conversational explanations when useful.
 9. Update this roadmap when the course changes. If a topic is deferred, record its destination instead of leaving it as an untracked promise.
 10. Do not mark a topic complete until the learner has demonstrated it.
+
+11. Use **[02 — Numbers and Operators](./01-fundamentals/02-numbers-and-operators.md)** as the canonical structural and depth reference for all nine Fundamentals lessons. Preserve its quality and teaching approach; do not mechanically copy numeric-specific content into unrelated lessons.
+12. A lesson's length must follow the depth of its subject. Do not force equal word counts, but do not shorten a lesson by omitting an essential explanation, example, edge case, exercise, or assessment component.
+13. Keep the repository curriculum self-contained: a learner should be able to study a lesson, perform its lab, attempt its exercises, check model answers, and review official references without needing an unlisted companion solution file.
+14. Distinguish language guarantees from implementation details, beginner-level essentials from optional depth, and source-backed facts from practical recommendations.
+15. Every code example and answer must be technically accurate for the stated Python version, internally consistent, and checked at an appropriate level before the lesson is approved.
 
 ---
 
@@ -54,8 +60,105 @@ A file being present, a lesson being read, or code being copied is not sufficien
 
 ## Stage 1 — Programming Fundamentals
 
+### Canonical lesson standard — mandatory for all nine lessons
+
+**Reference lesson:** [02 — Numbers and Operators](./01-fundamentals/02-numbers-and-operators.md). This file is the benchmark for instructional depth, organization, worked examples, practical application, exercises, model answers, and reference quality. It is the standard to meet, not a ceiling and not a word-count template. Keep the reference lesson stable unless a factual correction or a deliberate improvement is necessary; any such change must preserve or raise the benchmark.
+
+Every Fundamentals lesson must be a complete, coherent teaching chapter. Adapt the sections to the subject, but account for every requirement below. If a requirement genuinely does not apply, state why in the lesson review rather than silently omitting it.
+
+#### A. Orientation and learning contract
+
+- Exact lesson title, module, lesson number, stage/level, realistic study-time estimate, prerequisites, and recommended study method.
+- A short lesson guide explaining the purpose, the mental model, how the lesson connects to prior learning, and where the topic will be developed later.
+- Specific, observable learning objectives using actions such as identify, explain, predict, compare, choose, implement, test, and debug.
+- A scope boundary: what this lesson teaches now, what it previews, and what is deliberately deferred to a named later lesson/stage.
+
+#### B. Conceptual teaching and technical precision
+
+- Begin with the learner's mental model before introducing syntax details.
+- Explain terminology, rules, syntax, semantics, evaluation behavior, and relevant object/type behavior—not just definitions or lists.
+- Explain why a feature behaves as it does at the level appropriate to this stage.
+- Compare easily confused concepts explicitly (for example, equality vs identity, parsing vs validation, or display formatting vs stored value).
+- Include the important variants, boundaries, exceptions, edge cases, limitations, and version-sensitive details within the lesson's scope.
+- Distinguish Python language guarantees from CPython-specific behavior and implementation details.
+- Explain trade-offs and selection criteria: when to use a feature, when not to use it, and what a safer or clearer alternative is.
+- Avoid unexplained jargon, hidden prerequisites, hand-waving phrases, and claims that a beginner cannot verify.
+
+#### C. Worked examples and reference material
+
+- Provide progressive examples: minimal syntax, ordinary use, combined use, practical use, and edge-case behavior where relevant.
+- Every non-trivial example must be runnable or clearly labeled as a fragment, intentional error, pseudocode, or expected exception.
+- Show expected output when output is deterministic; explain important lines and the reasoning behind the result.
+- Include comparison/reference tables where they genuinely improve precision or scanning; do not add decorative tables.
+- Use meaningful names, explicit units where relevant, consistent formatting, and comments that explain intent rather than repeat syntax.
+- Include at least one worked example that demonstrates a complete reasoning process from problem to code to verification.
+- Include practical examples that fit the topic. Engineering examples may appear when they genuinely clarify a concept, but the Python repository must remain Python-focused; do not turn Fundamentals into a communications, mathematics, or signals course.
+- Link directly to relevant official Python documentation and any applicable PEP. Explain what each reference is useful for when a bare link would be ambiguous.
+
+#### D. Pitfalls, boundaries, and debugging
+
+- A dedicated common-mistakes section covering realistic beginner errors and misconceptions.
+- For each important mistake: show the problematic pattern, explain the reason or resulting behavior, and provide a corrected approach.
+- Include relevant exception types, failure modes, boundary values, and diagnostic techniques.
+- Explain how to inspect or test unexpected behavior using appropriate tools and evidence.
+- Do not teach advanced exception handling, loops, functions, collections, or other later-stage topics as if they were prerequisites; mark previews clearly.
+
+#### E. Coding lab
+
+- A meaningful, topic-specific lab with a clear goal and a realistic scenario.
+- State the starting point, required inputs/data, expected behavior, and constraints.
+- Break the lab into ordered, achievable steps; explain the purpose of each step.
+- Include a complete expected result or representative output where appropriate.
+- Define explicit acceptance criteria: correctness, edge cases, readability, naming, units, and required explanations.
+- Include a test checklist with ordinary, boundary, and invalid cases wherever applicable.
+- Require the learner to explain at least one design choice or observed behavior, not merely submit code.
+- Keep the lab within the concepts already taught or clearly identify any preview syntax.
+
+#### F. Independent practice and model answers
+
+- Provide approximately 10–12 independent exercises when the topic supports that amount; fewer are acceptable only when justified by the topic's scope and depth.
+- Arrange exercises progressively: recall/prediction, direct application, combination, debugging, and reasoning/transfer.
+- Cover every major learning objective across the exercise set; do not let a large exercise count hide missing objectives.
+- State inputs, expected outputs, constraints, and edge cases precisely enough to make answers assessable.
+- Include at least one unfamiliar transfer or debugging problem, not just variations of worked examples.
+- Put all model answers in the **same lesson file**, after all exercise prompts. Never create separate per-lesson solution files.
+- Give explanatory answers: explain why, show working code where code is requested, state expected output where useful, and accept valid alternatives for open-ended tasks.
+- Keep answers aligned with the exercise wording and with the Python behavior taught in the lesson. Do not reveal answers before the exercise section.
+
+#### G. Retrieval, review, and completion
+
+- Include a knowledge check that tests understanding rather than only memorized definitions.
+- Put suggested answers after the questions, clearly separated so the learner can self-test first.
+- Include a concise but substantive summary of the chapter's core mental models and rules.
+- Include explicit completion criteria that can be demonstrated without copying the examples.
+- Identify what the learner should be able to explain, predict, write, test, and debug independently.
+- Make clear that reading or ticking a checkbox alone does not prove mastery.
+
+#### H. Technical and editorial quality gate
+
+Before a lesson is marked aligned, verify all of the following:
+
+- All objectives are taught, practiced, and assessed.
+- No important topic promised by the objectives is missing from the body, lab, exercises, or assessment.
+- Code blocks have valid syntax unless intentionally demonstrating an error; expected outputs are correct.
+- Examples and answer keys agree with one another and use concepts introduced at the appropriate point.
+- Headings, numbering, terminology, capitalization, punctuation, Markdown fences, tables, and internal links are consistent.
+- No duplicate sections, orphan headings, empty answer sections, stale references, broken paths, or contradictory instructions remain.
+- Official references resolve to the relevant authoritative documentation and support the claims made.
+- At least representative examples and all newly introduced or corrected code have been executed when practical; record the limits of verification honestly.
+- The lesson is self-contained and does not depend on a deleted solution file or undocumented external explanation.
+
+#### I. Review rubric
+
+Score each lesson against these dimensions before calling it complete: (1) scope and objectives, (2) conceptual depth, (3) technical accuracy, (4) coverage and edge cases, (5) worked examples and outputs, (6) practical application/lab, (7) exercise coverage and progression, (8) explanatory answer key, (9) review/completion criteria, and (10) references and editorial integrity.
+
+A score of 100/100 is permitted only when every applicable requirement above is met and the verification evidence is recorded. If any essential item is missing, the lesson is not 100/100; list the gap and revise it. Written-material quality is never the same as learner mastery. Do not update learner progress as a side effect of editing teaching material.
+
+**Implementation order:** keep Lesson 2 as the benchmark; audit and align Lessons 1 and 3–9 one by one; then re-audit the cumulative assessment, module README, Quality Review, Learning Charter, and this roadmap for consistency. Do not mark the stage's teaching materials fully aligned until every item has passed the gate.
+
+
 **Repository section:** [01-fundamentals](./01-fundamentals/README.md)  
-**Teaching-material status:** Revision 2 content audit complete (100/100 for stage-appropriate written material); representative added examples executed. Learner mastery remains unverified until independent study, assessment, and transfer work.  
+**Teaching-material status:** Alignment against the reference lesson is in progress. Do not describe the module as 100/100 or fully audited until every lesson has passed the common standard and its examples, exercises, answer key, and links have been checked. Learner mastery is tracked separately.  
 **Learner status:** Lesson 1 is complete and Lesson 2 is in progress, based on the learner's confirmed study position. Lessons 3–9 and the cumulative assessment remain pending. Do not mark a lesson demonstrated without independent study and practice.
 
 This stage teaches a complete stage-appropriate foundation for writing, reading, reasoning about, and debugging small straight-line Python programs. Completeness here means mastery of the listed beginner-level concepts, not mastery of all Python or professional senior-level ability. It deliberately stops before branching and loops, which belong to Stage 2.
