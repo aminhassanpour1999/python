@@ -57,6 +57,59 @@ None
 
 print() performs an output action and returns None. Displaying something is not the same as returning a value.
 
+### 1.1 Output streams and flushing
+
+By default, print() writes to the standard output stream. Its file parameter can direct output to another text stream; flush requests that the stream be flushed immediately.
+
+~~~python
+import sys
+
+print("Normal information")
+print("Diagnostic message", file=sys.stderr)
+print("Progress update", end=" ", flush=True)
+print("done")
+~~~
+
+This is an introductory view of standard output and standard error. File and stream management are covered later. For ordinary beginner scripts, the default output stream is sufficient.
+
+### 2.1 What input() does not do
+
+input(prompt) displays the prompt without automatically adding a newline, reads one line, removes the trailing newline, and returns the remaining text. It does not automatically remove surrounding spaces or validate the text.
+
+~~~python
+raw_text = "  12.5  "
+print(repr(raw_text))          # '  12.5  '
+print(float(raw_text))         # 12.5
+print(repr(raw_text.strip()))  # '12.5'
+~~~
+
+If the input stream reaches end-of-file before a line can be read, input() raises EOFError. This can happen when a program expects interactive input but is run in an environment with no input available. Handling EOFError is part of robust exception handling, taught later.
+
+### 2.2 A complete example interaction
+
+For this program:
+
+~~~python
+first_text = input("First voltage (V): ")
+second_text = input("Second voltage (V): ")
+
+first_v = float(first_text)
+second_v = float(second_text)
+average_v = (first_v + second_v) / 2
+
+print(f"Average voltage: {average_v:.2f} V")
+~~~
+
+A sample interaction is:
+
+~~~text
+First voltage (V): 12.5
+Second voltage (V): 13.5
+Average voltage: 13.00 V
+~~~
+
+The text typed by the user appears after each prompt. The program's final line is printed output. This example assumes both inputs are valid numeric strings.
+
 ## 2. Input with input()
 
 input() displays an optional prompt, reads one line from standard input, removes its trailing newline, and returns a string.
@@ -202,9 +255,38 @@ Create input_output_lab.py.
 13. A script waits in an automated environment. Give a plausible explanation.
 14. Distinguish invalid format, invalid range, and incorrect unit.
 
-## Exercise solutions
+## Exercise solutions — open after attempting the exercises
 
-Attempt the exercises and knowledge check before opening the separate [input-and-output — Exercise Solutions](./05-input-and-output-solutions.md).
+Open only after attempting the lesson.
+
+## Level 1
+1. input() returns str.
+2. sep defaults to one space; end defaults to a newline.
+3. Track sep between arguments and end after each call.
+4. print() returns None.
+## Level 2
+5. print(f"Voltage: {voltage:.2f} V").
+6. Example: "Enter elapsed time in seconds (s): ".
+7. Keep raw strings in *_text names, convert to numbers, calculate, then format labelled output.
+8. input() returns strings, so "3" + "4" becomes "34".
+9. Test ordinary values, decimals, zero, negatives, empty input, and non-numeric text.
+## Level 3
+10. A serial number is an identifier; converting to int loses leading zeroes.
+11. input() returns the typed characters except the trailing newline. float() accepts surrounding whitespace in numeric text.
+12. Display precision does not create measurement accuracy.
+13. The program may be waiting for interactive standard input unavailable in the runner.
+14. Invalid format cannot be parsed; invalid range parses but violates a domain rule; incorrect unit uses an unexpected unit.
+## Knowledge check
+1. print() displays objects to a text stream.
+2. sep separates arguments; end follows the final argument.
+3. input() returns str.
+4. Separate names make representation changes explicit.
+5. Calculations can be tested with fixed values independently of terminal interaction.
+6. Conversion changes/creates a type; validation checks requirements.
+7. Units make measurements interpretable.
+8. Fixed data makes tests repeatable.
+## Lab review
+Separate raw strings, numeric values, calculation, and output. State clearly that invalid input is not yet handled robustly.
 
 ## Knowledge check
 
