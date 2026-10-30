@@ -55,7 +55,7 @@ A file being present, a lesson being read, or code being copied is not sufficien
 ## Stage 1 — Programming Fundamentals
 
 **Repository section:** [01-fundamentals](./01-fundamentals/README.md)  
-**Teaching-material status:** Expanded revision prepared; independent content audit and runtime verification remain in progress.  
+**Teaching-material status:** Revision 2 content audit complete (100/100 for stage-appropriate written material); representative added examples executed. Learner mastery remains unverified until independent study, assessment, and transfer work.  
 **Learner status:** Lesson 1 is complete and Lesson 2 is in progress, based on the learner's confirmed study position. Lessons 3–9 and the cumulative assessment remain pending. Do not mark a lesson demonstrated without independent study and practice.
 
 This stage teaches a complete stage-appropriate foundation for writing, reading, reasoning about, and debugging small straight-line Python programs. Completeness here means mastery of the listed beginner-level concepts, not mastery of all Python or professional senior-level ability. It deliberately stops before branching and loops, which belong to Stage 2.
@@ -74,7 +74,7 @@ This stage teaches a complete stage-appropriate foundation for writing, reading,
 
 ### Teaching assets and coverage levels
 
-Each lesson has a separate exercise-solutions file so learners can attempt questions before viewing answers. The module also includes a cumulative 50-point assessment and a stage-appropriate measurement-report project brief. See the [module guide](./01-fundamentals/README.md).
+Exercise prompts appear before model answers in the same lesson file; no separate per-lesson solutions files are used. The module also includes a cumulative 50-point assessment and a stage-appropriate measurement-report project brief. See the [module guide](./01-fundamentals/README.md).
 
 - **Introduce and use:** syntax and everyday semantics for every item above.
 - **Use safely:** common mistakes, boundaries, conversion failures, and numeric precision decisions.
@@ -83,7 +83,7 @@ Each lesson has a separate exercise-solutions file so learners can attempt quest
 
 ### Assessment and exit criteria
 
-Complete the [Programming Fundamentals final assessment](./01-fundamentals/10-final-assessment.md) and score at least 40/50. Review every missed topic and retry it without notes. Then solve a new small command-line task that combines text, conversion, numeric operations, Boolean reasoning, formatting, and debugging. The learner may be marked **Demonstrated** only after independently explaining and completing that work.
+Complete the [Programming Fundamentals final assessment](./01-fundamentals/10-final-assessment.md) and score at least 40/50. Review every missed topic and retry it without notes. Then complete the unscored transfer task at the end of the assessment, using new values and explaining the reasoning independently. The learner may be marked **Demonstrated** only after independently explaining and completing that work.
 
 **Scope note:** Fundamentals is comprehensive for its intended stage, not a claim to teach all of Python. Python is too broad for one beginner module. The roadmap preserves every important later topic in its proper stage rather than forcing advanced features into the foundation.
 
