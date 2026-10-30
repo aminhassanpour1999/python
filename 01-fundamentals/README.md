@@ -4,7 +4,7 @@ This module builds the working foundation needed to write, read, reason about, t
 
 ## Module status
 
-**Teaching material:** Revision 2 reviewed and approved at 100/100 for stage-appropriate written content. Representative added examples were executed; the learner's own practice and module mastery remain separate.  
+**Teaching material:** Alignment against [Lesson 2 — Numbers and Operators](./02-numbers-and-operators.md), the canonical depth and structure reference, is in progress. Lesson 1 has received an expanded revision and still requires its full technical and editorial audit; Lessons 3–9 require alignment. No overall 100/100 approval is currently claimed. Learner mastery is tracked separately.  
 **Learner progress:** Lesson 1 is complete and Lesson 2 is in progress. Lessons 3–9 and the cumulative assessment remain pending.
 
 A file being present or a lesson being drafted is not evidence that the learner has mastered it. Teaching-material quality and learner progress are tracked separately.
@@ -68,6 +68,8 @@ Follow the Learning Charter's study cycle:
 
 The current written-material audit is recorded in [QUALITY-REVIEW.md](./QUALITY-REVIEW.md). It is a revision review, not a claim that all examples have been executed or that the learner has mastered the module.
 
+The mandatory chapter standard and review rubric are defined in the main [Python Curriculum Roadmap](../ROADMAP.md#canonical-lesson-standard--mandatory-for-all-nine-lessons). Lesson 2 is the benchmark; every other lesson must meet its depth and completeness while adapting the structure to its subject.
+
 A substantive lesson should include the relevant parts of:
 
 - Learning objectives, prerequisites, and study guidance
@@ -76,7 +78,7 @@ A substantive lesson should include the relevant parts of:
 - Runnable examples and expected behavior
 - Edge cases, common mistakes, and debugging guidance
 - A coding lab with explicit acceptance criteria
-- Independent exercises at increasing levels of difficulty
+- Approximately 10–12 independent exercises at increasing levels of difficulty, where appropriate to the topic
 - Explanatory model answers placed after the exercise prompts in the same lesson file
 - A knowledge check, summary, completion criteria, and reliable references
 
