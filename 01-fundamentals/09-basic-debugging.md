@@ -60,6 +60,59 @@ When reading one:
 
 A traceback identifies where the failure surfaced, not necessarily where the bad value originated.
 
+### 2.1 Example traceback, annotated
+
+The following is an illustrative traceback. File names and line numbers depend on where you run the code.
+
+~~~text
+Traceback (most recent call last):
+  File "calculator.py", line 4, in <module>
+    result = numerator / denominator
+             ~~~~~~~~~~^~~~~~~~~~~~~
+ZeroDivisionError: division by zero
+~~~
+
+Read it from the bottom:
+
+- The final line gives the exception type, ZeroDivisionError, and its message.
+- The preceding frame identifies the file and line where the exception surfaced.
+- The displayed source line shows the operation that failed.
+- The traceback may contain several frames if one function called another.
+
+A traceback is evidence about the failure path. It does not automatically explain why denominator became zero; inspect where that value was assigned and what input produced it.
+
+### 2.2 Common beginner exceptions
+
+| Exception | Typical cause at this stage | First thing to inspect |
+|---|---|---|
+| SyntaxError | Invalid source syntax, such as an unmatched quote | The indicated line and nearby delimiters |
+| NameError | A name is not defined in the current scope | Spelling and assignment order |
+| TypeError | An operation does not support the supplied type | type() of each operand |
+| ValueError | A value has the right general type but invalid content | repr() of the value and conversion rule |
+| ZeroDivisionError | A divisor is zero | The divisor and its origin |
+| IndexError | A sequence index is outside its valid range | len(sequence) and the index |
+
+The same exception can have different root causes. Diagnose the actual values and code path instead of memorizing a single fix.
+
+### 2.3 Debugging with an IDE or pdb
+
+A graphical debugger and the command-line debugger pdb provide the same essential ideas: pause at a chosen line, inspect variables, step through execution, and continue. In VS Code, a breakpoint can be set by clicking beside a line number; start the debugger and inspect the Variables and Debug Console panes.
+
+For a simple script, print(), repr(), and type() may be enough. Use a debugger when the state changes across many lines or the failure is difficult to reproduce by inspection. Debugger controls vary by editor, but the concepts do not.
+
+### 2.4 A compact defect report
+
+When you ask someone to help debug a problem, include:
+
+- **Expected:** what should have happened.
+- **Actual:** what happened instead, including the complete traceback when relevant.
+- **Reproduction:** the smallest code and exact input that reproduce it.
+- **Environment:** Python version and operating system only when relevant.
+- **Recent change:** what changed immediately before the problem appeared.
+- **Attempted diagnosis:** what you inspected and what you learned.
+
+Do not include passwords, API keys, or private data in a reproduction.
+
 ## 3. A repeatable debugging process
 
 Use this sequence:
@@ -203,9 +256,40 @@ Do not add advanced exception handling or loops yet. Explain what would be neede
 13. Why should assert not validate external input?
 14. Create a minimal example for an out-of-range string index and explain the traceback.
 
-## Exercise solutions
+## Exercise solutions — open after attempting the exercises
 
-Attempt the exercises and knowledge check before opening the separate [basic-debugging — Exercise Solutions](./09-basic-debugging-solutions.md).
+Open only after attempting the lesson.
+
+## Level 1
+1. Missing parenthesis: syntax error; division by zero: ZeroDivisionError; wrong average: logic error.
+2. A traceback shows the call path, file and line, and final exception type/message.
+3. TypeError means inappropriate type; ValueError means unacceptable value of an otherwise suitable type.
+4. repr() exposes quotes, escapes, and whitespace.
+## Level 2
+5. label = "cat"; print(label[3]) is a minimal IndexError example.
+6. Step over runs a call without entering; step into enters the called function.
+7. Record each relevant name after every statement.
+8. A breakpoint pauses execution so state can be inspected.
+9. Retest the original failure and ordinary, boundary, and invalid cases.
+## Level 3
+10. Reproduce, calculate expected output independently, inspect intermediate values/types, check units and grouping, then test one hypothesis.
+11. The bad value may have been created earlier; the failing line may only expose it.
+12. Multiple edits make cause and effect difficult to isolate.
+13. Assertions can be disabled with optimization and are for internal assumptions, not untrusted input.
+14. label = "cat"; print(label[3]). Valid indexes are 0, 1, 2; index 3 is out of range.
+## Knowledge check
+1. Syntax errors prevent parsing; runtime exceptions occur during execution; logic errors produce wrong behavior.
+2. Exception type and message.
+3. Reproduction creates a reliable test and prevents random edits.
+4. A value may have the wrong type or hidden whitespace.
+5. Smallest code/input that reproduces the issue plus expected and actual behavior.
+6. A selected pause location.
+7. Step over does not enter the call; step into does.
+8. For internal development assumptions.
+9. A fix may fail at boundaries or with other types.
+10. Symptom, input, expected/actual behavior, reproduction, cause, repair, and test evidence.
+## Lab review
+Convert both raw values, correct the formula grouping, label the unit, and test ordinary, boundary, and invalid representations. State that invalid input is not yet handled gracefully.
 
 ## Knowledge check
 
