@@ -204,7 +204,7 @@ Create input_output_lab.py.
 
 ## Exercise solutions
 
-Attempt the exercises and knowledge check before opening the separate [input-and-output — Exercise Solutions](./005-input-and-output-solutions.md).
+Attempt the exercises and knowledge check before opening the separate [input-and-output — Exercise Solutions](./05-input-and-output-solutions.md).
 
 ## Knowledge check
 

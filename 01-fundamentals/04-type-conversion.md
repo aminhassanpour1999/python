@@ -193,7 +193,7 @@ Create conversion_lab.py.
 
 ## Exercise solutions
 
-Attempt the exercises and knowledge check before opening the separate [type-conversion — Exercise Solutions](./004-type-conversion-solutions.md).
+Attempt the exercises and knowledge check before opening the separate [type-conversion — Exercise Solutions](./04-type-conversion-solutions.md).
 
 ## Knowledge check
 

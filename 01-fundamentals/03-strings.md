@@ -434,7 +434,7 @@ Do not use loops, functions, classes, or exception handling; those are later top
 
 ## Exercise solutions
 
-Attempt the exercises and knowledge check before opening the separate [strings — Exercise Solutions](./003-strings-solutions.md).
+Attempt the exercises and knowledge check before opening the separate [strings — Exercise Solutions](./03-strings-solutions.md).
 
 ## Knowledge check
 
