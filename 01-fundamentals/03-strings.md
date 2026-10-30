@@ -799,18 +799,6 @@ Open only after attempting the lesson. Equivalent correct reasoning is acceptabl
 ## Lab review
 Preserve the original, save transformations separately, use repr() to expose whitespace, test missing substrings, format units, and explain why len() is neither grapheme count nor byte count.
 
-## Knowledge check — Suggested answers
-
-1. String contents cannot be changed in place.
-2. Unicode code points.
-3. Indexing selects one position; slicing selects a range with exclusive stop.
-4. str is immutable, so methods return new strings.
-5. find() returns -1; index() raises ValueError.
-6. split() divides text; join() combines strings with a separator.
-7. :.2f controls displayed decimal places, not stored value or accuracy.
-8. They may use different code-point sequences, such as precomposed and combining forms.
-9. str is text; bytes is a sequence of byte values.
-10. Identifiers may need leading zeroes and exact formatting.
 ## Knowledge check
 
 1. What does string immutability mean?
@@ -825,7 +813,20 @@ Preserve the original, save transformations separately, use repr() to expose whi
 10. Why is a serial number usually text?
 
 
-### Summary and completion criteria
+### Knowledge check — Suggested answers
+
+1. String contents cannot be changed in place.
+2. Unicode code points.
+3. Indexing selects one position; slicing selects a range with exclusive stop.
+4. str is immutable, so methods return new strings.
+5. find() returns -1; index() raises ValueError.
+6. split() divides text; join() combines strings with a separator.
+7. :.2f controls displayed decimal places, not stored value or accuracy.
+8. They may use different code-point sequences, such as precomposed and combining forms.
+9. str is text; bytes is a sequence of byte values.
+10. Identifiers may need leading zeroes and exact formatting.
+
+## Summary and completion criteria
 
 A str is an immutable sequence of Unicode code points. Indexing selects one code point; slicing extracts a range. Methods return new strings. Search, split, join, and formatting tools should be selected according to their precise behavior. Code points, grapheme clusters, and encoded bytes are different.
 
