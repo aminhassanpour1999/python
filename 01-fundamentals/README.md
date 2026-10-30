@@ -4,7 +4,7 @@ This module builds the working foundation needed to write, read, reason about, t
 
 ## Module status
 
-**Teaching material:** Alignment against [Lesson 2 — Numbers and Operators](./02-numbers-and-operators.md), the canonical depth and structure reference, is in progress. Lesson 1 has received an expanded revision and still requires its full technical and editorial audit; Lessons 3–9 require alignment. No overall 100/100 approval is currently claimed. Learner mastery is tracked separately.  
+**Teaching material:** Alignment against [Lesson 2 — Numbers and Operators](./02-numbers-and-operators.md), the canonical depth and structure reference, is in progress. Lessons 1 and 3 have received expanded revisions and still require their full technical and editorial audits; Lessons 4–9 require alignment. No overall 100/100 approval is currently claimed. Learner mastery is tracked separately.  
 **Learner progress:** Lesson 1 is complete and Lesson 2 is in progress. Lessons 3–9 and the cumulative assessment remain pending.
 
 A file being present or a lesson being drafted is not evidence that the learner has mastered it. Teaching-material quality and learner progress are tracked separately.
