@@ -155,6 +155,92 @@ Suppose an operating frequency must be from 470 through 694 MHz. The text "900" 
 
 Write down these rules before implementing a conversion pipeline.
 
+### 9.1 A reliable conversion pipeline
+
+For numeric input, keep the original text long enough to inspect it, parse it once, then validate the parsed value against the application's rules.
+
+~~~python
+import math
+
+raw_text = " 562.5 "
+frequency_mhz = float(raw_text)
+
+is_finite = math.isfinite(frequency_mhz)
+is_in_range = 470 <= frequency_mhz <= 694
+is_acceptable = is_finite and is_in_range
+
+print(repr(raw_text))
+print(frequency_mhz)
+print(is_acceptable)
+~~~
+
+The string parses successfully and the resulting value is finite and within this example's stated range. The range is an application rule, not a rule built into float().
+
+Do not treat conversion as validation. The following values demonstrate different outcomes:
+
+| Input text | Parsing result | Possible application result |
+|---|---|---|
+| "562.5" | Parses as float | May be valid |
+| "900" | Parses as float | Outside a 470–694 MHz rule |
+| "five" | float() raises ValueError | Invalid representation |
+| "nan" | Parses as NaN | Not a finite measurement |
+| "" | float() raises ValueError | Missing/empty representation |
+
+### 9.2 Numeric conversion boundaries
+
+~~~python
+print(int(" 42 "))       # 42
+print(int("1010", 2))     # 10
+print(float("1.25e2"))    # 125.0
+print(complex("3+4j"))    # (3+4j)
+~~~
+
+The numeric constructors accept different input forms. In particular, int("3.0") raises ValueError: the text is a floating-point spelling, not an integer spelling. Use int(float("3.0")) only when truncation toward zero is actually the intended rule.
+
+A complex value cannot be converted to int or float without an explicit decision about its imaginary component:
+
+~~~python
+# int(3 + 4j) raises TypeError
+# float(3 + 4j) raises TypeError
+print(complex(3, 4))  # (3+4j)
+~~~
+
+Never silently discard the imaginary part to force a conversion.
+
+### 9.3 NaN, infinity, and comparisons
+
+~~~python
+import math
+
+not_a_number = float("nan")
+positive_infinity = float("inf")
+
+print(math.isfinite(not_a_number))       # False
+print(math.isfinite(positive_infinity))  # False
+print(not_a_number == not_a_number)      # False
+~~~
+
+NaN is unusual: it is not equal to itself, and ordinary ordering comparisons with it do not behave like comparisons with ordinary finite numbers. When a measurement must be finite, check math.isfinite() explicitly before applying ordinary range logic.
+
+### 9.4 Parse yes/no text deliberately
+
+bool("False") is True because it tests whether the string is empty. If the user enters words, define the accepted vocabulary and compare text explicitly:
+
+~~~python
+answer = " YES ".strip().casefold()
+
+if answer == "yes" or answer == "y":
+    should_continue = True
+elif answer == "no" or answer == "n":
+    should_continue = False
+else:
+    should_continue = None
+
+print(should_continue)
+~~~
+
+This previews if / elif / else, which are taught fully in Control Flow. The key idea here is that parsing words is an application rule; bool() is not a text parser.
+
 ## 10. Coding lab — Convert and assess measurements
 
 Create conversion_lab.py.
@@ -191,9 +277,36 @@ Create conversion_lab.py.
 11. How can converting readings to int before averaging change the result?
 12. Distinguish type, representation, and validity with an example.
 
-## Exercise solutions
+## Exercise solutions — open after attempting the exercises
 
-Attempt the exercises and knowledge check before opening the separate [type-conversion — Exercise Solutions](./04-type-conversion-solutions.md).
+Open only after attempting the lesson.
+
+## Level 1
+1. int("17") -> 17; float("17") -> 17.0; str(17) -> "17"; bool("0") -> True; int(-3.8) -> -3.
+2. int("2.5") and float("two") raise ValueError; int(None) raises TypeError.
+3. int(-6.8) truncates toward zero to -6; -6.8 // 1 floors to -7.0.
+## Level 2
+4. int("11110000", 2) is 240; hex(240) is "0xf0".
+5. Normalize with strip().casefold(), then compare to explicit accepted yes/y/no/n values. Reject other text.
+6. "900" parses as a number but may violate a maximum frequency of 694 MHz.
+7. Convert both raw strings with float() before division; check that elapsed time is nonzero.
+8. display = f"{value:.2f}"; the original float is unchanged.
+## Level 3
+9. "000731" is an identifier; int() discards leading zeroes.
+10. NaN is a valid floating-point special value but not a finite ordinary measurement.
+11. Truncating each reading before averaging discards fractional information and can change the answer.
+12. Type is the kind of object; representation is how it is expressed; validity is whether it meets domain rules. "900" may parse as int but fail a frequency range.
+## Knowledge check
+1. Conversion creates another type; parsing interprets a representation.
+2. int() truncates toward zero.
+3. round() applies rounding rules; int() truncates.
+4. "False" is non-empty and truthy.
+5. ValueError means unacceptable value; TypeError means inappropriate type.
+6. Yes, it may violate a range, unit, or domain constraint.
+7. Numeric conversion can remove leading zeroes and formatting.
+8. No. Formatting creates a display string.
+## Lab review
+Keep the identifier as str, parse binary text using base 2, compare truncation/rounding/floor for negatives, and distinguish parsing from domain validation.
 
 ## Knowledge check
 
