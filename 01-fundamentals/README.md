@@ -45,7 +45,7 @@ By the end of this module, you should be able to:
 
 ### D. Cumulative assessment and project
 
-10. [Programming Fundamentals — Final Assessment](./10-final-assessment.md) · [Assessment solutions](./10-final-assessment-solutions.md)
+10. [Programming Fundamentals — Final Assessment](./10-final-assessment.md)
 11. [Fundamentals Measurement Report — Project Brief](../projects/fundamentals-measurement-report/README.md)
 
 The nine lessons build in prerequisite order. Exercise prompts appear before their model answers in the same lesson file. There are no separate per-lesson solution files.
