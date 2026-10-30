@@ -1,110 +1,153 @@
 # Programming Fundamentals — Final Assessment
 
-This assessment checks the core skills in the nine Fundamentals lessons. It is designed to test reasoning and independent practice, not memorization.
+**Purpose:** Verify that you can use the nine Fundamentals lessons together, not merely recall definitions.  
+**Suggested time:** 60–75 minutes  
+**Total:** 50 points  
+**Suggested passing score:** 40/50 (80%). A passing score is a checkpoint, not proof of mastery.
 
-**Suggested time:** 40–50 minutes  
-**Total:** 30 points  
-**Suggested passing score:** 24/30 (80%). You should also be able to explain your practical code.
+## Instructions
 
-## Part A — Concepts (9 points)
+- Attempt every question before checking notes.
+- Predict outputs before running snippets.
+- Write your own code; do not copy a lesson solution.
+- For practical tasks, test more than one input.
+- Explain reasoning. Correct output without a sound explanation earns limited credit.
 
-Answer each question in 1–3 sentences. Each question is worth 1 point.
+## Part A — Core concepts (10 points)
 
-1. What does assignment do in Python, and how is `=` different from `==`?
-2. Name four common built-in types and give a valid example of each.
-3. Explain the difference between `/`, `//`, and `%`.
-4. What does it mean that strings are immutable?
-5. Why does `input()` usually need conversion before numeric arithmetic?
-6. Explain the difference between `False`, `0`, an empty string, and `None`.
-7. What is the difference between an expression and a statement?
-8. Give two style practices that make a small program easier to read.
-9. Distinguish a syntax error, a runtime exception, and a logic error.
+Answer each in 1–3 sentences. Each is worth 1 point.
 
-## Part B — Predict and explain (9 points)
+1. Explain the relationship between a name, an object, and a value.
+2. How are assignment (=), equality (==), and identity (is) different?
+3. Name the built-in scalar types introduced in Fundamentals.
+4. Explain the difference between /, //, and %.
+5. Why can 0.1 + 0.2 differ from 0.3?
+6. What does it mean that strings are immutable?
+7. What does input() return?
+8. Explain why bool("False") is True.
+9. How do an expression and a statement differ?
+10. Distinguish a syntax error, a runtime exception, and a logic error.
 
-Predict the result of each snippet before running it. Each question is worth 3 points.
+## Part B — Predict and explain (15 points)
 
-### 10. Assignment and types
+Each question is worth 3 points. Write exact output and explain the rules.
 
-```python
-value = "12"
-number = int(value) + 3
-print(number)
-print(type(value).__name__)
-```
+### 11. Names and types
 
-Write both output lines exactly and explain why the two variables have different types.
+    value = "12"
+    number = int(value) + 3
+    value = "changed"
+    print(number)
+    print(type(value).__name__)
 
-### 11. Strings and numbers
+### 12. Numeric operators
 
-```python
-label = "  Signal "
-clean_label = label.strip().lower()
-result = 7 // 2
-remainder = 7 % 2
-print(clean_label)
-print(result, remainder)
-```
+    print(7 / 2)
+    print(7 // 2)
+    print(-7 // 2)
+    print(7 % 2)
+    print(2 ** 3 ** 2)
 
-Write the exact output and explain what `strip()`, `lower()`, `//`, and `%` do here.
+### 13. Strings
 
-### 12. Boolean reasoning
+    label = "  Python "
+    cleaned = label.strip().upper()
+    print(label)
+    print(cleaned)
+    print(cleaned[1:4])
 
-```python
-reading = 0
-missing = None
-print(bool(reading))
-print(reading is None)
-print(missing is None)
-```
+### 14. Boolean logic
 
-Write the exact output and explain why zero is not the same as `None`.
+    reading = 0
+    missing = None
+    print(bool(reading))
+    print(reading is None)
+    print(missing is None)
+    print("" or "unknown")
 
-## Part C — Find and fix the problems (5 points)
+### 15. Input and conversion
 
-### 13. Debug this program (5 points)
+Assume the user enters 12.5 when prompted:
 
-```python
-first_text = input("Enter the first measurement: ")
-second_text = input("Enter the second measurement: ")
+    value_text = input("Value: ")
+    print(type(value_text).__name__)
+    value = float(value_text)
+    print(value + 0.5)
 
-first_measurement = float(first_text)
-second_measurement = float(second_text)
+Write the two output lines produced after the prompt and explain the type change.
 
-average = (first_measurement + second_measurement) / 2
-print("Average: " + average)
-```
+## Part C — Find and repair defects (10 points)
 
-Identify at least two problems that prevent the program from working as intended. Rewrite the relevant lines, then explain how you would test your fix. You should notice that text input must be converted to numbers, and that a number cannot be concatenated directly to a string with `+`. You do not need to add advanced exception handling.
+### 16. Debug the calculator (5 points)
 
-## Part D — Practical task (7 points)
+    first_text = input("First measurement: ")
+    second_text = input("Second measurement: ")
 
-### 14. Build a measurement summary
+    first = float(first_text)
+    second = float(second_text)
 
-Create `fundamentals_assessment.py` that:
+    average = first + second / 2
+    print("Average: " + average)
 
-- (1 point) Uses meaningful variable names and stores two measurements.
-- (2 points) Correctly converts text input to numeric values and calculates their average.
-- (1 point) Prints a clearly labelled result using an f-string.
-- (1 point) Includes a short comment only where it adds useful context.
-- (1 point) Is tested with at least two different pairs of values; you predict each result before running it.
-- (1 point) Includes a short note describing one limitation and one improvement you would make next.
+Identify two defects that prevent or compromise the intended result. Rewrite the relevant lines and explain how you would verify the repair.
 
-You may choose your own measurements. Do not use the lesson examples as your only test case.
+### 17. Debug the text handling (5 points)
+
+    label = "  receiver-01  "
+    label.strip()
+    label.replace("-", "_")
+    print(label[50])
+
+Identify the problems and rewrite the code to produce the cleaned label RECEIVER_01. Explain the difference between indexing and slicing if you use a slice.
+
+## Part D — Practical task (15 points)
+
+### 18. Build a command-line measurement summary
+
+Create fundamentals_assessment.py. Your program must:
+
+1. Ask the user for two measurements and state the expected unit. (2 points)
+2. Convert the input strings to numeric values explicitly. (2 points)
+3. Calculate the average with correct grouping. (2 points)
+4. Print both inputs and the average using readable f-strings, labels, units, and sensible precision. (2 points)
+5. Use meaningful names and consistent style. (2 points)
+6. Include one useful comment only if it explains intent or an assumption. (1 point)
+7. Test at least three pairs of values, including decimals and a boundary or unusual case. Predict each result before running. (2 points)
+8. Write a short note describing one limitation and one improvement you would add in a later module. (2 points)
+
+Do not add advanced exception handling; explain how invalid input currently behaves.
 
 ## Scoring guide
 
-- **27–30:** Strong command of the module's foundations.
-- **24–26:** Ready to continue; review any missed concepts.
-- **18–23:** Review the corresponding lessons and retry the missed questions.
-- **0–17:** Revisit the module and practice each concept before moving on.
+| Score | Interpretation | Next action |
+|---:|---|---|
+| 45–50 | Strong independent command | Review minor errors, then continue |
+| 40–44 | Ready with targeted review | Revisit missed topics before Control Flow |
+| 32–39 | Partial understanding | Review relevant lessons and retry |
+| 0–31 | Foundations need more practice | Re-study and complete labs |
 
-A passing score is a checkpoint, not proof of mastery. Explain your reasoning and make sure your program works for more than one test case.
+## Review map
 
-## Review checklist
+| Missed area | Revisit |
+|---|---|
+| Names, objects, assignment, types | Lesson 1 |
+| Numeric operations, precedence, precision | Lesson 2 |
+| Indexing, slicing, methods, formatting | Lesson 3 |
+| Conversion and conversion errors | Lesson 4 |
+| input(), print(), prompts, output | Lesson 5 |
+| Truthiness, Boolean logic, None | Lesson 6 |
+| Expressions, statements, tracing | Lesson 7 |
+| Comments and readability | Lesson 8 |
+| Tracebacks and debugging | Lesson 9 |
 
-- [ ] I predicted the output before executing each snippet.
-- [ ] I can explain the relevant types and operations.
-- [ ] I identified and fixed the debugging task's problems.
-- [ ] I wrote and ran my own practical program.
-- [ ] I tested more than one input and reviewed my mistakes.
+## Independent mastery checklist
+
+- [ ] I answered concepts without copying.
+- [ ] I predicted every snippet before running it.
+- [ ] I repaired both defective programs and explained why.
+- [ ] I wrote the practical program myself.
+- [ ] I tested multiple inputs and reviewed every mistake.
+- [ ] I can explain my code line by line.
+- [ ] I can solve a similar new task without following the assessment template.
+
+A score alone does not mark the module as demonstrated. Discuss missed questions, retry them later without notes, and demonstrate the skills in a new problem.

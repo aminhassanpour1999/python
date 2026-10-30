@@ -1,71 +1,85 @@
 # Programming Fundamentals
 
-This module develops the basic Python skills needed to write, read, test, and debug small programs. It follows Introduction and comes before Control Flow.
+This module develops the basic Python knowledge needed to read, write, reason about, test, and debug small straight-line programs. It follows Introduction and prepares you for Control Flow.
 
-> **Status:** The module structure is organized. Lessons 1–2 contain substantial teaching notes; Lessons 3–9 are currently outlines, and the assessment is available. File completeness and learning progress are tracked separately. Preserve the useful depth of the existing lessons: do not shorten them just to reduce length. Improve them by checking technical accuracy, conceptual order, examples, exercises, answer quality, and references. Mark learner progress only after actual study and practice.
+## Module status
+
+<badge>Teaching material: complete draft</badge>
+
+All nine teaching lessons and the final assessment now have substantive material. This is a **content status**, not a learner mastery claim. Your study progress remains unverified until each lesson has been studied, practiced independently, and reviewed.
 
 ## Learning outcomes
 
 By the end of this module, you should be able to:
 
-- Use names, values, and common built-in types accurately.
-- Perform and explain basic numeric operations.
-- Work with text and format readable output.
-- Convert text to numeric values and recognize common conversion failures.
-- Build simple interactive programs with clear prompts and results.
-- Reason about booleans, truthiness, and `None`.
-- Trace expressions and statements through a short program.
-- Follow basic readable-code conventions.
-- Diagnose and fix beginner-level errors systematically.
+- Explain names, objects, values, assignment, rebinding, and basic built-in scalar types.
+- Perform numeric calculations and reason about precedence, complex values, bitwise operations, and floating-point limitations.
+- Work with strings, indexing, slicing, immutability, common methods, Unicode basics, and f-string formatting.
+- Convert values deliberately and distinguish conversion from validation.
+- Build small command-line interactions with print() and input().
+- Reason about Boolean values, truthiness, short-circuiting, and None.
+- Distinguish expressions from statements and trace straight-line programs.
+- Write readable code using basic PEP 8 conventions.
+- Diagnose syntax errors, runtime exceptions, and logic errors systematically.
 
 ## Lesson map
 
-### Section A — Values and expressions
+### A. Values, expressions, and text
 
 1. [Variables and Data Types](./01-variables-and-data-types.md)
 2. [Numbers and Operators](./02-numbers-and-operators.md)
 3. [Strings](./03-strings.md)
 4. [Type Conversion](./04-type-conversion.md)
 
-### Section B — Interaction and logic
+### B. Interaction and logic
 
 5. [Input and Output](./05-input-and-output.md)
 6. [Booleans and None](./06-booleans-and-none.md)
 7. [Expressions and Statements](./07-expressions-and-statements.md)
 
-### Section C — Writing and troubleshooting
+### C. Writing and troubleshooting
 
 8. [Comments and Code Style](./08-comments-and-code-style.md)
 9. [Basic Debugging](./09-basic-debugging.md)
 
-### Section D — Assessment
+### D. Assessment
 
 10. [Programming Fundamentals — Final Assessment](./10-final-assessment.md)
 
-The numbered lesson files are intentionally separate so each topic can be studied, practiced, and reviewed independently. The three teaching sections above make the progression easy to see; the assessment is a checkpoint, not a teaching lesson.
+The nine lessons build concepts in prerequisite order. The assessment is a cumulative checkpoint, not a teaching lesson.
 
-## Recommended study workflow
+## How to study each lesson
 
-For each lesson:
+Follow the Learning Charter's study cycle, adapting it to the topic:
 
-1. Read and discuss the concept before memorizing terminology.
-2. Predict the output of each example before running it.
-3. Run the example and change at least one value.
-4. Complete exercises without copying a solution first.
-5. Explain one common mistake and how to diagnose it.
-6. Review mistakes before marking the lesson as studied.
+1. Understand the goal and prerequisites.
+2. Read the explanation and identify the mental model.
+3. Predict example output before execution.
+4. Type, run, modify, and deliberately test examples.
+5. Attempt independent exercises without opening the answer key.
+6. Debug errors using evidence and explain the fix.
+7. Connect the idea to earlier lessons and practical code.
+8. Complete the lab and review from memory.
+9. Update progress only after demonstrating the skill.
 
-Each lesson should eventually contain:
+## Content standard
 
-- Learning objectives and clearly named sub-sections
-- Explanations and runnable, syntax-highlighted examples
-- A coding lab connected to practical programming
-- Exercises that progress from basic to independent problem-solving
-- A knowledge check and official references
+Each lesson contains the relevant parts of the following:
 
-## Progress tracker
+- Learning objectives, prerequisites, and study guidance
+- Conceptual explanations and precise terminology
+- Runnable examples and expected behavior
+- Important distinctions, edge cases, and common mistakes
+- A coding lab
+- Independent exercises and an answer key
+- A knowledge check, summary, and completion criteria
+- Official Python references
 
-Tick a lesson only after studying its content, attempting the exercises, and reviewing mistakes. Lesson files provide teaching material, but completion should reflect actual study and practice—not the existence of a file.
+Not every lesson needs a separate mini-project; a focused lab is preferable when it teaches the concept more directly. Cumulative projects belong in the Projects section.
+
+## Learner progress tracker
+
+Tick a lesson only after studying it, attempting the exercises, and reviewing mistakes. Do not mark it complete merely because its notes exist.
 
 - [ ] 01 — Variables and Data Types
 - [ ] 02 — Numbers and Operators
@@ -78,25 +92,30 @@ Tick a lesson only after studying its content, attempting the exercises, and rev
 - [ ] 09 — Basic Debugging
 - [ ] 10 — Final Assessment
 
-## Completion criteria
+## Module completion criteria
 
-Before moving to Control Flow, aim to:
+Before moving to Control Flow, you should be able to:
 
-- Explain and use the common types without confusing text and numbers.
-- Predict and verify the result of basic expressions.
-- Write a small interactive numeric program.
-- Explain the difference between `None` and ordinary falsy values.
-- Improve the readability of a short script.
-- Diagnose and repair common beginner errors.
-- Complete the [final assessment](./10-final-assessment.md) and review every missed question.
+- Explain and use the concepts in all nine lessons without copying examples.
+- Predict and explain results of unfamiliar expressions.
+- Write a small command-line program using text, numeric conversion, calculations, Boolean checks, and readable output.
+- Test ordinary, boundary, and invalid cases.
+- Read and diagnose beginner-level errors.
+- Complete the final assessment with at least 80%, then review and retry missed areas.
+- Demonstrate the same skills in a new task that is not copied from the assessment.
+
+A passing score is necessary evidence, not an automatic mastery label. The roadmap's **Demonstrated** status requires independent performance and explanation.
 
 ## Scope boundaries
 
-This module intentionally does **not** teach conditions and loops in depth, collections such as lists and dictionaries, functions, exception handling, file I/O, modules, or object-oriented programming. Those topics belong in later modules, where they can be taught in a deliberate order. Basic validation and error messages may be mentioned here, but robust exception handling comes later.
+This module intentionally does not teach conditions and loops in depth, collections in depth, functions, robust exception handling, file I/O, modules, or object-oriented programming. Those topics have dedicated later modules. We may preview a later concept when needed to explain a small example, but we will not depend on it before its proper lesson.
+
+Scientific computing, mathematics, signals and systems, communications, and machine learning are separate subject areas and repositories. Examples may use familiar measurement contexts, but no specialist engineering knowledge is required to complete Fundamentals.
 
 ## Official references
 
-- [The Python Tutorial](https://docs.python.org/3/tutorial/index.html)
+- [The Python Tutorial](https://docs.python.org/3/tutorial/)
+- [Python Language Reference](https://docs.python.org/3/reference/)
 - [Built-in Functions](https://docs.python.org/3/library/functions.html)
 - [Built-in Types](https://docs.python.org/3/library/stdtypes.html)
 - [PEP 8 — Style Guide for Python Code](https://peps.python.org/pep-0008/)

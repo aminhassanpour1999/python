@@ -55,56 +55,35 @@ A file being present, a lesson being read, or code being copied is not sufficien
 ## Stage 1 — Programming Fundamentals
 
 **Repository section:** [01-fundamentals](./01-fundamentals/README.md)  
-**Status:** In progress. Study each lesson before marking it complete.
+**Teaching-material status:** Complete draft for all nine lessons and the cumulative assessment.  
+**Learner status:** In progress; do not mark any lesson demonstrated without independent study and practice.
 
-### A. Values, names, and expressions
+This stage teaches the minimum complete working foundation for writing, reading, reasoning about, and debugging small straight-line Python programs. It deliberately stops before branching and loops, which belong to Stage 2.
 
-- Names, objects, values, assignment, rebinding, and object identity
-- Identifier rules, naming conventions, keywords, and avoiding built-in-name shadowing
-- Built-in scalar types: `int`, `float`, `complex`, `bool`, `str`, and `NoneType`
-- Inspecting values and types; equality (`==`) versus identity (`is`)
-- Numeric literals, type conversion, and conversion failures
-- Expressions versus statements; evaluation order and side effects at an introductory level
+### Lesson sequence and required coverage
 
-### B. Numbers and operators — required coverage
+1. **Variables and Data Types** — names, objects, values, assignment and rebinding; identifiers and keywords; naming; built-in scalar types `int`, `float`, `complex`, `str`, `bool`, and `NoneType`; dynamic typing; `type()`; equality versus identity; common mistakes.
+2. **Numbers and Operators** — integer, floating-point, and complex literals; arithmetic; true division, floor division and modulo; unary operators; precedence and associativity; chained comparisons; Boolean operators and short-circuiting; augmented assignment; all six bitwise operators and masks; negative-integer inversion and shifts; floating-point representation, tolerance, rounding and formatting; `math`, `cmath`, `Decimal`, `Fraction`; numeric built-ins; units and readable formulas.
+3. **Strings** — literals, quoting, escapes, raw and multiline strings; length, indexing, slicing; immutability; concatenation and repetition; membership and comparisons; common string methods; split/join; f-strings and format specifications; Unicode code points and practical text assumptions.
+4. **Type Conversion** — `int()`, `float()`, `str()`, `bool()`; numeric promotion; base conversion; truncation versus rounding; information loss; `ValueError` and `TypeError`; conversion versus validation.
+5. **Input and Output** — `print()`, multiple arguments, `sep`, `end`; `input()` and its string return value; prompt design; input → conversion → calculation → output; labels, units, formatting, reproducible fixed-data tests, and basic validation awareness.
+6. **Booleans and None** — Boolean values; comparisons; truthiness and common falsy values; distinction between falsey values and `None`; `and`, `or`, `not`; truth tables; short-circuit evaluation; operand-return behavior; `is None`.
+7. **Expressions and Statements** — expressions and values; statements and actions; assignment evaluation; multiple and chained assignment previews; precedence; side effects; tracing; syntax, runtime, and logic errors; readable calculations.
+8. **Comments and Code Style** — useful comments; strings versus docstrings; naming; constants; whitespace and indentation; PEP 8 basics; units in names; introductory refactoring and behavior verification.
+9. **Basic Debugging** — error categories; tracebacks; common exceptions; inspecting values and types; `repr()`; minimal reproducible examples; hypothesis-driven debugging; debugger concepts; appropriate and inappropriate uses of `assert`.
 
-The current lesson, [Numbers and Operators](./01-fundamentals/02-numbers-and-operators.md), must cover the following before it is considered complete:
+### Coverage levels
 
-- Integer, floating-point, and complex-number literals and basic operations. For `complex`, cover real/imaginary parts, arithmetic, `abs()`, conjugation, and why ordering comparisons such as `<` are unsupported.
-- Arithmetic operators: `+`, `-`, `*`, `/`, `//`, `%`, and `**`
-- Unary signs; operator precedence and associativity, including important edge cases. Include a clear precedence reference and link the full official precedence table; distinguish groups taught now from syntax introduced later.
-- Comparisons and chained comparisons
-- Boolean operators (`not`, `and`, `or`) and short-circuit evaluation
-- Augmented assignment (`+=`, `-=`, and related forms)
-- Bitwise operators: `&`, `|`, `^`, `~`, `<<`, and `>>`; binary representation, masks, and practical examples. Explain `~x == -x - 1`, shift behavior (including negative integers), and that these operators are for integer bit operations, not fractional numeric values.
-- Difference between floor division and truncation, modulo sign behavior, and division by zero
-- Floating-point representation, rounding, formatting, tolerances, and when `math.isclose()` or `decimal.Decimal` is appropriate
-- Useful built-ins (`abs`, `round`, `pow`, `divmod`, `min`, `max`, `sum`) and selected `math` functions; introduce `cmath` for complex-valued math and explain when `decimal.Decimal` or `fractions.Fraction` is appropriate.
-- Units, dimensional awareness, readable formulas, and measurement calculations
-- A brief distinction between ordinary operator use and Python's numeric data model; deep operator overloading is deferred to Stage 5
+- **Introduce and use:** syntax and everyday semantics for every item above.
+- **Use safely:** common mistakes, boundaries, conversion failures, and numeric precision decisions.
+- **Understand conceptually:** object identity, Unicode code points, short-circuiting, side effects, and debugger workflow.
+- **Deferred deliberately:** loops and branching, collections in depth, functions, robust exception handling, file I/O, modules, classes, testing frameworks, and advanced internals. Each has a later curriculum home.
 
-**Scope note:** This is a comprehensive foundational treatment, not a full account of every numerical algorithm or every implementation detail. Complex numbers and bitwise operators are not optional omissions: they belong in this lesson at an introductory, usable level. Their engineering and implementation details can be revisited later.
+### Assessment and exit criteria
 
-### C. Text and input/output
+Complete the [Programming Fundamentals final assessment](./01-fundamentals/10-final-assessment.md) and score at least 40/50. Review every missed topic and retry it without notes. Then solve a new small command-line task that combines text, conversion, numeric operations, Boolean reasoning, formatting, and debugging. The learner may be marked **Demonstrated** only after independently explaining and completing that work.
 
-- String literals, quoting, escape sequences, and multiline strings
-- Indexing, slicing, immutability, and common string operations
-- String methods and membership tests
-- String formatting: f-strings, format specifications, alignment, precision, and readable output
-- `input()`, prompts, and the fact that input returns text
-- Converting user input and handling invalid input at a basic level
-
-### D. Boolean logic and simple program reasoning
-
-- `bool`, truth values, truthiness, and falsy values
-- `None`, identity checks, and when `is None` is appropriate
-- Expressions, statements, assignment expressions only when useful, and evaluation order
-- Comments, whitespace, readable names, basic PEP 8 conventions
-- Syntax errors, runtime errors, common exceptions, and systematic beginner debugging
-
-### Stage 1 assessment
-
-Write small programs that combine numeric calculations, strings, input/output, conversion, and Boolean logic. Predict results before running them, test boundary cases, explain failures, and complete the Programming Fundamentals assessment.
+**Scope note:** Fundamentals is comprehensive for its intended stage, not a claim to teach all of Python. Python is too broad for one beginner module. The roadmap preserves every important later topic in its proper stage rather than forcing advanced features into the foundation.
 
 ## Stage 2 — Control Flow
 
@@ -313,11 +292,11 @@ These are known coverage requirements to check during lesson development. A row 
 
 | Topic | Planned home | Required coverage | Current status |
 |---|---|---|---|
-| Complex numbers (`complex`) | Stage 1: Numbers and Operators; revisit Stage 9–10 | Literals, real/imaginary parts, arithmetic, magnitude with `abs()`, conjugation, unsupported ordering comparisons, and later engineering applications | **Added to Lesson 2; learner practice/sign-off pending** |
+| Complex numbers (`complex`) | Stage 1: Numbers and Operators; revisit Stage 9–10 | Literals, real/imaginary parts, arithmetic, magnitude with `abs()`, conjugation, unsupported ordering comparisons, and later engineering applications | **Teaching material present; learner practice/sign-off pending** |
 | Bitwise operators | Stage 1: Numbers and Operators; revisit in practical computing | All six operators, binary examples, shifts, masks, negative-integer behavior, and practice | **Added to Lesson 2; learner practice/sign-off pending** |
-| Operator precedence and associativity | Stage 1, then revisit when new syntax appears | Teach arithmetic, shifts, bitwise, comparisons, identity/membership, Boolean, conditional, lambda, and assignment-expression precedence at the appropriate point; include the official full table as a reference and work through edge cases | **Core operators and edge cases added to Lesson 2; later syntax revisited in its lessons; learner practice pending** |
+| Operator precedence and associativity | Stage 1, then revisit when new syntax appears | Teach arithmetic, shifts, bitwise, comparisons, identity/membership, Boolean, conditional, lambda, and assignment-expression precedence at the appropriate point; include the official full table as a reference and work through edge cases | **Core operator coverage present in Lesson 2; later syntax revisited in its lessons; learner practice pending** |
 | Numeric data model and protocols | Stage 5: OOP and Python Data Model | Special methods, dispatch model, reflected/in-place operations, comparisons, conversion protocols, consistency and tests | **Planned** |
-| Floating-point and numerical error | Stage 1 introduction; Stage 9 depth | Representation, rounding, tolerances, error, conditioning, stability, and practical decision-making | **Introductory coverage present; advanced coverage planned** |
+| Floating-point and numerical error | Stage 1 introduction; Stage 9 depth | Representation, rounding, tolerances, error, conditioning, stability, and practical decision-making | **Introductory coverage present in Lesson 2; advanced numerical coverage planned for Stage 9** |
 | Numerical algorithms | Stage 9: Scientific Python | Root finding, interpolation, differentiation/integration, linear systems, optimization, convergence and error | **Planned** |
 | NumPy and scientific tools | Stage 9 | Arrays, dtypes, broadcasting, vectorization, linear algebra, data analysis and visualization | **Planned** |
 | Engineering applications | Stage 10 | Signals, complex-valued data, FFT, filtering, modulation, reproducible experiments and evaluation | **Planned** |
