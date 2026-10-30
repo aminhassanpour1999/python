@@ -56,7 +56,7 @@ A file being present, a lesson being read, or code being copied is not sufficien
 
 **Repository section:** [01-fundamentals](./01-fundamentals/README.md)  
 **Teaching-material status:** Complete draft for all nine lessons and the cumulative assessment.  
-**Learner status:** In progress; do not mark any lesson demonstrated without independent study and practice.
+**Learner status:** Lesson 1 is complete and Lesson 2 is in progress, based on the learner's confirmed study position. Lessons 3–9 and the cumulative assessment remain pending. Do not mark a lesson demonstrated without independent study and practice.
 
 This stage teaches the minimum complete working foundation for writing, reading, reasoning about, and debugging small straight-line Python programs. It deliberately stops before branching and loops, which belong to Stage 2.
 
