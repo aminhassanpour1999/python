@@ -55,16 +55,16 @@ A file being present, a lesson being read, or code being copied is not sufficien
 ## Stage 1 — Programming Fundamentals
 
 **Repository section:** [01-fundamentals](./01-fundamentals/README.md)  
-**Teaching-material status:** Complete draft for all nine lessons and the cumulative assessment.  
+**Teaching-material status:** Expanded revision prepared; independent content audit and runtime verification remain in progress.  
 **Learner status:** Lesson 1 is complete and Lesson 2 is in progress, based on the learner's confirmed study position. Lessons 3–9 and the cumulative assessment remain pending. Do not mark a lesson demonstrated without independent study and practice.
 
-This stage teaches the minimum complete working foundation for writing, reading, reasoning about, and debugging small straight-line Python programs. It deliberately stops before branching and loops, which belong to Stage 2.
+This stage teaches a complete stage-appropriate foundation for writing, reading, reasoning about, and debugging small straight-line Python programs. Completeness here means mastery of the listed beginner-level concepts, not mastery of all Python or professional senior-level ability. It deliberately stops before branching and loops, which belong to Stage 2.
 
 ### Lesson sequence and required coverage
 
 1. **Variables and Data Types** — names, objects, values, assignment and rebinding; identifiers and keywords; naming; built-in scalar types `int`, `float`, `complex`, `str`, `bool`, and `NoneType`; dynamic typing; `type()`; equality versus identity; common mistakes.
 2. **Numbers and Operators** — integer, floating-point, and complex literals; arithmetic; true division, floor division and modulo; unary operators; precedence and associativity; chained comparisons; Boolean operators and short-circuiting; augmented assignment; all six bitwise operators and masks; negative-integer inversion and shifts; floating-point representation, tolerance, rounding and formatting; `math`, `cmath`, `Decimal`, `Fraction`; numeric built-ins; units and readable formulas.
-3. **Strings** — literals, quoting, escapes, raw and multiline strings; length, indexing, slicing; immutability; concatenation and repetition; membership and comparisons; common string methods; split/join; f-strings and format specifications; Unicode code points and practical text assumptions.
+3. **Strings** — literals, quoting, escapes, raw and multiline strings; length, indexing, slicing; immutability; concatenation and repetition; membership and lexicographic comparisons; search and classification methods; trimming, exact prefix/suffix removal, replacement, splitting, partitioning, joining, alignment and padding; f-strings and format specifications; Unicode code points, normalization, grapheme clusters, and the distinction between str and encoded bytes.
 4. **Type Conversion** — `int()`, `float()`, `str()`, `bool()`; numeric promotion; base conversion; truncation versus rounding; information loss; `ValueError` and `TypeError`; conversion versus validation.
 5. **Input and Output** — `print()`, multiple arguments, `sep`, `end`; `input()` and its string return value; prompt design; input → conversion → calculation → output; labels, units, formatting, reproducible fixed-data tests, and basic validation awareness.
 6. **Booleans and None** — Boolean values; comparisons; truthiness and common falsy values; distinction between falsey values and `None`; `and`, `or`, `not`; truth tables; short-circuit evaluation; operand-return behavior; `is None`.
@@ -72,7 +72,9 @@ This stage teaches the minimum complete working foundation for writing, reading,
 8. **Comments and Code Style** — useful comments; strings versus docstrings; naming; constants; whitespace and indentation; PEP 8 basics; units in names; introductory refactoring and behavior verification.
 9. **Basic Debugging** — error categories; tracebacks; common exceptions; inspecting values and types; `repr()`; minimal reproducible examples; hypothesis-driven debugging; debugger concepts; appropriate and inappropriate uses of `assert`.
 
-### Coverage levels
+### Teaching assets and coverage levels
+
+Each lesson has a separate exercise-solutions file so learners can attempt questions before viewing answers. The module also includes a cumulative 50-point assessment and a stage-appropriate measurement-report project brief. See the [module guide](./01-fundamentals/README.md).
 
 - **Introduce and use:** syntax and everyday semantics for every item above.
 - **Use safely:** common mistakes, boundaries, conversion failures, and numeric precision decisions.

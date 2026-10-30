@@ -1,268 +1,465 @@
 # Strings
 
-**Module:** Programming Fundamentals  
-**Lesson:** 3 of 9 · **Level:** Beginner · **Study time:** 75–90 minutes  
-**Prerequisites:** Variables and Data Types; basic expressions
+**Prerequisites:** Variables and Data Types; Numbers and Operators  
+**Study time:** 90–120 minutes plus independent practice
 
-## Purpose and learning objectives
+## Purpose and learning outcomes
 
-Strings (type str) represent text. They are used for labels, messages, user input, identifiers, and text data. By the end of this lesson, you should be able to create string literals; explain quoting and escape sequences; use length, indexing, and slicing; explain immutability; combine and compare strings; use common methods; format values with f-strings; and recognize basic Unicode issues.
+Text is data: labels, names, identifiers, prompts, messages, and structured records. This lesson teaches a reliable mental model for Python strings, rather than a list of methods to memorize.
 
-## 1. String literals
+By the end, you can create and inspect string literals; explain immutability; use indexing, slicing, searching, splitting, joining, and formatting; recognize Unicode pitfalls; and test text-processing code with edge cases.
 
-A string literal is text enclosed in quotes. Single and double quotes have the same meaning:
+## 1. The string mental model
 
-    language = 'Python'
-    message = "It's a useful language."
-    quotation = 'She said, "Hello!"'
+A Python string is an immutable sequence of Unicode code points. It is an object of type str. A string may be empty.
 
-Choose the quote style that makes the text easiest to read. A quote can also be escaped with a backslash:
+~~~python
+empty = ""
+message = "Hello, Python!"
+symbol = "Ω"
 
-    message = 'It\'s Python.'
+print(type(message))  # <class 'str'>
+print(len(empty))     # 0
+print(len(message))   # 14
+print(len(symbol))    # 1
+~~~
 
-Common escape sequences:
+The quote characters delimit a literal in source code; they are not part of its value. Single and double quotes create the same type. Choose the style that makes the text readable.
 
-| Sequence | Meaning |
+~~~python
+first = 'Python'
+second = "Python"
+sentence = "It's Python."
+escaped = 'It\'s Python.'
+print(first == second)  # True
+~~~
+
+## 2. String literals and escapes
+
+A backslash introduces an escape sequence in an ordinary string literal.
+
+| Escape | Meaning |
 |---|---|
 | \\n | Newline |
-| \\t | Horizontal tab |
+| \\t | Tab |
+| \\\\ | Backslash |
+| \\' / \\" | Quote |
 | \\r | Carriage return |
-| \\\\ | Literal backslash |
-| \\' or \\" | Quote character |
-| \\uXXXX | Unicode code point |
+| \\b | Backspace |
+| \\xhh | Hexadecimal code point |
+| \\uXXXX | Four-digit Unicode escape |
+| \\UXXXXXXXX | Eight-digit Unicode escape |
 
-    report = "Name:\tReceiver\nStatus:\tOnline"
-    print(report)
+~~~python
+message = "first line\nsecond line"
+path = "folder\\file.txt"
+print(message)
+print(repr(path))
+~~~
 
-Triple single or double quotes allow multiline strings. Newlines and indentation inside the literal are part of the string. Triple-quoted strings are also used for docstrings later; they are not comments.
+Expected output:
 
-A raw string literal has an r prefix. It is useful for text containing many backslashes, such as regular-expression patterns and Windows-style paths:
+~~~text
+first line
+second line
+'folder\\file.txt'
+~~~
 
-    path = r"C:\Users\Amin\Documents"
-    pattern = r"\d+"
+The built-in repr() gives a debugging representation that makes many invisible characters visible. It is not the same as user-facing output.
 
-Raw strings are still str objects. A raw string cannot end with an odd number of backslashes because the final backslash would escape the closing quote.
+### Raw and multiline literals
 
-## 2. Length, indexing, and slicing
+A raw literal uses the r prefix. It is useful for patterns and path examples, but it is still an ordinary str object; raw describes literal parsing, not a special runtime type.
 
-Use len(text) to get the number of Unicode code points:
+~~~python
+ordinary = "A\nB"
+raw = r"A\nB"
+print(repr(ordinary))
+print(repr(raw))
+~~~
 
-    word = "Python"
-    print(len(word))  # 6
+A raw literal cannot end with an odd number of backslashes because the final slash would escape the closing quote. Triple-quoted literals can span lines; the line breaks and indentation inside them become part of the value.
 
-Indexes start at zero. Negative indexes count from the end:
+~~~python
+message = """First line
+Second line
+Third line"""
+print(message)
+~~~
 
-    print(word[0])   # P
-    print(word[1])   # y
-    print(word[-1])  # n
-    print(word[-2])  # o
+Triple quotes do not automatically make a comment. In a documented module, class, or function, a string in the docstring position has a special documentation role; that is covered in Code Style.
 
-An index outside the valid range raises IndexError. For a string of length n, valid positive indexes are 0 through n-1 and valid negative indexes are -n through -1.
+## 3. Length, indexing, and slicing
 
-A slice extracts a range:
+Indexing selects one code point. Positive indexes begin at zero; negative indexes count from the end.
 
-    text = "0123456789"
-    print(text[1:5])   # 1234
-    print(text[:3])    # 012
-    print(text[6:])    # 6789
-    print(text[::2])   # 02468
-    print(text[::-1])  # 9876543210
+~~~python
+word = "PYTHON"
+print(len(word))  # 6
+print(word[0])    # P
+print(word[-1])   # N
+print(word[-2])   # O
+~~~
 
-The general form is sequence[start:stop:step]. The start is included; the stop is excluded. Omitted values use defaults. A slice extending beyond the string boundaries is clipped rather than raising IndexError. This differs from indexing a single position.
+The general slice form is sequence[start:stop:step]. The start is included and stop is excluded. Any of the three parts may be omitted. Step cannot be zero.
 
-## 3. Immutability
+~~~python
+word = "PYTHON"
+print(word[1:4])   # YTH
+print(word[:3])    # PYT
+print(word[3:])    # HON
+print(word[::2])   # PTO
+print(word[::-1])  # NOHTYP
+print(word[2:2])   # ''
+print(word[:100])  # PYTHON
+~~~
 
-Strings are immutable: their contents cannot be changed in place.
+An out-of-range index raises IndexError; slice boundaries are clipped. This difference is intentional: indexing asks for one existing position, while slicing asks for a range.
 
-    word = "Python"
-    # word[0] = "J"  # TypeError
-    new_word = "J" + word[1:]
-    print(word)      # Python
-    print(new_word)  # Jython
+~~~python
+word = "cat"
+# word[10] raises IndexError
+print(word[0:10])  # cat
+~~~
 
-String methods also return new strings rather than modifying the original:
+## 4. Immutability
 
-    label = "  SIGNAL  "
-    cleaned = label.strip().lower()
-    print(label)    #   SIGNAL
-    print(cleaned)  # signal
+A string cannot be changed in place. An expression such as text[0] = "J" raises TypeError. Build a new string and rebind the name instead.
 
-If you want the transformed result under the original name, reassign it explicitly: label = label.strip().
+~~~python
+language = "Python"
+language = "J" + language[1:]
+print(language)  # Jython
+~~~
 
-## 4. Combining, repeating, and comparing strings
+String methods also return new strings. If the result is discarded, the original remains unchanged.
 
-The + operator concatenates strings. Both operands must be strings:
+~~~python
+label = "  receiver-01  "
+label.strip()
+print(repr(label))  # spaces remain
 
-    first = "Ada"
-    last = "Lovelace"
-    full_name = first + " " + last
+cleaned = label.strip()
+print(repr(cleaned))  # 'receiver-01'
+~~~
 
-The * operator repeats a string when multiplied by an integer:
+This is one of the most common string bugs: calling a method without using its return value.
 
-    print("ha" * 3)  # hahaha
-    print("-" * 20)
+## 5. Combining, comparing, and searching
 
-Use in and not in to test substring membership. These checks are case-sensitive:
+The + operator concatenates strings; * repeats a string. Neither automatically converts arbitrary values to text.
 
-    print("Python" in "Python is readable")  # True
-    print("python" in "Python is readable")  # False
+~~~python
+name = "radio" + " " + "signal"
+rule = "-" * 12
+print(name)
+print(rule)
+print(f"Count: {12}")
+~~~
 
-Strings support equality and ordering comparisons. Ordering is based on Unicode code points, not language-aware dictionary order. For ordinary labels, equality is usually what you need.
+For many pieces, str.join() is usually clearer and more efficient than repeated concatenation. The separator is the string on which join() is called, and every item must itself be a string.
 
-## 5. Useful string methods
+Membership checks for a substring and is case-sensitive.
 
-| Method | Purpose |
+~~~python
+filename = "report_final.csv"
+print(".csv" in filename)       # True
+print("draft" not in filename)  # True
+~~~
+
+Strings compare lexicographically by Unicode code point values, not as numbers or necessarily as human dictionary order.
+
+~~~python
+print("python" == "Python")  # False
+print("A" < "B")             # True
+print("10" < "2")            # True
+~~~
+
+If numeric ordering is required, parse numeric text first. Locale-aware sorting and linguistic collation are separate topics.
+
+### Search operations
+
+| Operation | Behavior when absent |
 |---|---|
-| lower(), upper(), casefold() | Change letter case; casefold is intended for caseless matching |
-| capitalize(), title() | Apply simple capitalization conventions |
-| strip(), lstrip(), rstrip() | Remove whitespace or specified characters from the ends |
-| replace(old, new) | Return a string with occurrences replaced |
-| find(sub) | Return first position, or -1 if absent |
-| index(sub) | Return first position, or raise ValueError if absent |
-| count(sub) | Count non-overlapping occurrences |
-| startswith(), endswith() | Test a prefix or suffix |
-| split(sep) | Split text into a list of strings |
-| isalpha(), isdigit(), isdecimal(), isalnum(), isspace() | Test character categories; do not confuse Unicode digit categories |\n| removeprefix(), removesuffix() | Remove an exact prefix or suffix when present |\n| partition(sep) | Split once into a three-part tuple |\n| center(), ljust(), rjust(), zfill() | Align or pad text for simple display |\n| join(iterable) | Join strings using the receiver as separator |
+| find(sub) | Returns -1 |
+| index(sub) | Raises ValueError |
+| count(sub) | Returns zero |
+| sub in text | Returns False |
+| startswith(prefix) | Returns False |
+| endswith(suffix) | Returns False |
 
-    raw = "  QPSK Receiver  "
-    label = raw.strip().upper()
-    print(label)  # QPSK RECEIVER
+~~~python
+message = "Python is practical"
+print(message.find("is"))        # 7
+print(message.find("Java"))      # -1
+print(message.startswith("Py")) # True
+print(message.endswith("cal"))  # True
+~~~
 
-    csv_line = "red,green,blue"
-    colors = csv_line.split(",")
-    print(colors)
-    print(" | ".join(colors))
+Choose find() when absence is an ordinary result to handle. Choose index() when absence should be exceptional.
 
-Important distinctions:
-- strip() removes from the ends, not from the middle.
-- split() without an argument groups whitespace; split(",") uses the exact comma separator.
-- join() is called on the separator, and every item must be a string.
-- find() returns -1 when absent; index() raises ValueError.
-- Methods return results. Assign the result if you need to keep it.
+## 6. Cleaning and classifying text
 
-## 6. Formatting with f-strings
+strip() removes leading and trailing whitespace, not whitespace inside the text. lstrip() and rstrip() target one side.
 
-An f-string begins with f before its opening quote. Expressions inside braces are evaluated:
+~~~python
+raw = "  sensor A\t\n"
+print(repr(raw.strip()))   # 'sensor A'
+print(repr(raw.lstrip()))
+print(repr(raw.rstrip()))
+~~~
 
-    name = "Amin"
-    count = 3
-    print(f"{name} recorded {count} measurements.")
+The optional argument to strip() is a set of characters, not a literal prefix or substring. Use removeprefix() or removesuffix() when exact prefix/suffix removal is intended.
 
-A format specification follows a colon:
+Case methods include lower(), upper(), title(), and casefold(). casefold() is intended for caseless matching and handles some Unicode case distinctions more aggressively than lower().
 
-    voltage = 3.14159265
-    print(f"{voltage:.2f}")     # 3.14
-    print(f"{voltage:10.2f}")   # width 10
-    print(f"{voltage:>10.2f}")  # right-aligned
-    print(f"{voltage:^10.2f}")  # centered
+~~~python
+print("Straße".lower())     # straße
+print("Straße".casefold())  # strasse
+~~~
 
-Other useful formats:
+For simple caseless comparison, normalize both sides consistently. Unicode normalization is a distinct operation and may also be necessary.
 
-    count = 1234567
-    ratio = 0.875
-    print(f"{count:,}")    # 1,234,567
-    print(f"{ratio:.1%}")  # 87.5%
-    print(f"{count:08d}")  # 01234567
+Classification methods include isalpha(), isdigit(), isdecimal(), isnumeric(), isalnum(), isspace(), islower(), and isupper().
 
-Formatting controls presentation; it does not change the original value. A formatted result is a string. The debug form f"{variable=}" can display a name and its value. Use f-strings for readable output; do not use eval() to format data.
+~~~python
+print("204".isdecimal())  # True
+print("²".isdigit())      # True
+print("²".isdecimal())    # False
+~~~
 
-## 7. Unicode: a necessary distinction
+These methods follow Unicode definitions. They do not automatically enforce an ASCII-only identifier policy. State the allowed alphabet explicitly when a protocol or specification requires it.
 
-Python strings represent Unicode text. They can contain characters from many writing systems. A string is a sequence of Unicode code points, but a visible symbol is not always one code point. Accented letters can use combining marks, and emoji can be sequences joined together. Therefore len() is not always the number of user-perceived characters.
+## String-method reference
 
-Practical rules:
-- Do not assume all text is ASCII.
-- Do not slice international user-visible text by guessed positions unless the format guarantees them.
-- Normalize text only when the task requires it.
-- When reading or writing files, choose an explicit encoding such as UTF-8; file handling comes later.
+| Task | Useful methods | Important distinction |
+|---|---|---|
+| Trim whitespace | strip(), lstrip(), rstrip() | Does not remove internal whitespace |
+| Replace substrings | replace() | Literal substring replacement |
+| Remove exact edge text | removeprefix(), removesuffix() | Exact match, unlike strip(chars) |
+| Split | split(), rsplit(), splitlines() | splitlines() recognizes line boundaries |
+| Divide once | partition(), rpartition() | Returns a three-item tuple |
+| Search | find(), rfind(), index(), rindex(), count() | Choose missing-substring behavior deliberately |
+| Change case | lower(), upper(), title(), capitalize(), swapcase(), casefold() | Case conversion is not normalization |
+| Classify | isalpha(), isdecimal(), isdigit(), isnumeric(), isalnum(), isspace(), isidentifier() | Unicode-aware; not a complete application validator |
+| Align and pad | center(), ljust(), rjust(), zfill() | Useful for terminal output |
 
-## 8. Common mistakes
+Examples:
 
-1. Concatenating a string and a number with +. Use an f-string or deliberate str() conversion.
-2. Expecting a string method to mutate the original.
-3. Confusing indexing with slicing; indexing can raise IndexError, while slices are clipped.
-4. Using strip() to remove internal whitespace.
-5. Assuming membership checks ignore case.
-6. Calling join() on the list instead of on the separator.
-7. Assuming len() counts visible emoji or grapheme clusters.
+~~~python
+filename = "report.final.csv"
+print(filename.removesuffix(".csv"))  # report.final
+record = "RX-07:online:562"
+print(record.partition(":"))  # ('RX-07', ':', 'online:562')
+print("42".zfill(5))  # 00042
+print("RX".center(8, "-"))  # ---RX---
+~~~
 
-## 9. Coding lab — Clean and format a measurement label
+Use unicodedata.normalize() when the specification requires consistent Unicode normalization. Normalization is separate from lower() and casefold(); do not normalize opaque identifiers unless their rules allow it.
 
-Create string_report.py.
+~~~python
+import unicodedata
+first = "é"
+second = "e\\u0301"
+print(unicodedata.normalize("NFC", first) == unicodedata.normalize("NFC", second))
+~~~
 
-    raw_device = "  qpsk receiver  "
-    frequency_mhz = 99.51234
-    status = "online"
+## 7. Splitting and joining
 
-Tasks:
-1. Predict len(raw_device) and raw_device[2:6] before running the code.
-2. Create a cleaned uppercase label without changing raw_device.
-3. Print a report using an f-string, two decimal places, and the MHz unit.
-4. Check whether the cleaned label contains "QPSK". Test a lowercase search and explain the difference.
-5. Split "red, green, blue", remove surrounding spaces from each item, and join them with " | ".
-6. Add a tab and newline to a test string and observe strip().
+split() divides text into pieces; join() combines strings with a separator.
 
-Checklist:
-- [ ] Predicted length and slice output.
-- [ ] Preserved the original string.
-- [ ] Used f-string formatting and units.
-- [ ] Tested case-sensitive membership.
-- [ ] Explained one limitation of len() for Unicode.
+~~~python
+raw = "red, green, blue"
+parts = raw.split(",")
+first = parts[0].strip()
+second = parts[1].strip()
+third = parts[2].strip()
+result = " | ".join([first, second, third])
+print(result)  # red | green | blue
+~~~
 
-## 10. Independent exercises
+With no separator, split() groups runs of whitespace. With an explicit separator, empty fields can be preserved.
 
-Attempt before reading the answer key.
+~~~python
+print("a  b".split())      # ['a', 'b']
+print("a,,b,".split(","))  # ['a', '', 'b', '']
+~~~
 
-1. Explain the difference between "one\\ntwo", r"one\\ntwo", and a triple-quoted string spanning two lines.
-2. For text = "PYTHON", predict text[0], text[-1], text[1:4], text[:3], text[::2], and text[::-1].
-3. Explain why replacing word[0] is invalid and rewrite it to produce "Jython".
-4. Transform "  receiver-01   " into "RECEIVER_01" without changing the original.
-5. Convert "red, green, blue" into "red | green | blue".
-6. Given name = "Sensor A" and value = 12.34567, print "Sensor A: 12.35 units" with an f-string.
-7. Explain the different missing-substring behavior of find() and index().
-8. Why can len("👩‍💻") be greater than one?
-9. Repair: count = 5; message = "Samples: " + count.
+A list comprehension is a compact alternative for cleaning each part; it is previewed here and taught systematically in Data Structures.
 
-## Answer key
+Do not use split() as a universal parser. CSV quoting, escaping, nested structures, and formal formats require their dedicated parsers.
 
-1. The ordinary literal contains a newline; the raw literal contains a backslash followed by n; the triple-quoted literal contains the source newline.
-2. P, N, YTH, PYT, PTO, NOHTYP.
-3. Strings are immutable. One solution: word = "J" + word[1:].
-4. cleaned = raw.strip().replace("-", "_").upper().
-5. Split on comma, strip each item, then join with " | ". A readable solution:
-   
-       items = [item.strip() for item in "red, green, blue".split(",")]
-       result = " | ".join(items)
+## 8. Formatting with f-strings
 
-6. print(f"{name}: {value:.2f} units")
-7. find() returns -1; index() raises ValueError.
-8. The displayed emoji is a sequence of Unicode code points joined as one grapheme.
-9. message = f"Samples: {count}"
+F-strings embed expressions in braces. A format specification follows a colon.
+
+~~~python
+name = "Receiver A"
+frequency_mhz = 562.34567
+print(f"{name}: {frequency_mhz:.2f} MHz")
+~~~
+
+Output: Receiver A: 562.35 MHz.
+
+| Format | Purpose |
+|---|---|
+| :.2f | Two decimal places |
+| :,.2f | Thousands separator and two decimals |
+| :>10 / :<10 / :^10 | Right / left / center alignment |
+| :+.2f | Always show sign |
+| :08d | Zero-pad an integer to width 8 |
+| :.3e | Scientific notation |
+| :.1% | Percentage with one decimal |
+
+~~~python
+voltage = 12.5
+change = 0.075
+identifier = 42
+print(f"Voltage: {voltage:8.2f} V")
+print(f"Change:  {change:+.1%}")
+print(f"ID:      {identifier:06d}")
+~~~
+
+Formatting creates a display representation; it does not mutate or improve the precision of the stored value. Keep f-string expressions simple and calculate complicated values beforehand.
+
+## 9. Unicode: code points, visible characters, and bytes
+
+Python str values are sequences of Unicode code points. A visible character may consist of more than one code point. For example, an accented letter may be represented as one precomposed code point or as a base letter followed by a combining mark.
+
+~~~python
+precomposed = "é"
+combined = "e\u0301"
+print(precomposed == combined)  # False
+print(len(precomposed))         # 1
+print(len(combined))            # 2
+~~~
+
+They may look the same while having different code-point sequences. Unicode normalization, such as NFC, can standardize canonically equivalent text. The standard library module unicodedata provides normalization tools.
+
+Distinguish:
+
+- Code point: one Unicode value in the Python string.
+- Grapheme cluster: a sequence users perceive as one character.
+- Encoded bytes: a representation used for storage or transmission.
+
+len(text) counts code points, not grapheme clusters and not UTF-8 bytes.
+
+~~~python
+text = "café"
+encoded = text.encode("utf-8")
+decoded = encoded.decode("utf-8")
+print(type(text).__name__)      # str
+print(type(encoded).__name__)  # bytes
+print(len(text))                # 4
+print(len(encoded))             # 5
+print(decoded == text)           # True
+~~~
+
+This is an introduction only. Detailed bytes, files, and encoding behavior are covered later. Never infer transmitted byte length from len(text).
+
+## 10. Common mistakes and debugging
+
+1. Calling strip() or upper() and discarding the returned string.
+2. Confusing indexing with slicing.
+3. Concatenating a string and a number without conversion or formatting.
+4. Assuming equality is case-insensitive.
+5. Treating strip(chars) as exact substring removal.
+6. Converting identifiers to numbers and losing leading zeroes.
+7. Assuming one visible symbol always equals one code point.
+8. Treating split() as a parser for every data format.
+9. Believing formatting changes the underlying numeric value.
+10. Ignoring empty strings and whitespace-only input.
+
+When debugging text, inspect both repr(value) and type(value).__name__. They reveal invisible whitespace and unexpected types.
+
+## 11. Worked example: receiver label
+
+The requirement is a label consisting of RX- followed by exactly two decimal digits. This example checks that shape; it is not a universal validation framework.
+
+~~~python
+label = " RX-07 "
+cleaned = label.strip().upper()
+has_prefix = cleaned.startswith("RX-")
+channel_text = cleaned[3:]
+has_two_digits = len(channel_text) == 2 and channel_text.isdecimal()
+is_valid_shape = has_prefix and has_two_digits
+
+print(f"Original: {label!r}")
+print(f"Cleaned: {cleaned!r}")
+print(f"Valid shape: {is_valid_shape}")
+~~~
+
+Test RX-7, rx-07, RX-AB, RX-007, empty text, and non-ASCII numerals. A correct implementation follows an explicit specification rather than assumptions.
+
+## 12. Coding lab — Text label and report
+
+Create string_lab.py.
+
+1. Define a raw label with leading/trailing spaces and a hyphen.
+2. Preserve the original and create a cleaned uppercase label with underscores.
+3. Display both with repr().
+4. Extract a substring with slicing.
+5. Check a required prefix and suffix.
+6. Split three comma-separated color names, clean them, and join with |.
+7. Format a floating-point measurement with a unit and two decimal places.
+8. Test empty text, missing substrings, out-of-range slices, and non-ASCII text.
+9. Explain why the original strings remain unchanged.
+
+Do not use loops, functions, classes, or exception handling; those are later topics.
+
+## 13. Independent exercises
+
+### Level 1 — Recall and predict
+
+1. State the type and length of "42", 42, and "é".
+2. For word = "PYTHON", predict word[0], word[-1], word[1:4], word[:3], word[::2], and word[::-1].
+3. Explain "one\n two" versus r"one\n two".
+4. Explain word[100] versus word[:100].
+
+### Level 2 — Apply
+
+5. Clean "  receiver-01  " by trimming, replacing hyphen with underscore, and uppercasing. Preserve the original.
+6. Split "red, green, blue" into clean values and join with " | ".
+7. Format 12345.6789 with thousands separator and two decimals.
+8. When should find() be preferred to index()?
+9. Check whether a label starts with RX- and ends with -01.
+
+### Level 3 — Reason and debug
+
+10. Repair code that discards strip() output and concatenates text with an integer.
+11. Explain why visible symbols and len() counts can differ.
+12. Explain why "000731" should remain a product-code string.
+13. Compare lower() and casefold().
+14. Propose a basic 3–12 character label rule that begins with a letter and contains no spaces. State its limitations.
+
+## Exercise solutions
+
+Attempt the exercises and knowledge check before opening the separate [strings — Exercise Solutions](./003-strings-solutions.md).
 
 ## Knowledge check
 
-1. What is the difference between indexing and slicing?
-2. Why is the slice stop position excluded?
-3. What does immutability mean?
-4. What do split() and join() do?
-5. What does .2f control?
-6. Why is len() not always the count of visible characters?
+1. What does string immutability mean?
+2. What does len() count?
+3. Indexing versus slicing?
+4. Why do string methods return new values?
+5. find() versus index()?
+6. split() versus join()?
+7. What does :.2f do and not do?
+8. Why can visually identical strings compare unequal?
+9. str versus bytes?
+10. Why is a serial number usually text?
 
 ## Summary and completion criteria
 
-Strings are immutable sequences of Unicode code points. Indexing selects one position; slicing extracts a range with an exclusive stop. Methods return results, and f-strings provide readable interpolation and formatting.
+A str is an immutable sequence of Unicode code points. Indexing selects one code point; slicing extracts a range. Methods return new strings. Search, split, join, and formatting tools should be selected according to their precise behavior. Code points, grapheme clusters, and encoded bytes are different.
 
-- [ ] I can create ordinary, escaped, raw, and multiline strings.
-- [ ] I can predict indexing and slicing.
-- [ ] I can explain immutability.
-- [ ] I can use common string methods and f-strings.
-- [ ] I can explain the code-point versus visible-character distinction.
-- [ ] I completed the lab and attempted the exercises independently.
+Study this lesson only after you can explain these distinctions, complete the lab independently, solve at least one exercise from each level, and debug a text-processing error using repr() and type inspection.
 
 ## Official references
 
-- [Python Tutorial — Text](https://docs.python.org/3/tutorial/introduction.html#text)
-- [Built-in Types — str](https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str)
+- [Text Sequence Type — str](https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str)
 - [String Methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
+- [Format String Syntax](https://docs.python.org/3/library/string.html#format-string-syntax)
 - [Formatted String Literals](https://docs.python.org/3/reference/lexical_analysis.html#f-strings)
 - [Unicode HOWTO](https://docs.python.org/3/howto/unicode.html)
+- [unicodedata](https://docs.python.org/3/library/unicodedata.html)

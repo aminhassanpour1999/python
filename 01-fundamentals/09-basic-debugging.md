@@ -1,209 +1,234 @@
 # Basic Debugging
 
-**Module:** Programming Fundamentals  
-**Lesson:** 9 of 9 · **Level:** Beginner · **Study time:** 75–90 minutes  
-**Prerequisites:** All previous Fundamentals lessons
+**Prerequisites:** Introduction; Variables and Data Types; Numbers and Operators; Strings; Type Conversion; Expressions and Statements  
+**Study time:** 75–100 minutes
 
-## Purpose and learning objectives
+## Purpose and learning outcomes
 
-Debugging is the disciplined process of finding and correcting defects. The goal is not to guess until code works; it is to collect evidence, form a hypothesis, test it, and verify the repair. By the end, you should be able to classify errors; read a traceback; recognize common exceptions; inspect values and types; create a minimal reproducible example; use breakpoints conceptually; and verify fixes with multiple tests.
+Debugging is a disciplined process of finding why actual behavior differs from expected behavior. It is not random editing. You will classify errors, read tracebacks, inspect values and types, construct minimal reproductions, use breakpoints conceptually, and verify a fix with more than one test.
 
 ## 1. Three broad categories of errors
 
-### 1.1 Syntax errors
+### Syntax errors
 
-The source code does not follow Python's grammar:
+Python cannot parse the source code.
 
-    print("Hello"
+~~~python
+# print("Hello"
+~~~
 
-Python cannot execute the code as written. IndentationError is a syntax-related error caused by invalid indentation.
+The missing closing parenthesis prevents execution. Syntax errors are often detected before the program begins running.
 
-### 1.2 Runtime exceptions
+### Runtime exceptions
 
-The code is syntactically valid, but an exceptional situation occurs while it runs:
+The program starts but an operation raises an exception during execution.
 
-    result = 10 / 0  # ZeroDivisionError
+~~~python
+numerator = 10
+denominator = 0
+# result = numerator / denominator  # ZeroDivisionError
+~~~
 
-Common examples:
-- NameError: a name is not defined in the current scope.
-- TypeError: an operation or function receives an inappropriate type.
-- ValueError: an argument has an acceptable general type but an invalid value.
-- IndexError: a sequence index is out of range.
-- KeyError: a mapping lookup uses a missing key (dictionaries come later).
-- FileNotFoundError: a requested file cannot be found (file handling comes later).
+Other common exceptions at this stage include NameError, TypeError, ValueError, IndexError, and AttributeError.
 
-### 1.3 Logic errors
+### Logic errors
 
-The program runs but produces a result different from the intended result:
+The program runs but does not implement the intended behavior.
 
-    first = 10
-    second = 20
-    average = first + second / 2  # Incorrect grouping
-    correct_average = (first + second) / 2
+~~~python
+first = 10
+second = 20
+wrong_average = first + second / 2
+correct_average = (first + second) / 2
+print(wrong_average)    # 20.0
+print(correct_average)  # 15.0
+~~~
 
-Logic errors can be harder to find because Python cannot know what result you intended.
+No exception is required for a logic error. Tests and reasoning are essential.
 
-## 2. Read a traceback
+## 2. Read a traceback from the bottom up
 
-An unhandled exception produces a traceback. It typically includes:
-- The sequence of calls that led to the failure.
-- File name and line number.
-- The source line associated with the failure, when available.
-- The exception type and message at the end.
+A traceback reports the call path and the location where an exception occurred. The final line normally names the exception type and message. Earlier lines show how execution reached that point.
 
-Read from the bottom upward to identify the final exception, then use the file and line information to locate relevant code. The last line identifies the exception type and message; it does not always explain the complete cause.
+When reading one:
 
-Never share passwords, tokens, or private data in a traceback.
+1. Identify the exception type and message at the bottom.
+2. Find the final relevant file and line number.
+3. Inspect the operation and the values involved.
+4. Read earlier frames if the immediate line is only where a bad value was used.
+5. Reproduce the issue before editing.
+
+A traceback identifies where the failure surfaced, not necessarily where the bad value originated.
 
 ## 3. A repeatable debugging process
 
-1. **Reproduce:** make the failure happen reliably.
-2. **Observe:** record exact input, output, and error.
-3. **Locate:** identify the relevant line and values.
-4. **Hypothesize:** state one likely cause.
-5. **Test:** inspect a value or change one thing to test the hypothesis.
-6. **Repair:** make the smallest justified change.
-7. **Verify:** rerun the original case and additional representative cases.
-8. **Explain:** record why the defect occurred and why the fix works.
+Use this sequence:
 
-Changing many unrelated lines at once destroys useful evidence.
+1. **Observe:** record the exact output, exception, and input.
+2. **Expected behavior:** state what should happen.
+3. **Reproduce:** find the smallest input and code that still show the problem.
+4. **Classify:** syntax, exception, or logic error?
+5. **Hypothesize:** name one likely cause.
+6. **Inspect:** examine values, types, and execution order.
+7. **Change one thing:** make the smallest justified repair.
+8. **Retest:** run the original failing case and additional representative cases.
+9. **Explain:** describe why the defect happened and why the fix works.
 
-## 4. Inspect values and types
+Changing many unrelated lines at once makes cause and effect difficult to establish.
 
-A print statement can reveal an unexpected value or type:
+## 4. Inspect values, types, and invisible characters
 
-    reading_text = "12.5"
-    print("reading_text:", repr(reading_text))
-    print("type:", type(reading_text))
+print() is useful, but it may hide important details. Use repr() and type() to inspect a suspicious value.
 
-repr() displays a representation useful for debugging, including quotes and escaped whitespace. It differs from str() in purpose.
+~~~python
+value = " 12.5 "
+print(value)
+print(repr(value))
+print(type(value).__name__)
+~~~
 
-Inspect intermediate results, not only the final output:
+Output:
 
-    first = 10
-    second = 20
-    total = first + second
-    average = total / 2
+~~~text
+ 12.5
+' 12.5 '
+str
+~~~
 
-    print("first:", first)
-    print("second:", second)
-    print("total:", total)
-    print("average:", average)
+This reveals surrounding whitespace and shows that the value is text, not a float.
 
-Remove or refine temporary debugging output when it is no longer needed.
+For numeric calculations, inspect intermediate results and units. A plausible-looking number may still be wrong because of a type, unit, precedence, or rounding mistake.
 
 ## 5. Minimal reproducible examples
 
-A minimal reproducible example is the smallest code and input that still demonstrates the problem. Include:
-- Relevant code.
-- Exact input or setup.
-- Actual result or error.
-- Expected result.
-- Python version or environment if it may affect behavior.
+A minimal reproducible example contains the smallest code and input that still reproduce the issue. Include:
 
-Remove unrelated code while preserving the failure. Small examples are easier to reason about and easier for others to help with.
+- The code needed to trigger the behavior.
+- The exact input.
+- The actual output or traceback.
+- The expected behavior.
+- Relevant environment details only when they affect the result.
+
+~~~python
+label = "cat"
+print(label[3])
+~~~
+
+The valid indexes are 0, 1, and 2. Index 3 is outside the string, so this example raises IndexError.
+
+A small example removes unrelated code and makes a hypothesis easier to test.
 
 ## 6. Debugger concepts
 
-A debugger lets you pause execution and inspect state.
+A debugger lets you pause execution and inspect program state.
 
-- **Breakpoint:** pauses execution at a chosen line.
-- **Step over:** runs the current line without entering a called function.
-- **Step into:** enters a function call.
-- **Step out:** continues until the current function returns.
-- **Variables/watch:** displays current values.
-- **Call stack:** shows how execution reached the current point.
+- **Breakpoint:** a selected location where execution pauses.
+- **Step over:** execute the current line without entering a called function.
+- **Step into:** enter a called function.
+- **Step out:** finish the current function and return to its caller.
+- **Continue:** resume until the next breakpoint or program end.
+- **Watch / variable inspection:** observe values as execution proceeds.
 
-These concepts apply across editors and debuggers. Learn the interface of your chosen tool separately; the reasoning method matters more than a particular button. Python also provides the built-in breakpoint() function, which enters the configured debugger at that point in the program. Use it deliberately during development and remove temporary breakpoints when they are no longer needed.
+You do not need to memorize a particular IDE's buttons yet. Learn what information a debugger provides and when it is useful.
 
 ## 7. Assertions are not general input validation
 
-An assert statement checks an assumption during development:
+An assert statement checks an internal assumption during development.
 
-    sample_count = 10
-    assert sample_count > 0
+~~~python
+voltage_v = 3.3
+assert voltage_v >= 0
+~~~
 
-If the condition is false, Python raises AssertionError. Assertions can document internal assumptions and catch bugs. They should not be the only validation for untrusted user input or security checks because Python can be run with assertions disabled.
+Assertions can be disabled when Python runs with optimization. They are not a substitute for explicit validation of untrusted user input or external data. Robust input validation and exception handling belong later.
 
 ## 8. Common debugging mistakes
 
-1. Reading only the first line of a traceback.
-2. Guessing without reproducing the failure.
-3. Changing several things at once.
-4. Inspecting only the final result.
-5. Confusing syntax errors, exceptions, and logic errors.
-6. Assuming code that runs is correct.
-7. Testing only the input that originally worked.
-8. Using assert instead of validating untrusted input.
-9. Reporting a problem without exact error details or a minimal example.
+1. Editing before understanding the failure.
+2. Treating the last traceback line as the full root cause.
+3. Looking only at printed appearance instead of type and repr().
+4. Fixing one example but not testing boundaries.
+5. Changing several unrelated things simultaneously.
+6. Assuming no exception means correct behavior.
+7. Catching or suppressing an error without understanding it.
+8. Using assert to validate untrusted input.
 
 ## 9. Coding lab — Debug a measurement calculator
 
-Create debug_lab.py with this intentionally flawed program:
+Create debugging_lab.py from this intentionally defective program:
 
-    first_text = "12.5"
-    second_text = "2"
-
-    first = first_text
-    second = float(second_text)
-    average = (first + second) / 2
-    print(f"Average: {average}")
+~~~python
+distance_text = "12.5"
+time_text = "2"
+distance = distance_text
+time = float(time_text)
+average_speed = distance + time / 2
+print("Speed: " + average_speed)
+~~~
 
 Tasks:
-1. Run it and identify the exception.
-2. Inspect the types of first and second.
-3. State a hypothesis about the cause.
-4. Convert first_text correctly and rerun.
-5. Introduce a logic error by changing the average formula; create a test case that reveals it.
-6. Verify the repair with at least three pairs of values, including decimals.
-7. Record symptom, hypothesis, change, and verification for each defect.
+
+1. Predict what happens before running.
+2. Identify the type of each variable.
+3. Find the first runtime failure.
+4. Repair conversion and formula grouping.
+5. Add a clear unit to the output.
+6. Test at least four inputs, including a decimal, zero, and an invalid representation.
+7. Record the original defect, root cause, fix, and test evidence.
+
+Do not add advanced exception handling or loops yet. Explain what would be needed for a robust interactive version.
 
 ## 10. Independent exercises
 
-1. Classify: missing closing parenthesis; division by zero; incorrect average grouping.
+### Level 1
+
+1. Classify a missing parenthesis, division by zero, and an incorrect average formula.
 2. What information does a traceback provide?
-3. Explain TypeError versus ValueError.
-4. Why is repr() useful for inspecting text?
-5. Define a minimal reproducible example.
+3. Distinguish TypeError from ValueError.
+4. When is repr() more useful than print()?
+
+### Level 2
+
+5. Define a minimal reproducible example for an IndexError.
 6. Explain step over versus step into.
-7. Why test a fix with more than the original input?
-8. Why are assertions not a substitute for validating untrusted input?
+7. Trace a short program with reassignment and intermediate values.
+8. What does a breakpoint do?
+9. How should you verify a fix?
 
-## Answer guide
+### Level 3
 
-1. Syntax error; runtime exception; logic error.
-2. Call sequence, file and line information, and final exception type/message.
-3. TypeError concerns an inappropriate type; ValueError concerns an inappropriate value of an otherwise acceptable type.
-4. repr() makes quotes, escapes, and whitespace visible.
-5. The smallest code and input that still reproduces the problem, with expected and actual behavior.
-6. Step over executes a call without entering it; step into enters the called function.
-7. A fix may work only for one case; more cases reveal boundary and type assumptions.
-8. Assertions can be disabled and are intended for internal development assumptions, not security or user-input guarantees.
+10. A program prints a plausible but incorrect average. Describe a systematic investigation.
+11. Why might the failing line not be where the bad value originated?
+12. Why are many simultaneous edits harmful?
+13. Why should assert not validate external input?
+14. Create a minimal example for an out-of-range string index and explain the traceback.
+
+## Exercise solutions
+
+Attempt the exercises and knowledge check before opening the separate [basic-debugging — Exercise Solutions](./09-basic-debugging-solutions.md).
 
 ## Knowledge check
 
-1. How do syntax, runtime, and logic errors differ?
-2. Which part of a traceback identifies the final exception?
-3. Why change one thing at a time?
-4. Why inspect types as well as values?
-5. What makes an example reproducible?
+1. Syntax error versus runtime exception versus logic error?
+2. What does the final traceback line usually identify?
+3. Why reproduce a problem?
+4. Why can a value look right but have the wrong type?
+5. What makes an example minimal and reproducible?
 6. What is a breakpoint?
-7. When are assertions appropriate?
+7. Step over versus step into?
+8. When are assertions appropriate?
+9. Why is one successful test insufficient?
+10. What evidence should a defect report include?
 
 ## Summary and completion criteria
 
-Debugging is evidence-driven: reproduce, observe, locate, hypothesize, test, repair, verify, and explain. Tracebacks, print/repr inspection, and breakpoints are tools. A program that runs can still contain a logic error.
+Debug systematically: observe, define expected behavior, reproduce, classify, hypothesize, inspect, make one focused change, and retest. Tracebacks identify where exceptions surface; inspecting types and representations reveals hidden causes. Logic errors require deliberate tests even when code runs.
 
-- [ ] I can classify syntax, runtime, and logic errors.
-- [ ] I can read a traceback and locate relevant code.
-- [ ] I can inspect values and types.
-- [ ] I can create a minimal reproducible example.
-- [ ] I can describe hypothesis-driven debugging.
-- [ ] I understand breakpoint and stepping concepts.
-- [ ] I tested a repair with multiple inputs and explained why it works.
+Complete the lab and explain the root cause of each defect before marking this lesson studied.
 
 ## Official references
 
-- [Python Tutorial — Errors and Exceptions](https://docs.python.org/3/tutorial/errors.html)
+- [Errors and Exceptions](https://docs.python.org/3/tutorial/errors.html)
 - [Built-in Exceptions](https://docs.python.org/3/library/exceptions.html)
 - [The assert statement](https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement)
+- [Python Debugger — pdb](https://docs.python.org/3/library/pdb.html)

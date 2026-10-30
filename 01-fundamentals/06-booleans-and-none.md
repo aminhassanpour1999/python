@@ -1,24 +1,23 @@
 # Booleans and None
 
-**Module:** Programming Fundamentals  
-**Lesson:** 6 of 9 · **Level:** Beginner · **Study time:** 60–75 minutes  
-**Prerequisites:** Variables and Data Types; Numbers and Operators; Type Conversion
+**Prerequisites:** Variables and Data Types; Numbers and Operators; Type Conversion  
+**Study time:** 60–90 minutes
 
-## Purpose and learning objectives
+## Purpose and learning outcomes
 
-Boolean values represent truth. They are central to comparisons, decisions, validation, and program logic. None represents the absence of a value. By the end, you should be able to use comparisons; explain truthiness; distinguish falsy values from None; use and, or, and not; explain short-circuiting and operand-return behavior; and check None correctly.
+Programs need to reason about whether a condition is satisfied and whether a value is present. Python uses Boolean logic, but many objects can also be tested for truth. You will distinguish Boolean values, truthiness, and None; use comparisons; and explain short-circuit behavior.
 
-## 1. Boolean values
+## 1. Boolean values and comparisons
 
-Python's Boolean type is bool and its two values are True and False:
+The bool type has exactly two values: True and False. Capitalization matters.
 
-    is_ready = True
-    has_error = False
-    print(type(is_ready))  # <class 'bool'>
+~~~python
+is_connected = True
+is_overloaded = False
+print(type(is_connected))  # <class 'bool'>
+~~~
 
-Names are case-sensitive: write True and False, not true and false.
-
-## 2. Comparisons
+Comparisons return Boolean results.
 
 | Operator | Meaning |
 |---|---|
@@ -29,208 +28,202 @@ Names are case-sensitive: write True and False, not true and false.
 | > | Greater than |
 | >= | Greater than or equal |
 
-    temperature = 24
-    print(temperature > 20)   # True
-    print(temperature == 24)  # True
-    print(temperature != 24)  # False
+~~~python
+temperature_c = 18
+print(temperature_c >= 0)  # True
+print(temperature_c < 25)  # True
+print(temperature_c == 18) # True
+~~~
 
-Comparisons can be chained:
+### Chained comparisons
 
-    print(10 <= temperature < 30)  # True
+~~~python
+temperature_c = 18
+is_in_range = 0 <= temperature_c < 25
+print(is_in_range)  # True
+~~~
 
-This checks both bounds; the middle expression is evaluated only once.
+This is equivalent to checking both comparisons with and, while evaluating the middle expression once.
 
-Equality and identity are different:
-- == compares values.
-- is checks whether references point to the same object.
-Use == for ordinary values and is None for the None singleton.
+## 2. Truth-value testing (truthiness)
 
-## 3. Truth-value testing (truthiness)
+Python can test many objects in Boolean contexts. Common falsy values include False, None, numeric zero (0, 0.0, 0j), empty strings, and empty containers such as [], (), {}, and set(). Most other objects are truthy.
 
-Many objects can be tested in a Boolean context. This is called truthiness.
+~~~python
+print(bool(0))        # False
+print(bool(-1))       # True
+print(bool(""))       # False
+print(bool(" "))      # True
+print(bool("False"))  # True
+print(bool(None))     # False
+~~~
 
-Common falsy values:
-- False and None
-- Numeric zero: 0, 0.0, 0j
-- Empty text: ""
-- Empty containers such as [], (), {}, and set()
+The string "False" is truthy because it is not empty. Truthiness does not inspect the meaning of its characters.
 
-Most other values are truthy. In particular, non-empty strings are truthy even if their text is "False", "0", or "no".
+### Truthiness is not equality or presence
 
-    print(bool(0))        # False
-    print(bool(-1))       # True
-    print(bool(""))       # False
-    print(bool("False"))  # True
-    print(bool("0"))      # True
-    print(bool(None))     # False
+~~~python
+measurement = 0.0
+print(not measurement)      # True
+print(measurement == 0.0)   # True
+print(measurement is None)  # False
+~~~
 
-The collection examples are previews; lists, tuples, dictionaries, and sets are taught in the Data Structures module.
+A zero reading may be valid. Do not use if measurement to check whether a numeric measurement exists if zero is allowed.
 
-### Truthiness is not equality
+## 3. Boolean operators
 
-    print(0 == False)     # True
-    print("" == False)    # False
-    print(None == False)  # False
-    print(0 is None)      # False
+- not x negates the truth value.
+- x and y returns the first falsy operand, or y if x is truthy.
+- x or y returns the first truthy operand, or y if x is falsy.
 
-bool is a subtype of int, so False behaves numerically like zero and True like one in some operations. This is a language fact, not a reason to use Booleans as counters.
+~~~python
+connected = True
+has_signal = False
+print(not connected)            # False
+print(connected and has_signal) # False
+print(connected or has_signal)  # True
+~~~
 
-Test the condition you mean. Do not call bool() unnecessarily.
+For Boolean operands, results match familiar logical operations. But and/or do not necessarily return a bool object.
 
-## 4. Boolean operators
+## 4. Short-circuit evaluation
 
-| Operator | Meaning |
+Python evaluates logical expressions left to right and may skip the right operand when the result is already determined.
+
+~~~python
+denominator = 0
+is_safe = denominator != 0 and 100 / denominator > 1
+print(is_safe)  # False
+~~~
+
+The division is skipped because the left operand is false. With or, a truthy left operand means the right side is skipped.
+
+~~~python
+name = "Amin"
+display_name = name or "Anonymous"
+print(display_name)  # Amin
+~~~
+
+Short-circuiting matters when the right side could raise an exception or perform an action. Avoid hiding important side effects in complicated logical expressions.
+
+## 5. and and or return operands
+
+~~~python
+print("" or "unknown")  # unknown
+print("online" and 1)   # 1
+print(0 and 100)        # 0
+~~~
+
+The operators use truthiness to choose an operand. They do not convert the result to True or False. This is useful for simple fallbacks, but can be dangerous when a valid value such as zero or empty text must be preserved.
+
+## 6. The meaning of None
+
+None is a singleton representing absence of a value or a deliberate no-result state.
+
+~~~python
+measurement = None
+print(measurement is None)      # True
+print(measurement is not None)  # False
+~~~
+
+Use identity checks for None. This previews conditionals, taught in Control Flow.
+
+| Value | Possible meaning |
 |---|---|
-| and | Both operands must be truthy |
-| or | At least one operand must be truthy |
-| not | Inverts truth value |
+| None | No value / not supplied |
+| 0 | Numeric zero |
+| False | Boolean false |
+| "" | Empty text |
+| [] | Empty list |
 
-    voltage = 3.3
-    signal_present = True
-    within_range = voltage >= 0 and voltage <= 5
-    can_process = within_range and signal_present
-    needs_attention = not can_process
+They may all be falsy, but they are not interchangeable. Meaning comes from the program's data model.
 
-Truth tables:
+## 7. Logical and bitwise operators differ
 
-| A | B | A and B | A or B |
-|---|---|---|---|
-| False | False | False | False |
-| False | True | False | True |
-| True | False | False | True |
-| True | True | True | True |
+For Boolean conditions, use and, or, and not. For integer bit manipulation, use &, |, ^, and ~ (plus shifts).
 
-| A | not A |
-|---|---|
-| False | True |
-| True | False |
+~~~python
+print(True and False)  # False
+print(0b0101 & 0b0001) # 1
+~~~
 
-Use parentheses when a compound condition is difficult to read.
-
-## 5. Short-circuit evaluation
-
-Python evaluates and and or from left to right and stops when the result is already known:
-- A and B does not evaluate B if A is falsy.
-- A or B does not evaluate B if A is truthy.
-
-    denominator = 0
-    safe = denominator != 0 and 10 / denominator > 1
-    print(safe)  # False
-
-The division is skipped because the first condition is false. Short-circuiting can guard operations, but avoid obscure expressions with side effects.
-
-## 6. and and or return operands
-
-In Python, and and or do not necessarily return True or False. They return one of their operands:
-- x and y returns x if x is falsy; otherwise y.
-- x or y returns x if x is truthy; otherwise y.
-
-    print(0 and "hello")       # 0
-    print("ready" and 42)      # 42
-    print("" or "default")     # default
-    print("active" or "idle")  # active
-
-This can provide defaults, but explicit logic is often clearer for beginners. Do not assume the result type is bool.
-
-## 7. The meaning of None
-
-None is a special singleton object representing absence of a value, an unavailable result, or an intentionally empty result:
-
-    measurement = None
-    print(type(measurement))  # <class 'NoneType'>
-
-| Value | Typical meaning | Type |
-|---|---|---|
-| 0 | Numeric zero | int |
-| 0.0 | Floating-point zero | float |
-| False | Boolean false | bool |
-| "" | Empty text | str |
-| None | No value / no result | NoneType |
-
-These values may all be falsy, but they mean different things.
-
-Check None with identity:
-
-    if measurement is None:
-        print("No measurement is available.")
-
-Use is not None for the inverse. This is the conventional and correct way to test for None.
-
-A name assigned to None exists and refers to the None object. A name never assigned in the current scope is undefined there and can raise NameError when accessed.
+and short-circuits; bitwise & evaluates both operands and combines bits. Use the operator appropriate to the task.
 
 ## 8. Common mistakes
 
-1. Using = instead of ==.
-2. Using is for ordinary value equality.
-3. Treating every falsy value as None.
-4. Assuming bool("False") is False.
-5. Assuming and/or always return bool.
-6. Ignoring evaluation order and short-circuiting.
-7. Writing long, tangled conditions instead of named intermediate Boolean values.
+1. Using is instead of == for string or numeric equality.
+2. Treating "False" as a false Boolean.
+3. Using truthiness to detect presence when zero is valid.
+4. Assuming and/or always return bool.
+5. Assuming the right operand always executes.
+6. Using & instead of and for ordinary logic.
+7. Comparing with None using == instead of the conventional is None.
+8. Writing 0 <= x >= 10 when the intended interval is 0 through 10.
 
 ## 9. Coding lab — Measurement status checker
 
-Create status_checker.py.
+Create boolean_lab.py.
 
-    measurement = 3.7
-    minimum = 0.0
-    maximum = 5.0
-    is_connected = True
-
-Tasks:
-1. Create a Boolean for whether measurement is within the inclusive range.
-2. Create a Boolean for whether the device is connected.
-3. Combine them into an acceptance condition.
-4. Set measurement to None. Check for None before numeric comparisons.
-5. Test the lower and upper boundaries, values just outside them, zero, and None.
-6. Guard a division with a nonzero check and explain short-circuiting.
+1. Define a connection status and a voltage measurement.
+2. Represent a missing measurement with None.
+3. Define a valid range from 0.0 through 5.0 inclusive.
+4. Combine connection status with a present, in-range measurement.
+5. Treat 0.0 as present, not missing.
+6. Use short-circuiting to avoid comparing a missing value numerically.
+7. Test None, zero, both boundaries, an interior value, and values outside the range.
+8. Explain why if measurement is not a correct presence test.
 
 ## 10. Independent exercises
 
+### Level 1
+
 1. Predict bool() for 0, 1, -1, 0.0, "", " ", "False", and None.
-2. Given temperature = 18, write expressions for equal to 18; not equal to 20; between 10 inclusive and 25 exclusive; outside that range.
-3. Explain why reading is None differs from not reading.
-4. Why is denominator != 0 and 100 / denominator > 5 safe when denominator is zero?
-5. Predict values and types of: a = "" or "unknown"; b = "online" and 1; c = 0 and 100.
-6. Repair if status is "ready": use value equality, not identity.
-7. Simplify not (is_connected == False).
+2. Write comparisons for equal to 18, not equal to 20, between 10 inclusive and 25 exclusive, and outside that interval.
+3. Explain measurement is None versus not measurement.
+4. Predict exact value and type of "" or "unknown", "online" and 1, and 0 and 100.
 
-## Answer key
+### Level 2
 
-1. False, True, True, False, False, True, True, False.
-2. temperature == 18; temperature != 20; 10 <= temperature < 25; not (10 <= temperature < 25).
-3. None means no value. not reading tests truthiness and is also true for zero, False, and empty text.
-4. The left operand is false, so Python skips the division.
-5. a is "unknown" (str); b is 1 (int); c is 0 (int).
-6. if status == "ready": ...
-7. is_connected. A Boolean name already expresses the condition.
+5. Combine a connection Boolean and bounded voltage check.
+6. Simplify not (is_connected == False).
+7. Guard a division using short-circuit evaluation.
+8. Check whether text contains non-whitespace characters.
+
+### Level 3
+
+9. Why must zero and None be distinguished in a sensor application?
+10. Compare Boolean and with bitwise &.
+11. When is a function call on the right side of and/or evaluated?
+12. Why is status is "ready" incorrect?
+13. Design boundary tests for a range that includes 10 but excludes 20.
+
+## Exercise solutions
+
+Attempt the exercises and knowledge check before opening the separate [booleans-and-none — Exercise Solutions](./06-booleans-and-none-solutions.md).
 
 ## Knowledge check
 
 1. What are the two Boolean values?
-2. What does truthiness mean?
+2. What is truthiness?
 3. Name common falsy values.
-4. Why is "False" truthy?
-5. How do and/or differ from bitwise &/|?
+4. Why is a one-space string truthy?
+5. What is a chained comparison?
 6. What is short-circuit evaluation?
-7. Can and/or return non-Boolean values?
+7. Do and/or always return Boolean values?
 8. Why use is None?
-9. Why is not value not a substitute for value is None?
+9. Why is not value not a reliable missing-value check?
+10. Why are boundary tests important?
 
 ## Summary and completion criteria
 
-Comparisons produce Boolean results. Truthiness tests many kinds of values. Falsy does not mean None. and/or short-circuit and return operands. None represents absence; check it with is None.
+Comparisons produce Booleans. Many other objects have truth values. Falsy does not mean missing. Use is None for absence. and/or short-circuit and return operands. Logical operators and bitwise operators serve different purposes.
 
-- [ ] I can interpret comparisons.
-- [ ] I can classify common values as truthy or falsy.
-- [ ] I can distinguish None from zero, False, and empty text.
-- [ ] I can explain short-circuiting and operand-return behavior.
-- [ ] I can test a compound condition at its boundaries.
-- [ ] I completed the lab and exercises independently.
+Complete the lab and explain truthiness, absence, operand-return behavior, and short-circuiting before marking this lesson studied.
 
 ## Official references
 
+- [Boolean Operations](https://docs.python.org/3/reference/expressions.html#boolean-operations)
 - [Truth Value Testing](https://docs.python.org/3/library/stdtypes.html#truth-value-testing)
-- [Built-in Constants](https://docs.python.org/3/library/constants.html)
-- [Boolean Operations](https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not)
 - [Comparisons](https://docs.python.org/3/reference/expressions.html#comparisons)
+- [Built-in Constants](https://docs.python.org/3/library/constants.html)

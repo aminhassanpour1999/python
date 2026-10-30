@@ -1,200 +1,201 @@
 # Expressions and Statements
 
-**Module:** Programming Fundamentals  
-**Lesson:** 7 of 9 · **Level:** Beginner · **Study time:** 60–75 minutes  
-**Prerequisites:** Variables and Data Types; Numbers and Operators; Booleans and None
+**Prerequisites:** Variables and Data Types; Numbers and Operators; Booleans and None  
+**Study time:** 60–90 minutes
 
-## Purpose and learning objectives
+## Purpose and learning outcomes
 
-Expressions produce values; statements perform instructions. By the end, you should be able to distinguish them; trace straight-line code; explain assignment and evaluation order; use parentheses and intermediate names for clarity; recognize syntax errors versus runtime behavior; and understand why readable expressions matter.
+To understand a Python program, you must know what is evaluated to produce a value and what instruction changes program state or performs an action. This lesson builds the skill of tracing straight-line code, predicting output, and distinguishing syntax, runtime, and logic errors.
 
 ## 1. Expressions produce values
 
-An expression is code that Python evaluates to produce a value.
+An expression is a piece of syntax Python evaluates to produce a value.
 
-Examples:
-- A literal: 42, "hello", True
-- A name: temperature
-- Arithmetic: 3 + 4
-- A comparison: temperature > 20
-- A function call: len("Python")
-- A combination: (first + second) / 2
+Examples include literals, names, arithmetic, comparisons, function calls, and combinations of these.
 
-    result = 3 + 4
-    print(result)
-    print(len("Python"))
+~~~python
+42
+temperature_c
+2 + 3 * 4
+temperature_c >= 0
+len("Python")
+~~~
 
-## 2. Statements perform actions
+The value may be stored, displayed, passed to another operation, or ignored. An expression does not have to be a single number.
 
-A statement is an instruction Python executes. Assignment is a statement:
+## 2. Statements perform instructions
 
-    temperature = 21.5
-    print(temperature)
+A statement is a complete instruction executed by Python. Assignment is a statement.
 
-The right side of an assignment is an expression. Python evaluates it and binds the result to the target name. A function call such as print(...) is an expression used as an expression statement.
+~~~python
+temperature_c = 18
+average = (12 + 16) / 2
+print(average)
+~~~
 
-## 3. Assignment and evaluation order
+The expression on the right of an assignment is evaluated first. Its result is then bound to the target name.
 
-For ordinary assignment, Python evaluates the right-hand side before binding the target:
+Assignment is not a mathematical equation asserting equality. It changes a name binding.
 
-    count = 5
-    count = count + 1
-    print(count)  # 6
+## 3. Reassignment and evaluation order
 
-This is not an algebraic equation. Python reads the current value, calculates a result, then rebinds the name.
+~~~python
+count = 3
+saved_count = count
+count = count + 1
+print(count, saved_count)  # 4 3
+~~~
 
-Multiple assignment:
+The earlier assignment to saved_count does not create a live formula. It binds the name to the value that count referred to at that moment.
 
-    x, y = 10, 20
-    x, y = y, x
-    print(x, y)  # 20 10
+Multiple assignment can unpack values:
 
-Sequence unpacking is explored further with data structures.
+~~~python
+first, second = 10, 20
+first, second = second, first
+print(first, second)  # 20 10
+~~~
 
-Chained assignment binds multiple names to the same resulting object:
+Chained assignment binds multiple names to the same object:
 
-    first = second = []
+~~~python
+left = right = 5
+~~~
 
-Both names initially refer to the same list. Mutating that list through one name is visible through the other. This is an early preview of aliasing and mutability.
+With immutable integers this is usually unremarkable. With mutable objects, shared references matter; mutability and containers are covered later.
 
-## 4. Operator precedence and grouping
+## 4. Precedence and grouping
 
-Precedence determines how an expression is grouped. Parentheses override the normal grouping:
+Operator precedence determines how an expression is grouped when parentheses are absent. Learn the common rules, but use parentheses when they improve clarity.
 
-    result = 2 + 3 * 4
-    grouped = (2 + 3) * 4
-    print(result)   # 14
-    print(grouped)  # 20
+~~~python
+print(2 + 3 * 4)   # 14
+print((2 + 3) * 4) # 20
+print(2 ** 3 ** 2) # 512
+print(-3 ** 2)     # -9
+print((-3) ** 2)  # 9
+~~~
 
-The Numbers and Operators lesson covers the common precedence levels. The complete official table includes syntax introduced later. If an expression is hard to read, add parentheses or split it into named intermediate calculations:
+Exponentiation groups from right to left. Exponentiation binds more tightly than unary minus in the expression -3 ** 2.
 
-    numerator = new_value - old_value
-    relative_change = numerator / old_value
-    percentage_change = relative_change * 100
-
-The longer version is easier to inspect and debug.
+Do not memorize a huge table before understanding the expression. When uncertain, add parentheses and verify the intended grouping.
 
 ## 5. Expressions can have side effects
 
-Some expressions do more than calculate a value. A function call can display text, read input, modify an object, or interact with the outside environment. These are side effects.
+A pure calculation produces a value without changing external state. Some expressions also perform actions.
 
-    name = input("Name: ")
+~~~python
+number_text = input("Number: ")
+print(number_text)
+~~~
 
-The call reads input and returns a string. It also interacts with the user.
+input() reads from standard input; print() writes to an output stream. Their effects are not merely numeric results.
 
-For now, prefer simple expressions whose results are easy to predict. Pure functions and side effects are studied more deeply in the Functions module.
+Side effects are not inherently bad. They should be placed where a reader expects interaction or state changes. Keep complex calculations separate from I/O when possible.
 
-## 6. Syntax errors, runtime exceptions, and logic errors
+## 6. Trace a program line by line
 
-- A **syntax error** means the source code does not follow Python's grammar.
-- A **runtime exception** occurs while valid code is running, such as division by zero.
-- A **logic error** occurs when code runs but produces a result different from the intended result.
+Tracing means recording the relevant state after each statement.
 
-    # Syntax error: missing closing parenthesis
-    # print(2 + 3
+~~~python
+first = 4
+second = first + 3
+first = 10
+total = first + second
+average = total / 2
+print(average)
+~~~
 
-    # Runtime exception:
-    # result = 10 / 0
+| After statement | first | second | total | average |
+|---|---:|---:|---:|---:|
+| first = 4 | 4 | — | — | — |
+| second = first + 3 | 4 | 7 | — | — |
+| first = 10 | 10 | 7 | — | — |
+| total = first + second | 10 | 7 | 17 | — |
+| average = total / 2 | 10 | 7 | 17 | 8.5 |
 
-    # Logic error: incorrect grouping for an average
-    first = 10
-    second = 20
-    wrong_average = first + second / 2
-    correct_average = (first + second) / 2
+Output: 8.5.
 
-The last example runs, but precedence makes the first formula incorrect for an average.
+A trace table is especially useful when a program runs but produces an unexpected result.
 
-## 7. Trace a program line by line
+## 7. Three broad error categories
 
-Tracing means following execution and recording the values associated with names:
+- **Syntax error:** Python cannot parse the source code, for example an unmatched parenthesis.
+- **Runtime exception:** execution reaches an operation that raises an exception, for example division by zero.
+- **Logic error:** the program runs but does not implement the intended behavior, for example calculating (a + b / 2) instead of ((a + b) / 2).
 
-    first = 4
-    second = first + 3
-    first = 10
-    total = first + second
-    print(total)
+A program can contain a logic error without raising an exception. Testing and reasoning are therefore necessary even when execution succeeds.
 
-Trace:
-1. first becomes 4.
-2. second becomes 7.
-3. first is rebound to 10.
-4. total becomes 17.
-5. print displays 17.
+## 8. Common mistakes
 
-| Executed statement | first | second | total |
-|---|---:|---:|---:|
-| first = 4 | 4 | — | — |
-| second = first + 3 | 4 | 7 | — |
-| first = 10 | 10 | 7 | — |
-| total = first + second | 10 | 7 | 17 |
-
-## 8. Readability rules
-
-- Prefer meaningful intermediate variables over dense formulas.
-- Use parentheses when they clarify grouping.
-- Avoid expressions that require the reader to mentally simulate too many operations.
-- Keep statements focused on understandable actions.
-- Do not use clever syntax merely to reduce line count.
-- Explain non-obvious intent with a useful comment, not one that repeats the code.
+1. Treating assignment as mathematical equality.
+2. Assuming a later reassignment recalculates earlier variables.
+3. Forgetting operator precedence.
+4. Confusing a value-producing expression with an instruction.
+5. Ignoring side effects in a function call.
+6. Debugging by random edits rather than tracing.
+7. Assuming a program is correct because it runs without an exception.
 
 ## 9. Coding lab — Trace and refactor a calculation
 
-Create expression_trace.py:
+Create expression_lab.py.
 
-    first_reading = 12.5
-    second_reading = 15.5
-    third_reading = 18.0
-
-Tasks:
-1. Predict the average before running the code.
-2. Write a trace table for each assignment.
-3. Calculate the average using clear grouping.
-4. Rewrite the formula using intermediate variables for the sum and count.
-5. Intentionally remove parentheses from another formula and observe how precedence changes the result.
-6. Explain the difference between an expression and a statement.
+1. Assign two numeric readings.
+2. Calculate a total, average, and difference using intermediate names.
+3. Reassign one original reading and predict which stored results change (and which do not).
+4. Swap two names using multiple assignment.
+5. Create one deliberate logic error in a formula.
+6. Record expected and actual values, trace each assignment, and repair the expression.
+7. Explain why a successful run does not prove correctness.
 
 ## 10. Independent exercises
 
-1. Classify as expression or statement: 5 + 2; name = "Ada"; len("abc"); print("Hi"); temperature > 20.
-2. Trace: x = 3; y = x * 2; x = y + 1; print(x, y).
-3. Explain why count = count + 1 is valid Python although it is not an algebraic identity.
-4. Find and fix the logic error in average = first + second / 2.
-5. Rewrite a long arithmetic expression into named steps without changing its result.
-6. Explain why first = second = [] does not create two independent lists.
-7. Give an example of an expression with a side effect.
+### Level 1
 
-## Answer key
+1. Classify 5 + 2, name = "Ada", len("abc"), print("Hi"), and temperature > 20.
+2. Trace x = 3; y = x * 2; x = y + 1; print(x, y).
+3. Explain count = count + 1.
+4. Predict 2 + 3 * 4, (2 + 3) * 4, and 2 ** 3 ** 2.
 
-1. Expressions: 5 + 2, len("abc"), temperature > 20. Statements: name = "Ada"; print("Hi") is an expression statement (the call is an expression used as a statement).
-2. x is 7 and y is 6.
-3. The right-hand expression uses the current value, computes a new value, and rebinds the name.
-4. Use average = (first + second) / 2.
-5. Answers vary; intermediate names should preserve operation order.
-6. Both names refer to the same list object.
-7. input("Name: ") or print("Hello") are examples.
+### Level 2
+
+5. Write an average formula with correct grouping.
+6. Refactor a long expression using meaningful intermediate names.
+7. Explain why first = second = [] makes both names refer to the same list.
+8. Identify the side effects in a short input/print program.
+
+### Level 3
+
+9. Explain why reassigning a name does not rerun old calculations.
+10. Diagnose a plausible but incorrect average with no exception.
+11. Explain the difference between rebinding a name and mutating a mutable object.
+12. Guard division by zero with an explicit conditional.
+13. Build a trace table for a short program and explain its final output.
+
+## Exercise solutions
+
+Attempt the exercises and knowledge check before opening the separate [expressions-and-statements — Exercise Solutions](./07-expressions-and-statements-solutions.md).
 
 ## Knowledge check
 
 1. What is an expression?
 2. What is a statement?
-3. Which side of an assignment is evaluated first?
-4. How do parentheses affect precedence?
-5. What is a side effect?
-6. How do syntax errors, runtime exceptions, and logic errors differ?
+3. What happens to the right-hand expression before assignment?
+4. Why is assignment not an equation?
+5. Rebinding versus mutation?
+6. Why use parentheses?
+7. What is a side effect?
+8. Syntax error versus runtime exception versus logic error?
 
 ## Summary and completion criteria
 
-Expressions produce values; statements perform instructions. Assignment evaluates its right-hand expression before rebinding the target. Precedence determines grouping, while parentheses and intermediate variables improve clarity. Syntactically valid code can still contain runtime or logic errors.
+Expressions evaluate to values; statements perform instructions. Assignment evaluates the right-hand side before binding names. Reassignment does not update earlier results. Precedence affects grouping. Trace tables reveal state changes and help diagnose logic errors.
 
-- [ ] I can classify simple expressions and statements.
-- [ ] I can trace variable values line by line.
-- [ ] I can explain assignment evaluation order.
-- [ ] I can use parentheses and intermediate variables for clarity.
-- [ ] I can distinguish syntax, runtime, and logic errors.
-- [ ] I completed the lab and exercises independently.
+Complete the lab and explain a program's state after each statement before marking this lesson studied.
 
 ## Official references
 
 - [Expressions](https://docs.python.org/3/reference/expressions.html)
 - [Simple Statements](https://docs.python.org/3/reference/simple_stmts.html)
-- [Assignment Statements](https://docs.python.org/3/reference/simple_stmts.html#assignment-statements)
+- [Operator Precedence](https://docs.python.org/3/reference/expressions.html#operator-precedence)
+- [Built-in Functions](https://docs.python.org/3/library/functions.html)

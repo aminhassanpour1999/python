@@ -1,173 +1,200 @@
 # Comments and Code Style
 
-**Module:** Programming Fundamentals  
-**Lesson:** 8 of 9 · **Level:** Beginner · **Study time:** 45–60 minutes  
-**Prerequisites:** Previous Fundamentals lessons
+**Prerequisites:** Variables and Data Types; Expressions and Statements  
+**Study time:** 60–90 minutes
 
-## Purpose and learning objectives
+## Purpose and learning outcomes
 
-Readable code is easier to understand, debug, test, and maintain. Style does not replace correctness, but it helps people reason about a program. By the end, you should be able to write useful comments; choose meaningful names; apply basic PEP 8 conventions; distinguish comments, strings, and docstrings; and refactor a small script without changing its behavior.
+Readable code reduces defects and makes reasoning easier. Style is not decoration: it communicates intent and makes review, debugging, and maintenance more reliable.
 
-## 1. Why style matters
+You will choose meaningful names, use comments responsibly, distinguish comments from strings and docstrings, apply foundational PEP 8 conventions, represent units clearly, and refactor without changing behavior.
+
+## 1. Readability is a correctness tool
 
 Compare:
 
-    x = 48000
-    y = x / 1000
-    print(y)
+~~~python
+x = 48000
+y = 96000
+z = (x + y) / 2
+print(z)
+~~~
 
-With:
+with:
 
-    sample_rate_hz = 48_000
-    sample_rate_khz = sample_rate_hz / 1_000
-    print(sample_rate_khz)
+~~~python
+first_sample_rate_hz = 48_000
+second_sample_rate_hz = 96_000
+average_sample_rate_hz = (
+    first_sample_rate_hz + second_sample_rate_hz
+) / 2
+print(f"Average sample rate: {average_sample_rate_hz:.1f} Hz")
+~~~
 
-The second version explains the meaning and units of the values. Programs are read and maintained, not merely executed once.
+The second version communicates meaning and units. A reader can review the calculation without guessing what x, y, and z represent.
 
-## 2. Comments
+## 2. Naming identifiers
 
-A comment begins with # outside a string. Python ignores comment text during execution:
+Use names that describe meaning, not merely type or position.
 
-    # Convert the sample rate from Hz to kHz.
-    sample_rate_khz = sample_rate_hz / 1_000
+- Variables and functions conventionally use snake_case.
+- Classes conventionally use CapWords (introduced in OOP).
+- Constants conventionally use UPPER_SNAKE_CASE.
+- Avoid single-letter names except for short, conventional local mathematics where the meaning is clear.
+- Avoid vague names such as data, value, temp, or result when a more precise name is available.
+- Do not shadow built-ins such as str, list, sum, type, print, or input.
 
-A useful comment explains intent, assumptions, or a non-obvious decision. It should not merely repeat the code:
-
-Poor:
-    # Add one to count
-    count += 1
-
-Better, when the reason is not obvious:
-    # Include the current batch in the running total.
-    total_samples += current_batch_size
-
-Comments can become misleading when code changes. Update or remove a comment when it no longer describes behavior.
+Names are case-sensitive. Use units in names when they prevent ambiguity: distance_km, elapsed_seconds, voltage_v.
 
 ## 3. Comments, strings, and docstrings
 
-A string literal is data:
+A comment begins with # outside a string and is ignored by Python.
 
-    message = "This is text, not a comment."
+~~~python
+# Convert elapsed time to seconds before calculating speed.
+elapsed_seconds = elapsed_minutes * 60
+~~~
 
-A docstring is a string literal used as documentation for a module, class, or function. Formal docstring practice is developed with functions:
+A comment should explain intent, an assumption, a constraint, or a non-obvious decision. Avoid comments that merely repeat the code.
 
-    """A module-level description."""
+~~~python
+# Weak: Add one to count.
+count = count + 1
 
-A triple-quoted string is not automatically a comment. It is still a string literal and becomes a docstring only in the appropriate position.
+# Better: The external report numbers its first sample as 1.
+sample_number = zero_based_index + 1
+~~~
 
-## 4. Naming conventions
+A string literal is a value. A docstring is a string literal placed in the designated position at the beginning of a module, class, or function body. Docstrings are documentation, not comments. Function and class docstrings are studied in detail later.
 
-- Variables and functions: lowercase snake_case.
-- Constants: uppercase words separated by underscores by convention.
-- Class names: CapWords (covered in OOP).
-- Avoid unexplained abbreviations and single-letter names outside short mathematical contexts.
-- Avoid shadowing built-ins such as str, list, type, and sum.
-- Choose names that describe meaning, not merely implementation.
+## 4. Whitespace and layout
 
-    sample_count = 250
-    maximum_retries = 3
-    DEFAULT_TIMEOUT_SECONDS = 10
+PEP 8 recommends four spaces per indentation level. Do not mix tabs and spaces. Use spaces around binary operators and after commas. Keep related code visually grouped.
 
-Names should be clear without becoming unnecessarily long. Consistency matters.
+~~~python
+average = (first_reading + second_reading) / 2
+is_valid = 0.0 <= voltage_v <= 5.0
+~~~
 
-## 5. Whitespace and layout
+Avoid unnecessary alignment that makes edits fragile. Follow a consistent line-length convention and split long expressions where it improves readability. PEP 8 is a style guide, not a language syntax specification: code can run while violating style guidance.
 
-PEP 8 recommends four spaces per indentation level. Do not mix tabs and spaces in the same block.
+## 5. Constants and magic numbers
 
-Use spaces around binary operators:
+A magic number is a literal whose meaning is unclear in context.
 
-    average = (first + second) / 2
+~~~python
+CALIBRATION_FACTOR = 1.15
+calibrated_value = raw_value * CALIBRATION_FACTOR
+~~~
 
-Use blank lines to separate logical groups. Keep related statements together. PEP 8 offers line-length guidance, but projects may adopt another consistent limit. When a line is too long, split it at a meaningful boundary:
+Uppercase is a convention; Python does not make the object immutable because the name is uppercase. Give a constant a name when it represents a meaningful rule, configuration value, or domain quantity. Do not create a named constant for every trivial literal.
 
-    average = (
-        first_measurement
-        + second_measurement
-        + third_measurement
-    ) / 3
+## 6. Refactoring and behavior preservation
 
-## 6. Constants and units
+Refactoring improves internal structure without intentionally changing observable behavior.
 
-Python does not enforce constants. Uppercase names communicate that a value is intended to remain unchanged:
+A safe beginner refactoring process:
 
-    SPEED_OF_LIGHT_M_PER_S = 299_792_458
-    sample_rate_hz = 48_000
+1. Understand what the original code is intended to do.
+2. Record representative inputs and outputs.
+3. Improve names and grouping in small steps.
+4. Run the same tests after each change.
+5. Investigate every difference rather than assuming it is harmless.
 
-Use units in names when ambiguity is possible. Do not combine quantities with different units without an explicit conversion.
+~~~python
+# Original
+a = 12
+b = 8
+c = (a + b) / 2
+print(c)
 
-## 7. Basic refactoring
+# Refactored
+first_reading = 12
+second_reading = 8
+average_reading = (first_reading + second_reading) / 2
+print(average_reading)
+~~~
 
-Refactoring improves code structure without intentionally changing behavior.
+Both calculate 10.0. The refactor changes clarity, not intended behavior.
 
-Before refactoring:
-1. Understand the intended behavior.
-2. Record output for representative inputs.
-3. Change one aspect at a time.
-4. Run the same tests after the change.
+## 7. Common style mistakes
 
-Useful beginner refactorings include renaming unclear variables, extracting intermediate calculations, removing redundant comments, adding labels and units, and splitting unrelated actions into separate statements.
+1. Names that reveal no meaning.
+2. Shadowing a built-in name.
+3. Comments that restate the next line.
+4. Comments that contradict the actual units or logic.
+5. Inconsistent indentation or spacing.
+6. Unexplained numeric literals that represent important rules.
+7. Overly clever expressions that are hard to review.
+8. Refactoring many things at once without checking behavior.
 
-## 8. Common style mistakes
+## 8. Coding lab — Refactor an unclear measurement script
 
-1. Unclear names such as x1 or temp when meaningful names are easy.
-2. Shadowing built-ins.
-3. Comments that repeat code or no longer match it.
-4. Inconsistent indentation.
-5. Missing spaces around operators.
-6. Lines that combine too many unrelated actions.
-7. Unexplained numeric constants.
-8. Treating style as a substitute for correctness or testing.
+Create style_lab.py using the following starting point:
 
-## 9. Coding lab — Refactor an unclear script
+~~~python
+x=12.5
+y=0.5
+z=x/y
+print("result",z)
+~~~
 
-Refactor this program while preserving its behavior:
+1. Choose meaningful names that include units.
+2. Add spaces and line breaks according to PEP 8 basics.
+3. Format the output with a label and unit.
+4. Add a comment only if it explains an assumption.
+5. Run both versions with the same values.
+6. Test another ordinary case and a boundary case.
+7. Explain why the refactor preserves the calculation.
 
-    x=48000
-    y=96000
-    z=(x+y)/2
-    print("result",z)
+## 9. Independent exercises
 
-Requirements:
-1. Choose meaningful names.
-2. Use consistent spacing and blank lines.
-3. Include units in names or output.
-4. Add a comment only if it explains intent not obvious from the code.
-5. Run the original and revised versions with the same inputs and compare outputs.
+### Level 1
 
-## 10. Independent exercises
+1. Improve names such as x, y, z, and t for a speed calculation.
+2. Name five built-ins that should not be shadowed.
+3. Distinguish a comment, a string literal, and a docstring.
+4. What indentation size does PEP 8 recommend?
 
-1. Rename a, b, and c in an average calculation.
-2. Explain why a comment repeating the next line adds little value.
-3. Distinguish a comment, string literal, and docstring.
-4. Rewrite a long expression using parentheses and intermediate variables.
-5. Identify three built-in names that should not be reused for variables.
-6. Explain how you would verify a refactor did not change behavior.
+### Level 2
 
-## Answer guide
+5. Rewrite unclear measurement variables with units.
+6. Split a long expression into readable intermediate values.
+7. Identify comments that repeat code versus comments that explain intent.
+8. Give a meaningful constant name for a calibration factor.
 
-Answers may differ. A good refactor preserves the calculation, uses meaningful names, includes units where useful, and avoids misleading comments. Verify by comparing the original and refactored outputs with the same test inputs.
+### Level 3
+
+9. Review a short script and propose five improvements.
+10. Does an uppercase name make a value immutable? Explain.
+11. Find a mismatch between a comment and a unit in a sample program; propose a correction.
+12. Explain how to verify a refactor preserves behavior.
+13. Give an example of a useful comment that a long variable name cannot replace.
+
+## Exercise solutions
+
+Attempt the exercises and knowledge check before opening the separate [comments-and-code-style — Exercise Solutions](./08-comments-and-code-style-solutions.md).
 
 ## Knowledge check
 
-1. What makes a comment useful?
-2. What is the difference between a comment and a docstring?
-3. What is snake_case?
-4. What indentation convention does PEP 8 recommend?
-5. What is refactoring?
-6. How can you verify that a refactor preserved behavior?
+1. What makes a name useful?
+2. Why is shadowing a built-in harmful?
+3. What should a useful comment explain?
+4. What is a docstring?
+5. What indentation does PEP 8 recommend?
+6. What is a magic number?
+7. What is refactoring?
+8. How can you verify that refactoring did not change behavior?
 
 ## Summary and completion criteria
 
-Readable code uses meaningful names, consistent whitespace, clear layout, and comments that explain intent. PEP 8 is a style guide, not a substitute for correctness or judgment.
+Readable code uses meaningful names, consistent layout, accurate units, and comments that explain intent. Style conventions do not change Python syntax, but they improve communication and reduce mistakes. Refactoring must be checked against expected behavior.
 
-- [ ] I can choose clear snake_case names.
-- [ ] I avoid shadowing built-ins.
-- [ ] I can write useful comments and distinguish docstrings.
-- [ ] I can apply basic indentation and whitespace conventions.
-- [ ] I can refactor a short script and verify its behavior is unchanged.
+Complete the lab and review another person's short script for clarity before marking this lesson studied.
 
 ## Official references
 
 - [PEP 8 — Style Guide for Python Code](https://peps.python.org/pep-0008/)
-- [Python Tutorial — Coding Style](https://docs.python.org/3/tutorial/controlflow.html#intermezzo-coding-style)
 - [Lexical Analysis — Comments](https://docs.python.org/3/reference/lexical_analysis.html#comments)
+- [Compound Statements — Indentation](https://docs.python.org/3/reference/compound_stmts.html)
+- [PEP 257 — Docstring Conventions](https://peps.python.org/pep-0257/)

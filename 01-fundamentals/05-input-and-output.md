@@ -1,194 +1,228 @@
 # Input and Output
 
-**Module:** Programming Fundamentals  
-**Lesson:** 5 of 9 · **Level:** Beginner · **Study time:** 60–75 minutes  
-**Prerequisites:** Variables and Data Types; Strings; Type Conversion
+**Prerequisites:** Variables and Data Types; Numbers and Operators; Strings; Type Conversion  
+**Study time:** 60–90 minutes
 
-## Purpose and learning objectives
+## Purpose and learning outcomes
 
-A program becomes interactive when it receives information and communicates results. By the end, you should be able to use print() with sep and end; explain that input() returns a string; build an input → conversion → calculation → output workflow; design clear prompts; format results with f-strings and units; and identify basic validation requirements.
+A useful program receives information, processes it, and communicates a result. This lesson covers basic terminal interaction with input() and print(). You will understand their return behavior, design clear prompts, separate raw input from computation, and test programs independently of an interactive terminal.
 
 ## 1. Output with print()
 
-print() displays objects and, by default, writes a newline afterward:
+print() displays objects to a text stream. In ordinary beginner programs, that stream is usually standard output.
 
-    print("Hello, Python!")
-    print(42)
-    print(3.14)
+~~~python
+print("Hello, Python!")
+print(12)
+print(3.5)
+~~~
 
-You can pass multiple arguments. By default, one space separates them:
+By default, print() separates multiple arguments with a space and ends with a newline.
 
-    name = "Receiver"
-    frequency = 99.5
-    print("Device:", name, "Frequency:", frequency)
+~~~python
+print("A", "B", "C")
+print("A", "B", "C", sep="-")
+print("Start", end=" ")
+print("finish")
+~~~
 
-The sep parameter controls the separator:
+Output:
 
-    print("2026", "10", "30", sep="-")
-    print("red", "green", "blue", sep=" | ")
+~~~text
+A B C
+A-B-C
+Start finish
+~~~
 
-The end parameter controls what is written after the final argument. It defaults to a newline:
+- sep controls the text between arguments.
+- end controls the text after the final argument.
+- file selects the output stream.
+- flush controls whether the stream is forcibly flushed.
 
-    print("Loading", end="...")
-    print("done")
+The defaults are sep=" " and end="\\n". At this stage, focus on sep and end.
 
-Use sep and end when they improve the output; do not use them merely to make code clever.
+### print() does not return the displayed text
+
+~~~python
+result = print("Displayed")
+print(result)
+~~~
+
+Output:
+
+~~~text
+Displayed
+None
+~~~
+
+print() performs an output action and returns None. Displaying something is not the same as returning a value.
 
 ## 2. Input with input()
 
-input(prompt) displays an optional prompt, reads one line of text, removes the trailing newline, and returns a string:
+input() displays an optional prompt, reads one line from standard input, removes its trailing newline, and returns a string.
 
-    name = input("What is your name? ")
-    print(f"Hello, {name}!")
+~~~python
+name = input("Your name: ")
+print(f"Hello, {name}!")
+~~~
 
-Even if the user types digits, input() does not automatically return a number:
+Even if the user types digits, the result is text.
 
-    age = input("Enter your age: ")
-    print(type(age))  # <class 'str'>
+~~~python
+age_text = input("Age: ")
+print(type(age_text).__name__)  # str
+~~~
 
-The input is text and must be converted before numeric arithmetic.
+Convert explicitly before numeric operations.
 
-## 3. Input-to-computation workflow
+~~~python
+first_text = input("First number: ")
+second_text = input("Second number: ")
+first_number = float(first_text)
+second_number = float(second_text)
+total = first_number + second_number
+print(f"Total: {total:.2f}")
+~~~
 
-A common beginner program follows four steps:
+Do not assume that input is valid just because the prompt asks for a number. Users can submit empty text, letters, unexpected units, or out-of-range values.
 
-1. Ask for information.
-2. Convert it to the required type.
-3. Perform the calculation.
-4. Display a labelled result.
+## 3. Separate the stages of a program
 
-    first_text = input("First measurement in volts: ")
-    second_text = input("Second measurement in volts: ")
+Use this mental model:
 
-    first = float(first_text)
-    second = float(second_text)
-    average = (first + second) / 2
+1. **Acquire:** read raw input as text.
+2. **Interpret:** convert it to the intended type.
+3. **Compute:** perform the calculation.
+4. **Present:** format and display the result.
 
-    print(f"Average: {average:.2f} V")
+~~~python
+distance_text = input("Distance (km): ")
+time_text = input("Elapsed time (h): ")
 
-This version assumes both inputs are valid numeric strings. If a user enters "unknown", conversion raises ValueError. Robust handling is taught in the later Exceptions lesson. Understand this limitation and test it deliberately.
+distance_km = float(distance_text)
+elapsed_hours = float(time_text)
+average_speed_kmh = distance_km / elapsed_hours
+
+print(f"Average speed: {average_speed_kmh:.2f} km/h")
+~~~
+
+This example assumes numeric text and nonzero time. It deliberately does not implement robust validation or exception handling; those belong later.
+
+Separate names help reveal where data changes representation. Avoid reusing one name for raw text and converted numeric data when that makes the program harder to reason about.
 
 ## 4. Design good prompts and output
 
-A good prompt states what information is required and, when relevant, the unit and accepted format.
+A prompt should state what is expected. A result should explain what the number means.
 
-Weak: "Value: "  
-Better: "Enter temperature in degrees Celsius: "
+~~~python
+voltage_v = float(input("Enter voltage in volts (V): "))
+doubled_voltage_v = voltage_v * 2
+print(f"Twice the voltage: {doubled_voltage_v:.2f} V")
+~~~
 
-Output should explain what a value means:
+Useful output includes a descriptive label, unit, appropriate precision, and a sign when direction matters. Formatting does not create measurement accuracy: six displayed decimal places do not mean the instrument measured six decimal places reliably.
 
-    distance_km = 12.5
-    time_hours = 0.5
-    speed_kmh = distance_km / time_hours
+## 5. Fixed data versus interactive input
 
-    print(f"Distance: {distance_km:.1f} km")
-    print(f"Time: {time_hours:.2f} h")
-    print(f"Average speed: {speed_kmh:.1f} km/h")
+Interactive input is convenient for people but awkward for repeatable automated tests. Test a calculation with fixed values before adding prompts.
 
-Do not imply precision that the measurement does not support. Printing many decimal places does not make a measurement more accurate.
+~~~python
+distance_km = 12.5
+elapsed_hours = 0.5
+average_speed_kmh = distance_km / elapsed_hours
+print(f"{average_speed_kmh:.2f} km/h")
+~~~
 
-## 5. Interactive versus fixed data
+Try different values and predict results first. This separates calculation correctness from terminal interaction. Later, functions will make this separation cleaner.
 
-Fixed values are often easier to reproduce and test:
+## 6. Basic checks and current limitations
 
-    first = 10.0
-    second = 20.0
-    average = (first + second) / 2
-    print(f"Average: {average:.1f}")
+At this stage, you can perform simple checks such as testing whether text is empty or matches an allowed word.
 
-An interactive version uses input(), but the calculation can remain the same. Notice which lines receive input, which calculate, and which display results. Keeping these responsibilities distinct makes later testing easier.
+~~~python
+raw_name = input("Name: ")
+clean_name = raw_name.strip()
 
-## 6. Basic input checks
+if clean_name:
+    print(f"Hello, {clean_name}")
+else:
+    print("A name is required.")
+~~~
 
-Before using input, consider:
-- Is it empty or only whitespace?
-- Is it in the expected format?
-- Can it be converted?
-- Is it within the allowed range?
-- Does it use the expected unit?
+This previews if, which is taught in Control Flow. Do not build complex validation before learning the relevant tools.
 
-Conversion is not validation. float("-10") succeeds, but a negative value may be invalid for a particular quantity. Branching and robust exception handling are taught later.
+float(raw_text) may raise ValueError. A robust interactive program should explain the problem and allow a retry. Exception handling and loops are taught later.
 
 ## 7. Common mistakes
 
-1. Assuming input() returns a number.
-2. Concatenating a number and text with + instead of using an f-string.
-3. Omitting units or labels.
-4. Writing vague prompts.
-5. Displaying unjustified decimal precision.
-6. Assuming conversion proves that the value is meaningful.
-7. Ignoring invalid input or silently replacing it with zero.
-8. Mixing input, calculation, and presentation into one unreadable expression.
+1. Assuming input is numeric: input() always returns str.
+2. Adding numeric-looking strings: "3" + "4" produces "34".
+3. Ignoring units: a value of 5 is ambiguous without a unit.
+4. Dividing by zero: a value may be numeric but invalid for a calculation.
+5. Overstating precision: display precision is not measurement accuracy.
+6. Mixing interface and calculation: hard-coded prompts make logic harder to test.
+7. Confusing print and return: print displays and returns None.
+8. Assuming every environment is interactive: IDE consoles, notebooks, automated tests, and online runners may handle standard input differently.
 
 ## 8. Coding lab — Interactive average calculator
 
-Create average_calculator.py.
+Create input_output_lab.py.
 
-Tasks:
-1. Ask for two measurements using prompts that specify the unit.
-2. Store the returned strings in names ending with _text.
-3. Convert both to floats and inspect their types.
-4. Calculate the average in a separate variable.
-5. Print the inputs and average with labels, two decimal places, and units.
-6. Test whole numbers, decimals, zero, a negative value, and invalid text.
-7. Write a note explaining what the current program does not handle.
-
-Checklist:
-- [ ] Clear prompts.
-- [ ] Explicit conversion.
-- [ ] Separate calculation and presentation.
-- [ ] Labels and units in output.
-- [ ] Normal and invalid input tested.
-- [ ] Limitation documented.
+1. Ask for two voltage readings and include V in each prompt.
+2. Store raw input in variables ending in _text.
+3. Convert both explicitly to float.
+4. Calculate the average.
+5. Display both readings and the average with labels and units.
+6. Use sep in one output statement and end in another.
+7. Test the calculation separately with fixed values.
+8. Record what happens with empty input, non-numeric text, zero, and negative values. Do not claim robust handling if it is not implemented.
 
 ## 9. Independent exercises
 
-1. Predict the exact output and line breaks:
-   
-       print("A", "B", "C")
-       print("A", "B", "C", sep="-")
-       print("Start", end=" ")
-       print("finish")
+### Level 1
 
-2. Why does adding inputs "3" and "4" produce text "34" rather than numeric 7? Rewrite it for numeric addition.
-3. Given voltage = 12.3456, print "Voltage: 12.35 V".
-4. Improve the prompts "Value: " and "Time: " by stating the expected quantity and unit.
-5. Rewrite a long input/calculation/output expression using meaningful intermediate variables.
-6. List four test inputs for a calculator and explain what each checks.
-7. Why is displaying ten decimal places not proof of ten-decimal-place accuracy?
+1. What does input() return?
+2. What are print()'s default sep and end values?
+3. Predict the exact output of calls using default and custom sep/end.
+4. What does print() return?
 
-## Answer key
+### Level 2
 
-1. Three lines: "A B C", "A-B-C", and "Start finish".
-2. input() returns strings, and + concatenates them. Convert both to float or int before addition.
-3. print(f"Voltage: {voltage:.2f} V")
-4. Example: "Enter temperature in degrees Celsius: " and "Enter elapsed time in seconds: ".
-5. Use separate input, conversion, calculation, and print statements.
-6. Useful cases include ordinary integers, decimals, zero, a boundary value, negative input, empty input, and non-numeric text.
-7. Formatting controls display; it cannot add precision absent from the source measurement.
+5. Display voltage with two decimal places and its unit.
+6. Rewrite a vague prompt so it names the expected unit.
+7. Separate raw text, converted values, calculation, and output in a speed calculator.
+8. Why does "3" + "4" not perform numeric addition?
+9. List four useful test inputs for a numeric command-line program.
+
+### Level 3
+
+10. Why should a serial number not be converted to int?
+11. What happens when numeric input contains surrounding spaces?
+12. Why can displaying many decimal places be misleading?
+13. A script waits in an automated environment. Give a plausible explanation.
+14. Distinguish invalid format, invalid range, and incorrect unit.
+
+## Exercise solutions
+
+Attempt the exercises and knowledge check before opening the separate [input-and-output — Exercise Solutions](./005-input-and-output-solutions.md).
 
 ## Knowledge check
 
-1. What do sep and end control?
-2. What does input() return?
-3. Why must numeric input be converted?
-4. How is validation different from conversion?
-5. Why should output include units?
-6. Why are fixed values useful for repeatable tests?
+1. What is print() for?
+2. What do sep and end control?
+3. Why must input often be converted?
+4. Why keep raw and converted values separately?
+5. What is gained by separating calculation from input/output?
+6. Conversion versus validation?
+7. Why should output include units?
+8. Why are fixed values useful for testing?
 
 ## Summary and completion criteria
 
-print() displays values; sep and end customize separators and endings. input() reads one line and returns a string. A clear beginner script separates input, conversion, calculation, and output. Prompts and results should include context and units.
-
-- [ ] I can use print() with sep and end.
-- [ ] I can explain input()'s return type.
-- [ ] I can build an input-to-calculation workflow.
-- [ ] I can format readable output with units.
-- [ ] I tested normal and invalid input and documented limitations.
-- [ ] I completed the lab and exercises independently.
+input() returns text; conversion is explicit. print() displays objects and returns None. Separate acquisition, conversion, computation, and presentation. Label values and units, and choose display precision responsibly. Complete the lab, predict output, and explain what the current version does not yet handle before marking this lesson studied.
 
 ## Official references
 
-- [Built-in Functions — print()](https://docs.python.org/3/library/functions.html#print)
-- [Built-in Functions — input()](https://docs.python.org/3/library/functions.html#input)
+- [input()](https://docs.python.org/3/library/functions.html#input)
+- [print()](https://docs.python.org/3/library/functions.html#print)
 - [Formatted String Literals](https://docs.python.org/3/reference/lexical_analysis.html#f-strings)

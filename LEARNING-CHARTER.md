@@ -66,3 +66,21 @@ The learner and assistant work through one topic at a time. The assistant checks
 ## Long-term direction
 
 Build a strong foundation in Python and programming, then progress into mathematics, scientific computing, signals and systems, communications, machine learning, and research workflows. Respect prerequisite order and connect these areas through projects when appropriate.
+
+
+## Additional lesson approval gate
+
+Before a lesson is labeled an approved teaching reference, review it against these questions:
+
+1. **Coverage:** Are the essential concepts for this stage explicitly covered? Are deferred topics assigned to a later roadmap location?
+2. **Depth:** Does the lesson explain why and how, not only list syntax or method names?
+3. **Precision:** Are terminology, examples, edge cases, and expected outputs technically correct?
+4. **Runnable practice:** Are there enough small examples to demonstrate each central idea? Are outputs shown where prediction matters?
+5. **Transfer:** Does practice progress from recall to application, debugging, and unfamiliar reasoning?
+6. **Independent attempt:** Are solutions separate from the lesson's exercise prompts?
+7. **Application:** Is there a lab or project when it adds real learning value?
+8. **Boundaries:** Does the lesson avoid making later-stage features hidden prerequisites?
+9. **References:** Are authoritative sources linked for version-sensitive or nuanced behavior?
+10. **Consistency:** Does the module README and roadmap accurately describe what the lesson teaches and what the learner has demonstrated?
+
+A lesson should not receive a perfect score merely because it is long, has many headings, or contains many examples. A 100/100 rating requires evidence of accuracy, sufficient depth, complete stage-appropriate coverage, meaningful independent practice, and a verified review. If runtime behavior has not been tested, record that limitation rather than claiming full verification.

@@ -1,202 +1,220 @@
 # Type Conversion
 
-**Module:** Programming Fundamentals  
-**Lesson:** 4 of 9 · **Level:** Beginner · **Study time:** 60–75 minutes  
-**Prerequisites:** Variables and Data Types; Numbers and Operators; Strings
+**Prerequisites:** Variables and Data Types; Numbers and Operators; Strings  
+**Study time:** 60–90 minutes
 
-## Purpose and learning objectives
+## Purpose and outcomes
 
-Type conversion creates a value of another type. Conversion can fail or lose information. By the end, you should be able to use int(), float(), str(), and bool(); explain implicit numeric promotion; parse numbers in different bases; recognize ValueError and TypeError; and distinguish conversion from validation.
+Programs receive values in one representation and use them in another. Terminal input is text; arithmetic needs numbers. A displayed result may need a formatted string. Conversion is not proof that a value is valid for a particular application.
 
-## 1. Why conversion matters
+You will distinguish conversion, parsing, validation, and formatting; use int(), float(), str(), and bool(); parse bases; explain information loss; and recognize conversion exceptions.
 
-    text_value = "25"
-    integer_value = 25
-    print(type(text_value))     # <class 'str'>
-    print(type(integer_value))  # <class 'int'>
+## 1. Four different operations
 
-The values look similar when printed but have different types. Conversion is common at boundaries: user input, configuration, files, and external data.
+- **Conversion:** create a value of another type, such as float(3).
+- **Parsing:** interpret text according to a representation, such as int("1010", 2).
+- **Validation:** check application rules, such as whether a frequency lies in an allowed range.
+- **Formatting:** create a display representation, such as f"{voltage:.2f} V".
 
-## 2. Numeric conversions
+A value may parse successfully and still be invalid for the application.
 
-### 2.1 int()
+## 2. Integer conversion
 
-int() creates an integer from a compatible value:
+int() creates an integer from a suitable value.
 
-    int("42")    # 42
-    int(7.9)     # 7
-    int(-7.9)    # -7
-    int(True)    # 1
-    int(False)   # 0
+~~~python
+print(int("42"))     # 42
+print(int(42.9))     # 42
+print(int(-42.9))    # -42
+print(int(True))     # 1
+~~~
 
-When converting a float, int() truncates toward zero. It does not round:
+Converting a float truncates toward zero; it does not round to the nearest integer.
 
-    int(4.9)     # 4
-    int(-4.9)    # -4
-    round(4.9)   # 5
+~~~python
+print(int(6.9))    # 6
+print(int(-6.9))   # -6
+print(round(6.9))  # 7
+print(round(-6.9)) # -7
+print(int(-6.2))   # -6
+print(-6.2 // 1)   # -7.0
+~~~
 
-Do not confuse int(-4.9) with -4.9 // 1, which is -5.0 because floor division rounds down toward negative infinity.
+Floor division rounds down toward negative infinity. It is not the same as truncation.
 
-### 2.2 float()
+### Bases
 
-    float("3.5")   # 3.5
-    float("12")    # 12.0
-    float(8)       # 8.0
-    float("2.5e3") # 2500.0
-    float("1e-3")  # 0.001
+~~~python
+print(int("1010", 2)) # 10
+print(int("17", 8))   # 15
+print(int("FF", 16))  # 255
+print(int("0b1010", 0)) # 10
+~~~
 
-Python also recognizes strings such as "inf", "-inf", and "nan" as special floating-point values. These are edge cases, not ordinary finite measurements.
+A base must be between 2 and 36. Base 0 asks Python to infer a recognized prefix. The base argument is for parsing string representations.
 
-### 2.3 Parse an integer in another base
+## 3. Floating-point conversion
 
-The second argument to int() specifies the base:
+~~~python
+print(float("12.5"))  # 12.5
+print(float(7))       # 7.0
+print(float("-3e2"))  # -300.0
+~~~
 
-    int("1010", 2)  # 10
-    int("17", 8)    # 15
-    int("FF", 16)   # 255
+Python also accepts spellings for NaN and infinity. These are valid float values but may violate measurement requirements. Use math.isfinite() when a calculation requires finite values; domain and range checks remain separate.
 
-The base must be from 2 through 36, and the text must be valid for that base.
+## 4. Conversion to text
 
-## 3. Convert to text with str()
+~~~python
+count = 12
+voltage = 3.3
+print(str(count))    # '12'
+print(str(voltage))  # '3.3'
+print(f"Voltage: {voltage:.2f} V")
+~~~
 
-str(value) returns a human-readable string representation:
+str() creates a string representation, not a guaranteed serialization format. Structured data needs a defined format and parser.
 
-    count = 12
-    text = str(count)
-    print(text, type(text))  # 12 <class 'str'>
+## 5. Boolean conversion
 
-A representation is not necessarily a reversible data format. Formatting a float to two decimal places discards displayed precision even though the original float remains unchanged. For output that combines text and values, f-strings are often clearer.
+bool(value) applies Python truth-value rules.
 
-## 4. Convert to bool()
+~~~python
+print(bool(0))        # False
+print(bool(1))        # True
+print(bool(""))       # False
+print(bool("False")) # True
+print(bool("0"))     # True
+print(bool(None))     # False
+~~~
 
-bool(value) applies Python's truth-value rules:
+A non-empty string is truthy, even when its contents spell "False" or "0". bool() is not a parser for yes/no input. Normalize and compare against an explicit accepted vocabulary instead.
 
-    bool(1)        # True
-    bool(0)        # False
-    bool(-2)       # True
-    bool("")       # False
-    bool("False")  # True
-    bool(None)     # False
+~~~python
+answer = " YES ".strip().casefold()
+if answer in {"yes", "y"}:
+    should_continue = True
+elif answer in {"no", "n"}:
+    should_continue = False
+else:
+    print("Unrecognized response.")
+~~~
 
-A non-empty string is truthy even if its text says "False", "0", or "no". bool() does not interpret natural-language words. If you accept yes/no text, normalize it and compare against an explicitly allowed set. Truthiness is studied in depth in Lesson 6.
+This previews if statements, taught in Control Flow.
 
-## 5. Implicit numeric conversion
+## 6. Implicit numeric conversion
 
-Python sometimes promotes compatible numeric values during arithmetic:
+Some mixed numeric operations promote values to a compatible numeric type.
 
-    result = 3 + 2.5
-    print(result, type(result))  # 5.5 <class 'float'>
+~~~python
+result = 5 + 2.5
+print(result)        # 7.5
+print(type(result))  # <class 'float'>
+~~~
 
-This does not mean Python converts unrelated types automatically:
+Python does not automatically parse arbitrary numeric-looking strings.
 
-    # "3" + 2  # TypeError
+~~~python
+# "5" + 2.5 raises TypeError
+~~~
 
-The + operator supports numeric addition and string concatenation, but Python does not guess that the text "3" should become the integer 3. Complex arithmetic can also promote real numeric operands to complex values.
+Convert explicitly at the boundary where text becomes numeric data.
 
-## 6. Conversion can lose information
+## 7. Information loss and type choice
 
-| Conversion | Example | Consequence |
-|---|---|---|
-| float to int | int(3.9) | Fractional part discarded toward zero |
-| int to float | float(3) | Becomes 3.0; huge integers may lose precision |
-| float to text | str(3.14159) | Produces a textual representation |
-| float to formatted text | f"{3.14159:.2f}" | Displays two decimals; original unchanged |
-| number to bool | bool(0) | Tests truthiness, not meaning |
+Conversion may discard information:
 
-Never convert merely to silence an error. Decide what the value means and whether the conversion preserves the information you need.
+- int(3.9) discards the fractional part.
+- int("000731") loses leading zeroes.
+- float cannot exactly represent every decimal fraction.
+- Formatting to two decimal places changes the display, not the stored value.
+- A complex value cannot safely be treated as a real value without deciding what to do with its imaginary component.
 
-## 7. Conversion errors
+Choose types according to meaning: a serial number is an identifier (usually str); a voltage is numeric; an absent measurement may be None.
 
-Two common exceptions:
+## 8. Conversion errors
 
-- ValueError: the input's type is acceptable in principle, but its value cannot be converted as requested.
-- TypeError: the constructor or operation received an inappropriate type.
+- **ValueError:** the general type is suitable, but this particular value cannot be converted.
+- **TypeError:** the supplied object type is not appropriate for the operation.
 
-Examples (run separately):
+~~~python
+# int("twelve") raises ValueError
+# int(None) raises TypeError
+~~~
 
-    int("hello")  # ValueError
-    int("3.5")    # ValueError
-    float(None)   # TypeError
+Do not silently replace every conversion failure with zero. Zero may be a meaningful measurement and would hide invalid or missing data. Robust exception handling is taught later.
 
-Do not silently replace every invalid value with zero. That can turn bad input into a plausible but incorrect result. Exception handling is taught later; for now, recognize and explain the error.
+## 9. Parsing is not domain validation
 
-## 8. Conversion is not validation
+Suppose an operating frequency must be from 470 through 694 MHz. The text "900" parses as an integer but violates the range. "five hundred" cannot be parsed as a number. These are different failures:
 
-Conversion asks: can Python represent this input as the requested type? Validation asks: is the resulting value acceptable for this problem?
+- Representation failure: text cannot be interpreted as the required type.
+- Domain failure: parsed value violates an application rule.
+- Unit failure: number uses a different unit than expected.
+- Missing value: no value was supplied.
 
-    frequency = float("0")  # Conversion succeeds
+Write down these rules before implementing a conversion pipeline.
 
-Zero may still be invalid for a task that requires a positive frequency. Likewise, a negative value may be syntactically valid but outside the application's allowed range.
-
-A sound workflow:
-1. Receive the original data.
-2. Understand its expected format.
-3. Convert it to the appropriate type.
-4. Check domain constraints, range, and units.
-5. Use it only after the checks pass.
-
-## 9. Coding lab — Convert and validate measurements
+## 10. Coding lab — Convert and assess measurements
 
 Create conversion_lab.py.
 
-    first_text = "18.5"
-    second_text = "21.0"
-    first = float(first_text)
-    second = float(second_text)
-    average = (first + second) / 2
-    print(f"Average: {average:.2f}")
+1. Define text for a decimal measurement, a binary integer, and an identifier with leading zeroes.
+2. Convert the measurement to float.
+3. Parse the binary text using base 2.
+4. Keep the identifier as str.
+5. Print each value and its type.
+6. Compare int(-3.8), round(-3.8), and -3.8 // 1.
+7. Check finiteness with math.isfinite().
+8. Explain why successful parsing does not prove that a measurement is within its operating range.
 
-Tasks:
-1. Predict values and types before running.
-2. Compare int(8.9), round(8.9), int(-8.9), and -8.9 // 1. Explain the negative results.
-3. Change the first value to "-5". Conversion succeeds; decide whether it is valid for your chosen quantity.
-4. In a separate script, convert "not a number" to float and inspect the exception.
-5. Convert binary text "1101" to an integer.
+## 11. Independent exercises
 
-## 10. Independent exercises
+### Level 1
 
-1. Predict the value and type of int("17"), float("17"), str(17), bool("0"), and int(-3.8).
-2. Which raise exceptions: int("25"), int("2.5"), float("2.5"), float("two"), int(None)? Name the exception types.
-3. Predict int(6.8), int(-6.8), 6.8 // 1, and -6.8 // 1. Explain the difference.
-4. Convert "11110000" from base 2 to an integer, then use hex().
-5. Explain bool("False") and propose a safe yes/no text workflow.
-6. Give a reason why a successfully converted negative value may still be invalid.
-7. Repair this code: distance_text = "12.5"; time_text = "2"; speed = distance_text / time_text.
-8. Format 3.14159265 to two decimal places and show that the original float is unchanged.
+1. Predict value and type for int("17"), float("17"), str(17), bool("0"), and int(-3.8).
+2. Which raises: int("25"), int("2.5"), float("2.5"), float("two"), int(None)?
+3. Explain int(-6.8) versus -6.8 // 1.
 
-## Answer key
+### Level 2
 
-1. 17/int; 17.0/float; "17"/str; True/bool; -3/int.
-2. int("2.5") and float("two") raise ValueError; int(None) raises TypeError. The others succeed.
-3. 6, -6, 6.0, -7.0. int() truncates toward zero; // floors.
-4. value = int("11110000", 2); hex(value) is "0xf0".
-5. Every non-empty string is truthy. Strip whitespace, normalize case, accept only documented values, and reject all other input.
-6. The domain may require non-negative, finite, in-range values or a particular unit.
-7. Convert both strings to float before dividing.
-8. display = f"{value:.2f}"; print(value) still displays the original value.
+4. Convert "11110000" from base 2 and display hexadecimal.
+5. Parse yes/y/no/n after trimming whitespace and ignoring case.
+6. Give a value that converts but is invalid for a domain-specific reason.
+7. Repair a speed calculation that divides strings.
+8. Format a float to two decimals without changing the original.
+
+### Level 3
+
+9. Why should "000731" remain text?
+10. Why can float("nan") succeed but still be invalid?
+11. How can converting readings to int before averaging change the result?
+12. Distinguish type, representation, and validity with an example.
+
+## Exercise solutions
+
+Attempt the exercises and knowledge check before opening the separate [type-conversion — Exercise Solutions](./004-type-conversion-solutions.md).
 
 ## Knowledge check
 
-1. Why are "25" and 25 different?
-2. What does int() do to negative floats?
-3. What does bool("False") return?
-4. How do ValueError and TypeError differ?
-5. Why is conversion not validation?
-6. When can conversion lose information?
+1. Conversion versus parsing?
+2. What does int() do to a float?
+3. Why is round() not interchangeable with int()?
+4. Why is bool("False") true?
+5. ValueError versus TypeError?
+6. Can a parsed value still be invalid?
+7. Why can numeric conversion destroy an identifier?
+8. Does formatting mutate a float?
 
 ## Summary and completion criteria
 
-Conversion explicitly creates a value of another type. int() truncates floats toward zero; float() parses numeric text; str() creates text; bool() applies truthiness. Conversion can fail or lose information, and successful conversion does not establish domain validity.
+Convert deliberately at clear boundaries. int() truncates floats toward zero. bool() tests truthiness, not textual meaning. Parsing, validation, and formatting solve different problems. Preserve information by choosing types according to meaning.
 
-- [ ] I can predict common conversions and resulting types.
-- [ ] I can explain truncation versus rounding.
-- [ ] I can parse numbers in a chosen base.
-- [ ] I can identify common conversion exceptions.
-- [ ] I can distinguish conversion from validation.
-- [ ] I completed the lab and exercises independently.
+Complete the lab and solve unfamiliar exercises. Explain the difference between a representation error and a domain error before marking the lesson studied.
 
 ## Official references
 
-- [Built-in Functions](https://docs.python.org/3/library/functions.html)
-- [Built-in Types — Numeric Types](https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex)
-- [Built-in Exceptions](https://docs.python.org/3/library/exceptions.html)
+- [Built-in Functions: int, float, str, bool](https://docs.python.org/3/library/functions.html)
+- [Numeric Types](https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex)
+- [Floating-Point Arithmetic](https://docs.python.org/3/tutorial/floatingpoint.html)
+- [math.isfinite()](https://docs.python.org/3/library/math.html#math.isfinite)
