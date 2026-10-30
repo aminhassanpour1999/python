@@ -37,6 +37,44 @@ The expression on the right of an assignment is evaluated first. Its result is t
 
 Assignment is not a mathematical equation asserting equality. It changes a name binding.
 
+### 2.1 Expressions used as statements
+
+A function call is an expression because it produces a return value. When the call appears on its own line, the expression is being used as an expression statement.
+
+~~~python
+print("Hello")        # The call has a side effect; print() returns None.
+length = len("Python")  # The call's value is stored.
+len("unused")         # The value is calculated and discarded.
+~~~
+
+In a Python script, an expression's result is not automatically displayed. The interactive interpreter (REPL) displays the representation of an expression result when it is entered on its own line; a script normally requires print() when the user should see the value.
+
+### 2.2 Evaluation order and side effects
+
+Python evaluates expressions from left to right in the usual cases, while assignment evaluates the right-hand expression before binding the target. Function calls can read input, print output, or change state, so their placement matters.
+
+~~~python
+first = 10
+second = first + 5
+first = 100
+print(second)  # 15
+~~~
+
+The calculation assigned to second happened once. Python does not preserve it as a formula to be recalculated later.
+
+### 2.3 Assignment forms to recognize
+
+~~~python
+first, second = 10, 20
+first, second = second, first
+print(first, second)  # 20 10
+
+left = right = 5
+print(left, right)    # 5 5
+~~~
+
+Multiple assignment can unpack a sequence of values. Chained assignment binds several names to the same object. With immutable integers, this is simple; with mutable objects, shared references become important and are studied in Data Structures.
+
 ## 3. Reassignment and evaluation order
 
 ~~~python
@@ -172,9 +210,37 @@ Create expression_lab.py.
 12. Guard division by zero with an explicit conditional.
 13. Build a trace table for a short program and explain its final output.
 
-## Exercise solutions
+## Exercise solutions — open after attempting the exercises
 
-Attempt the exercises and knowledge check before opening the separate [expressions-and-statements — Exercise Solutions](./07-expressions-and-statements-solutions.md).
+Open only after attempting the lesson.
+
+## Level 1
+1. 5 + 2: expression; name = "Ada": assignment statement; len("abc"): expression; print("Hi"): call expression used as expression statement; temperature > 20: expression.
+2. x=3, y=6, then x=7; output 7 6.
+3. Evaluate the current count, add one, and rebind count. It is not a mathematical equation.
+4. 14, 20, 512.
+## Level 2
+5. (first + second) / 2.
+6. Use meaningful intermediate names without changing operation order.
+7. Both names refer to the same list object.
+8. input() reads standard input; print() writes output.
+## Level 3
+9. Reassignment changes a binding; earlier calculations are not automatically rerun.
+10. Calculate expected values independently; inspect intermediate values, types, units, and grouping.
+11. Rebinding changes what a name refers to; mutation changes an object's state.
+12. Use an if statement to check denominator != 0 before division.
+13. Record each relevant name after every statement and explain the final output.
+## Knowledge check
+1. An expression evaluates to a value.
+2. A statement is an instruction.
+3. The right-hand expression is evaluated before binding the target.
+4. Assignment changes a name binding; it does not assert equality.
+5. Rebinding changes a reference; mutation changes an object.
+6. Parentheses make intended grouping explicit.
+7. A side effect is an observable action beyond producing a value.
+8. Syntax errors prevent parsing; runtime exceptions occur during execution; logic errors produce unintended results.
+## Lab review
+Predict first, record intermediate state, explain reassignment, and design a test that exposes the deliberate logic error.
 
 ## Knowledge check
 
