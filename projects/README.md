@@ -17,7 +17,6 @@ Projects are introduced when their prerequisites are ready. A project brief defi
 8. CSV data summary and visualization
 9. Small automation script
 10. API or data acquisition project when prerequisites are ready
-11. Scientific mini-project using numerical methods and plots
 
 ## Project workflow
 
