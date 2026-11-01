@@ -26,8 +26,8 @@ A structured, lesson-by-lesson path for developing deep, independent Python prog
 | 0 | [Introduction](./00-introduction/README.md) | Programming concepts, Python, setup, first program, and documentation literacy |
 | 1 | [Programming Fundamentals](./01-fundamentals/README.md) | Values, numbers, strings, conversion, I/O, logic, style, and debugging |
 | 2 | [Control Flow](./02-control-flow/README.md) | Decisions, loops, iteration, and repetition |
-| 3 | [Functions](./03-functions/README.md) | Decomposition, parameters, return values, scope, and reusable behavior |
-| 4 | [Data Structures](./04-data-structures/README.md) | Collections, iteration, data representation, and mutability |
+| 3 | [Data Structures](./04-data-structures/README.md) | Collections, iteration, data representation, and mutability |
+| 4 | [Functions](./03-functions/README.md) | Decomposition, parameters, return values, scope, and reusable behavior |
 | 5 | [Object-Oriented Programming](./05-oop/README.md) | Classes, composition, inheritance, and Python's data model |
 | 6 | [Files and Errors](./06-files-and-errors/README.md) | Exceptions, paths, files, and reliable programs |
 | 7 | [Modules and Packages](./07-modules-and-packages/README.md) | Imports, environments, dependencies, and project workflow |
