@@ -1,18 +1,23 @@
-# Python Exercises
+# Supplementary Python Exercises
 
-> This is an index of planned practice sets. Solutions should remain separate so the learner can attempt each problem first.
+This directory is reserved for **cross-module practice** that adds value beyond the exercises already included in each lesson.
 
-## Planned sets
+## What belongs here
 
-- Fundamentals: values, types, strings, input/output, and operators
-- Control flow: conditions, loops, and tracing
-- Functions: decomposition, parameters, and return values
-- Data structures: lists, dictionaries, sets, and nested data
-- Files and errors: safe input, parsing, validation, and exceptions
-- Mixed review: combine several concepts without hints
-- Debugging drills: diagnose and repair intentionally flawed programs
-- Challenge problems: require planning and multiple attempts
+- Cumulative problem sets that combine multiple completed modules
+- Mixed review and spaced-retrieval exercises
+- Debugging drills using concepts from several lessons
+- Challenge problems that require planning and independent reasoning
+- Optional practice sets that do not fit naturally inside one lesson
 
-## Exercise design
+## What does not belong here
 
-Each set should progress from basic comprehension to independent application. Provide hints separately from complete solutions. Record recurring misconceptions for review.
+- Do not duplicate the exercises from individual lessons.
+- Do not create separate solution files for individual lessons.
+- Do not move a lesson's coding lab or model answers out of its lesson file.
+
+Each supplementary set should keep its prompts first and its hints/model answers later in the **same set file**, so the learner can attempt the problems before consulting the answers.
+
+## Development policy
+
+Create a practice-set file only when there is a real set to study. Keep this index concise and update it when a set is added. A planned topic is not a completed exercise set.
