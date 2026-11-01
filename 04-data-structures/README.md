@@ -1,6 +1,6 @@
 # Data Structures
 
-> Status: Planned. This folder is a syllabus only. Each lesson will be developed when we study it together. It follows Control Flow and introduces the core built-in collections before the dedicated Functions module. Functions will then use these collections in practical examples.
+> Status: Planned. This folder is a syllabus only. Each lesson will be developed when we study it together. It follows Functions and develops the built-in collections, iteration patterns, and data representations used throughout larger Python programs.
 
 ## Lesson map
 
