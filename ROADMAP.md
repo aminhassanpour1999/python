@@ -205,24 +205,7 @@ Complete the [Programming Fundamentals final assessment](./01-fundamentals/10-fi
 
 **Assessment:** solve unfamiliar problems involving branching, repetition, validation, and small simulations without copying a template.
 
-## Stage 3 — Data Structures and Object Behavior
-
-**Repository section:** [04-data-structures](./04-data-structures/README.md)
-
-- Lists: creation, indexing, slicing, mutation, methods, and copying
-- Tuples and sequence unpacking
-- Dictionaries: keys, values, lookup, mutation, iteration, and key constraints
-- Sets, uniqueness, membership, and set operations
-- Bytes and bytearray: binary data, indexing behavior, and encoding/decoding text; memoryview is a later efficiency topic
-- Nested structures and choosing a suitable representation
-- Iteration protocols at a practical level; iterable versus iterator
-- Mutability, aliasing, shallow copy, deep copy, and identity
-- Sorting, key functions, searching, and common collection patterns
-- Complexity intuition (time/space growth) and choosing data structures deliberately
-
-**Assessment:** select, implement, and test a data representation for a realistic small task.
-
-## Stage 4 — Functions
+## Stage 3 — Functions
 
 **Repository section:** [03-functions](./03-functions/README.md)
 
@@ -238,6 +221,23 @@ Complete the [Programming Fundamentals final assessment](./01-fundamentals/10-fi
 - Basic higher-order functions and closures; deeper decorator use is deferred to Stage 8
 
 **Assessment:** decompose a moderately sized problem into testable functions and justify the interface of each function.
+
+## Stage 4 — Data Structures and Object Behavior
+
+**Repository section:** [04-data-structures](./04-data-structures/README.md)
+
+- Lists: creation, indexing, slicing, mutation, methods, and copying
+- Tuples and sequence unpacking
+- Dictionaries: keys, values, lookup, mutation, iteration, and key constraints
+- Sets, uniqueness, membership, and set operations
+- Bytes and bytearray: binary data, indexing behavior, and encoding/decoding text; memoryview is a later efficiency topic
+- Nested structures and choosing a suitable representation
+- Iteration protocols at a practical level; iterable versus iterator
+- Mutability, aliasing, shallow copy, deep copy, and identity
+- Sorting, key functions, searching, and common collection patterns
+- Complexity intuition (time/space growth) and choosing data structures deliberately
+
+**Assessment:** select, implement, and test a data representation for a realistic small task.
 
 ## Stage 5 — Object-Oriented Programming and the Python Data Model
 
