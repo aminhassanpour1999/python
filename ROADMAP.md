@@ -30,7 +30,7 @@ A file being present, a lesson being read, or code being copied is not sufficien
 4. Include syntax, semantics, edge cases, common mistakes, runnable examples, independent practice, and suitable references.
 5. Place exercise prompts before their model answers in the same lesson file; clearly label the answer section so learners can attempt the work first, and do not create separate per-lesson solution files.
 6. Revisit topics through cumulative exercises and projects.
-7. Use official documentation as a primary reference and verify version-sensitive details.
+7. Use Python's official documentation as the primary technical source; books and other resources are supplementary. Verify version-sensitive details against the documentation for the relevant Python version.
 8. Keep repository notes in English; use Persian for conversational explanations when useful.
 9. Update this roadmap when the course changes. If a topic is deferred, record its destination instead of leaving it as an untracked promise.
 10. Do not mark a topic complete until the learner has demonstrated it.
@@ -314,69 +314,42 @@ Complete the [Programming Fundamentals final assessment](./01-fundamentals/10-fi
 
 ---
 
-## Stage 9 — Scientific Python and Numerical Computing
+## Stage 9 — Testing and Software Quality
 
-**Related future study areas:** scientific computing and mathematics. These will be maintained in separate, subject-specific repositories; this roadmap tracks only the Python skills needed for later work.
+**Repository section:** [09-testing-and-quality](./09-testing-and-quality/README.md)
 
-This is a dedicated application track, not a replacement for core Python.
+This stage develops systematic ways to verify, diagnose, and maintain Python programs. Simple assertions and the idea of testable functions may appear earlier; this stage teaches a deliberate testing workflow and dedicated tools.
 
-### Numerical foundations
+- Testing principles: expected behavior, test cases, boundaries, invalid input, and regression
+- Standard-library `unittest` and third-party `pytest`; understand the role of each
+- Test discovery, organization, naming, and readable assertions
+- Fixtures, parametrization, setup/teardown, and temporary resources
+- Mocking and patching: when isolation is useful and when mocks make tests brittle
+- Testing exceptions, files, command-line behavior, and external boundaries
+- Debugging workflows, breakpoints, stack traces, and minimal reproducible examples
+- Logging: levels, structured context, configuration, and the difference between logging and printing
+- Formatting, linting, static analysis, type checking, and continuous integration concepts
+- Testability, maintainability, refactoring, and regression prevention
 
-- Floating-point limits, significant digits, conditioning, numerical error, and tolerances
-- Absolute versus relative error; rounding and stable comparisons
-- Overflow/underflow and the limits of finite precision
-- Algorithmic complexity and numerical stability
-- Reproducibility, random-number generators, seeds, and experimental methodology
+**Assessment:** build a small tested Python project, demonstrate normal/boundary/failure coverage, diagnose a deliberately failing test, and explain what the tests do not prove.
 
-### NumPy
+## Stage 10 — Python Internals and Deep Dive
 
-- `ndarray`, shape, dimensions, `dtype`, indexing, slicing, and views versus copies
-- Vectorization, broadcasting, Boolean masks, and avoiding unnecessary Python loops
-- Aggregation, axes, reshaping, stacking, and array manipulation
-- Random sampling and reproducible simulation
-- Linear algebra basics, matrix operations, and solving systems appropriately
-- Performance trade-offs and memory layout at a suitable level
+**Repository section:** [10-python-internals](./10-python-internals/README.md)
 
-### Data analysis and visualization
+This stage is an advanced deep dive. It is not a prerequisite for writing ordinary Python programs and must distinguish Python language guarantees from details specific to CPython or a particular version.
 
-- pandas Series and DataFrames, importing data, cleaning, filtering, grouping, and missing values
-- Matplotlib figures, axes, labels, legends, units, and honest visualization
-- Reproducible analysis notebooks and scripts
-- Choosing a library based on the problem rather than habit
+- Python's execution model: source, parsing, code objects, bytecode, and execution
+- Names, namespaces, scopes, frames, and attribute lookup in greater depth
+- Object identity, references, object lifetime, and memory management
+- Reference counting and cyclic garbage collection in CPython
+- Bytecode inspection with the `dis` module; understand its version-sensitive nature
+- CPython architecture and implementation overview
+- Import machinery and module loading internals
+- Descriptors, method resolution order, slots, and metaprogramming in depth
+- Performance investigation using profiling and benchmarking; interpret implementation details cautiously
 
-### Numerical algorithms
-
-- Root finding and solving equations
-- Interpolation and approximation
-- Numerical differentiation and integration
-- Linear systems and least-squares methods
-- Optimization basics
-- Randomized methods and Monte Carlo simulation
-- Stability, convergence, error estimates, and limits of each method
-
-Use NumPy, SciPy, pandas, and Matplotlib where appropriate. Implement small algorithms from first principles when it teaches the underlying idea; use well-tested library implementations for real work when appropriate.
-
-## Stage 10 — Engineering, Signals, Communications, and Applied AI
-
-**Related future study areas:** signals and systems, communications, machine learning, and research. Their subject-specific notes belong in separate repositories; this roadmap covers Python prerequisites and applications only.
-
-The order of these topics depends on the supporting mathematics and signal-processing prerequisites.
-
-- Representing sampled signals, arrays, units, sampling rates, and time/frequency axes
-- Reading and writing common data formats; validating measurement data
-- Plotting time-domain and frequency-domain signals
-- Sinusoids, complex exponentials, phasors, and complex-valued arrays
-- Fourier analysis and FFT use, including sampling and interpretation pitfalls
-- Filtering, convolution, correlation, and noise experiments
-- Modulation and demodulation simulations; comparing modulation schemes
-- Feature extraction and basic signal classification
-- Machine-learning workflow: train/validation/test splits, baselines, metrics, leakage, and reproducibility
-- Introductory model training with suitable libraries; deeper ML and deep learning only after foundations
-- Engineering projects with clear problem statements, tests, plots, and documented limitations
-
-**Project quality bar:** each project should state the problem, assumptions, units, method, verification strategy, results, and limitations. A visually impressive plot or a working demo alone does not establish correctness.
-
----
+**Assessment:** investigate a behavior using official documentation and appropriate inspection tools, explain which conclusions are language-level versus CPython-specific, and present a small reproducible experiment.
 
 ## Cross-cutting skills — revisit throughout the course
 
@@ -393,18 +366,18 @@ These are not one-off lessons; they should be practiced repeatedly.
 
 ## Explicit gap register
 
-These are known coverage requirements to check during lesson development. A row is not complete until its lesson actually teaches the listed material and the learner has practiced it.
+These are known Python-language coverage requirements to check during lesson development. A row is not complete until its lesson actually teaches the listed material and the learner has practiced it.
 
 | Topic | Planned home | Required coverage | Current status |
 |---|---|---|---|
-| Complex numbers (`complex`) | Stage 1: Numbers and Operators; revisit Stage 9–10 | Literals, real/imaginary parts, arithmetic, magnitude with `abs()`, conjugation, unsupported ordering comparisons, and later engineering applications | **Teaching material present; learner practice/sign-off pending** |
-| Bitwise operators | Stage 1: Numbers and Operators; revisit in practical computing | All six operators, binary examples, shifts, masks, negative-integer behavior, and practice | **Teaching material present; learner practice/sign-off pending** |
-| Operator precedence and associativity | Stage 1, then revisit when new syntax appears | Teach arithmetic, shifts, bitwise, comparisons, identity/membership, Boolean, conditional, lambda, and assignment-expression precedence at the appropriate point; include the official full table as a reference and work through edge cases | **Core operator coverage present in Lesson 2; later syntax revisited in its lessons; learner practice pending** |
-| Numeric data model and protocols | Stage 5: OOP and Python Data Model | Special methods, dispatch model, reflected/in-place operations, comparisons, conversion protocols, consistency and tests | **Planned** |
-| Floating-point and numerical error | Stage 1 introduction; Stage 9 depth | Representation, rounding, tolerances, error, conditioning, stability, and practical decision-making | **Introductory coverage present in Lesson 2; advanced numerical coverage planned for Stage 9** |
-| Numerical algorithms | Stage 9: Scientific Python | Root finding, interpolation, differentiation/integration, linear systems, optimization, convergence and error | **Planned** |
-| NumPy and scientific tools | Stage 9 | Arrays, dtypes, broadcasting, vectorization, linear algebra, data analysis and visualization | **Planned** |
-| Engineering applications | Stage 10 | Signals, complex-valued data, FFT, filtering, modulation, reproducible experiments and evaluation | **Planned** |
+| Complex numbers (`complex`) | Stage 1: Numbers and Operators; revisit in relevant projects | Literals, real/imaginary parts, arithmetic, magnitude, conjugation, and comparison limitations | Teaching material present; learner practice/sign-off pending |
+| Bitwise operators | Stage 1: Numbers and Operators | All six operators, binary examples, shifts, masks, negative-integer behavior, and practice | Teaching material present; learner practice/sign-off pending |
+| Operator precedence and associativity | Stage 1; revisit when new syntax appears | Full official precedence table and worked edge cases for later syntax | Core coverage present in Lesson 2; later syntax revisited in its lessons |
+| Numeric data model and protocols | Stage 5: OOP and Python Data Model | Special methods, dispatch, reflected/in-place operations, conversion protocols, consistency and tests | Planned |
+| Floating-point behavior | Stage 1 introduction; revisit in advanced projects | Representation, rounding, tolerances, precision limits, and practical decisions | Introductory coverage present; deeper applications deferred |
+| Iteration protocol | Stage 4 and Stage 8 | Iterable versus iterator, iterator protocol, generators, and async iteration | Planned |
+| Testing and quality tooling | Stage 9 | Unit/integration boundaries, pytest/unittest, fixtures, mocking, logging, static analysis, and CI concepts | Planned |
+| Python/CPython internals | Stage 10 | Execution, objects, memory, bytecode, import machinery, and implementation-specific behavior | Planned |
 
 ## Lesson sign-off checklist
 
