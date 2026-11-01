@@ -1,10 +1,10 @@
 # Python Curriculum Roadmap
 
-**Purpose:** Maintain one auditable map of the Python learning path, including foundational language skills, intermediate and advanced Python, engineering/scientific computing, and applied projects.
+**Purpose:** Maintain an auditable, lesson-by-lesson map from Python fundamentals to advanced Python and selected language/implementation internals.
 
-**Primary reference:** [Python documentation](https://docs.python.org/3/). The curriculum is not limited to one book or tutorial.
+**Primary reference:** [Python's official documentation](https://docs.python.org/3/) is the primary technical authority. Books and other resources are supplementary.
 
-**Scope:** This is a comprehensive, staged learning path for practical Python and the user's scientific/engineering direction—not an attempt to teach every third-party library or every CPython implementation detail. Required core language features have an explicit home; specialized topics are labeled for later study.
+**Scope:** This repository teaches Python itself: the language, built-ins, standard library, software-development practices, testing, packaging, and selected implementation internals. Scientific computing, mathematics, signals, communications, machine learning, and research content belong in separate focused repositories.
 
 > **Important:** A topic appearing in this roadmap means it is planned, not that it has already been taught or mastered. Progress must reflect demonstrated understanding and practice—not the existence of notes.
 
@@ -205,9 +205,9 @@ Complete the [Programming Fundamentals final assessment](./01-fundamentals/10-fi
 
 **Assessment:** solve unfamiliar problems involving branching, repetition, validation, and small simulations without copying a template.
 
-## Stage 3 — Functions
+## Stage 3 — Data Structures and Object Behavior
 
-**Repository section:** [03-functions](./03-functions/README.md)
+**Repository section:** [04-data-structures](./04-data-structures/README.md)
 
 - Defining and calling functions; parameters, arguments, return values, and `None`
 - Positional and keyword arguments; defaults and the mutable-default-argument pitfall
@@ -222,9 +222,9 @@ Complete the [Programming Fundamentals final assessment](./01-fundamentals/10-fi
 
 **Assessment:** decompose a moderately sized problem into testable functions and justify the interface of each function.
 
-## Stage 4 — Data Structures and Object Behavior
+## Stage 4 — Functions
 
-**Repository section:** [04-data-structures](./04-data-structures/README.md)
+**Repository section:** [03-functions](./03-functions/README.md)
 
 - Lists: creation, indexing, slicing, mutation, methods, and copying
 - Tuples and sequence unpacking
@@ -304,7 +304,6 @@ Complete the [Programming Fundamentals final assessment](./01-fundamentals/10-fi
 - Descriptors, `__new__`, method resolution order, `__slots__`, and metaprogramming only after the data model is understood; teach these as advanced/optional depth rather than prerequisites for ordinary Python work
 - Concurrency overview: threads, processes, asynchronous I/O, `async` / `await`, and choosing the right model
 - Performance measurement, profiling, algorithmic complexity, and avoiding premature optimization
-- Testing with a test framework, test organization, mocks only when useful, and code-quality tooling
 - Packaging and distribution, project configuration, and documentation quality
 - Practical use of regular expressions, dates/times, logging, command-line interfaces, databases, and subprocesses; apply only after the relevant fundamentals and discuss security/portability pitfalls
 - Memory behavior, references, garbage collection, and implementation-specific behavior where relevant
@@ -398,6 +397,7 @@ At the beginning of a new lesson, check its place and prerequisites in this road
 
 ## Official references
 
+- [Python Documentation](https://docs.python.org/3/) — primary technical authority
 - [Python Tutorial](https://docs.python.org/3/tutorial/)
 - [Python Language Reference](https://docs.python.org/3/reference/)
 - [Built-in Types](https://docs.python.org/3/library/stdtypes.html)
@@ -409,7 +409,3 @@ At the beginning of a new lesson, check its place and prerequisites in this road
 - [Rational numbers](https://docs.python.org/3/library/fractions.html)
 - [Emulating numeric types](https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types)
 - [PEP 8 — Style Guide for Python Code](https://peps.python.org/pep-0008/)
-- [NumPy documentation](https://numpy.org/doc/)
-- [SciPy documentation](https://docs.scipy.org/doc/scipy/)
-- [pandas documentation](https://pandas.pydata.org/docs/)
-- [Matplotlib documentation](https://matplotlib.org/stable/)
