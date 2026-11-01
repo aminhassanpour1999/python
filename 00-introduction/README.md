@@ -20,8 +20,8 @@ This section introduces Python, common application areas, basic programming conc
 - Study one lesson at a time and explain the main ideas in your own words.
 - Predict the output of each code example before running it.
 - Run examples where practical, then change an input or condition and explain what changed.
-- Attempt exercises without copying solutions first; keep your answers separately.
-- Use official documentation as a reference, not as a requirement to read every page linearly.
+- Attempt exercises before consulting the model answers later in the same lesson or assessment file.
+- Use the official Python documentation as the primary technical reference. Learn to navigate the relevant page rather than trying to read the entire documentation linearly.
 - Treat examples as experiments, not proof that a program works for every possible input.
 - Review gaps after practice. Reading a lesson is not the same as mastering it.
 
