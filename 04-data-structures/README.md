@@ -1,6 +1,6 @@
 # Data Structures
 
-> Status: Planned. This folder is a syllabus only. Each lesson will be developed when we study it together.
+> Status: Planned. This folder is a syllabus only. Each lesson will be developed when we study it together. It follows Functions in the learning sequence; this order supports learning collections alongside the functions and iteration patterns that operate on them.
 
 ## Lesson map
 
