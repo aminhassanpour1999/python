@@ -11,4 +11,4 @@
 5. [Type System and Typing](./05-typing.md)
 6. [Concurrency Overview](./06-concurrency.md)
 7. [Performance and Profiling](./07-performance-and-profiling.md)
-8. [Packaging and Distribution](./08-packaging-and-distribution.md)
+8. [Advanced Python Review and Capstone](./08-final-assessment.md)
