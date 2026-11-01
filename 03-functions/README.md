@@ -1,6 +1,6 @@
 # Functions
 
-> Status: Planned. This folder is a syllabus only. Each lesson will be developed when we study it together.
+> Status: Planned. This folder is a syllabus only. Each lesson will be developed when we study it together. The testing lesson here focuses on writing testable functions and simple checks; systematic test frameworks and software-quality workflows are covered in Stage 9.
 
 ## Lesson map
 
@@ -10,4 +10,4 @@
 4. [Docstrings and Type Hints](./04-docstrings-and-type-hints.md)
 5. [Lambdas and Functional Tools](./05-lambdas-and-functional-tools.md)
 6. [Recursion](./06-recursion.md)
-7. [Testing Functions](./07-testing-functions.md)
+7. [Writing Testable Functions](./07-testing-functions.md)
